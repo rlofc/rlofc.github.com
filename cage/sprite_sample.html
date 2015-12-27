@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>samples / sprite.c &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="samples / timeline.c" href="timeline_sample.html"/>
+        <link rel="prev" title="samples / image.c" href="image_sample.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">samples / sprite.c</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-sprite-struct">The sprite struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-the-sprite">Prepare the sprite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#animate-draw">Animate &amp; draw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clean-up">Clean-up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main">Main</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>samples / sprite.c</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="samples-sprite-c">
+<h1>samples / sprite.c<a class="headerlink" href="#samples-sprite-c" title="Permalink to this headline">¶</a></h1>
+<p>In this example we create a wizard sprite and a walk cycle
+animation. We then animate the sprite and draw it on screen.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &quot;cage.h&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="the-sprite-struct">
+<h2>The sprite struct<a class="headerlink" href="#the-sprite-struct" title="Permalink to this headline">¶</a></h2>
+<p>This is our wizard struct. It holds the wizard
+sprite resource and the walk cycle animation resource.
+In this sample, we use a static variable instead of dynamically
+allocating an instance.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">struct</span> <span class="n">wizard</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">sprite</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">walk_cycle</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">wizard</span> <span class="o">=</span> <span class="p">{</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">};</span>
+<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_sample</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="prepare-the-sprite">
+<h2>Prepare the sprite<a class="headerlink" href="#prepare-the-sprite" title="Permalink to this headline">¶</a></h2>
+<p>We use the game state create() function to create the sprite
+using an image resource, as well as the animation resource
+for the walk cycle.
+If no errors are encountered, we proceed to add frames to
+the walk cycle animation.
+Finally, we play the animation, making it active for the
+sprite.
+Notice the way we use a static variable to hold the wizard
+struct and use its pointer as the create() function return
+value.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_sample</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">wizard</span><span class="p">.</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/wizard.png&quot;</span><span class="p">),</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span><span class="p">.</span><span class="n">sprite</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="n">wizard</span><span class="p">.</span><span class="n">walk_cycle</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span><span class="p">.</span><span class="n">walk_cycle</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">frame</span> <span class="n">frames</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">},</span>
+                                  <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">},</span>
+                                  <span class="p">{</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">},</span>
+                                  <span class="p">{</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">}</span> <span class="p">};</span>
+        <span class="n">add_frames</span><span class="p">(</span><span class="n">wizard</span><span class="p">.</span><span class="n">walk_cycle</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">frames</span><span class="p">);</span>
+        <span class="n">wizard</span><span class="p">.</span><span class="n">walk_cycle</span><span class="o">-&gt;</span><span class="n">loop_from</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">wizard</span><span class="p">.</span><span class="n">walk_cycle</span><span class="o">-&gt;</span><span class="n">loop_to</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">play_animation</span><span class="p">(</span><span class="n">wizard</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span> <span class="n">wizard</span><span class="p">.</span><span class="n">walk_cycle</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">wizard</span><span class="p">;</span>
+<span class="nl">error</span><span class="p">:</span>
+    <span class="n">destroy_sample</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wizard</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="animate-draw">
+<h2>Animate &amp; draw<a class="headerlink" href="#animate-draw" title="Permalink to this headline">¶</a></h2>
+<p>During the game, the update function uses the wizard
+data to animate and draw the sprite. The elapsed_ms
+argument is used by the animate_sprite() function so it
+can track how long to play each animation frame.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">update_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="n">w</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">animate_sprite</span><span class="p">(</span><span class="n">w</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">draw_sprite</span><span class="p">(</span><span class="n">w</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clean-up">
+<h2>Clean-up<a class="headerlink" href="#clean-up" title="Permalink to this headline">¶</a></h2>
+<p>Before exiting a state (or the game), Cage
+will call the destroy function. Having allocated 3 resources
+earlier in the create function, now is the time to clean up
+by matching each create with a destory call.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="n">w</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">w</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">);</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">w</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">);</span>
+    <span class="n">destroy_animation</span><span class="p">(</span><span class="n">w</span><span class="o">-&gt;</span><span class="n">walk_cycle</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="main">
+<h2>Main<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h2>
+<p>Finally, the game&#8217;s main function delegates the
+execution to the game_loop() function together with
+the 3 state functions we wrote.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_sample</span><span class="p">,</span> <span class="n">update_sample</span><span class="p">,</span> <span class="n">destroy_sample</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="timeline_sample.html" class="btn btn-neutral float-right" title="samples / timeline.c" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="image_sample.html" class="btn btn-neutral" title="samples / image.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

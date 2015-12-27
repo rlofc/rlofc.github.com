@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sound &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="keyboard" href="keyboard.html"/>
+        <link rel="prev" title="timeline" href="timeline.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">sound</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#struct-sound">struct sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-sound">create_sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-sound">destroy_sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-sound">load_sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cleanup-sound">cleanup_sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#play-sound">play_sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stop-sound">stop_sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#is-playing">is_playing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>sound</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sound">
+<h1>sound<a class="headerlink" href="#sound" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struct-sound">
+<h2>struct sound<a class="headerlink" href="#struct-sound" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv25sound">
+<span id="sound"></span><span class="target" id="project0structsound"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">sound</code><a class="headerlink" href="#_CPPv25sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sound effect </p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-sound">
+<h2>create_sound<a class="headerlink" href="#create-sound" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv212create_soundPKc">
+<span id="create_sound__cCP"></span><span class="target" id="project0sound_8h_1a6b55f2e59d9d3147dc779796e14a5dcf"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25sound" title="sound">sound</a> *<code class="descclassname"></code><code class="descname">create_sound</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212create_soundPKc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new sound effect from an OGG, WAV or MP3 file</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>a <a class="reference internal" href="#project0structsound"><span>sound</span></a> effect resource or NULL on error </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="destroy-sound">
+<h2>destroy_sound<a class="headerlink" href="#destroy-sound" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213destroy_soundP5sound">
+<span id="destroy_sound__soundP"></span><span class="target" id="project0sound_8h_1acefc1319e31098b2ba43c33ba693f8ee"></span>void <code class="descclassname"></code><code class="descname">destroy_sound</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25sound" title="sound">sound</a> *<em>sound</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213destroy_soundP5sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanup and deallocate a sound effect <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sound</span></code> - <p>sound effect to cleanup and free </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="load-sound">
+<h2>load_sound<a class="headerlink" href="#load-sound" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210load_soundP5soundPKc">
+<span id="load_sound__soundP.cCP"></span><span class="target" id="project0sound_8h_1ac26e0fa986fae19564419c7800caec8c"></span>int <code class="descclassname"></code><code class="descname">load_sound</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25sound" title="sound">sound</a> *<em>sound</em>, <em class="property">const</em> char *<em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210load_soundP5soundPKc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize an already allocated sound effect 
+The sound file will be loaded and stored for use in the <a class="reference internal" href="#project0structsound"><span>sound</span></a> effect.<dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sound</span></code> - <p><a class="reference internal" href="#project0structsound"><span>sound</span></a> instance to use </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">filepath</span></code> - <p>file path to the sound file in ogg, wav or mp3 format</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>0 or higher on success or -1 or lower on failure </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cleanup-sound">
+<h2>cleanup_sound<a class="headerlink" href="#cleanup-sound" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213cleanup_soundP5sound">
+<span id="cleanup_sound__soundP"></span><span class="target" id="project0sound_8h_1a137000e4c2a538e0e970b7534d1ff477"></span>void <code class="descclassname"></code><code class="descname">cleanup_sound</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25sound" title="sound">sound</a> *<em>sound</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213cleanup_soundP5sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internally cleanup an initialized sound effect <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sound</span></code> - <p>sound effect to cleanup </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="play-sound">
+<h2>play_sound<a class="headerlink" href="#play-sound" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210play_soundP5soundi">
+<span id="play_sound__soundP.i"></span><span class="target" id="project0sound_8h_1a3bf0b5385c74b714f9c2bf02585ea71d"></span>int <code class="descclassname"></code><code class="descname">play_sound</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25sound" title="sound">sound</a> *<em>sound</em>, int <em>loops</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210play_soundP5soundi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play sound effect 
+Will play an initialized sound effect<dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sound</span></code> - <p>sound effect to play </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">loops</span></code> - <p>-1 - infinite, 0 - play once, 1 - twice and so on..</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>0 or higher means success -1 or lower means failure </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="stop-sound">
+<h2>stop_sound<a class="headerlink" href="#stop-sound" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210stop_soundP5sound">
+<span id="stop_sound__soundP"></span><span class="target" id="project0sound_8h_1a214fcb7131c3a92f8d737b2a013ce56b"></span>void <code class="descclassname"></code><code class="descname">stop_sound</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25sound" title="sound">sound</a> *<em>sound</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210stop_soundP5sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop playing a sound <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sound</span></code> - <p>sound effect to stop playing </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="is-playing">
+<h2>is_playing<a class="headerlink" href="#is-playing" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210is_playingP5sound">
+<span id="is_playing__soundP"></span><span class="target" id="project0sound_8h_1a56946056a39e4fab8a2d35e32481c670"></span>int <code class="descclassname"></code><code class="descname">is_playing</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25sound" title="sound">sound</a> *<em>sound</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210is_playingP5sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a sound effect is playing <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>1 if the sound effect is being played or 0 otherwise </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sound</span></code> - <p>sound effect to test</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="keyboard.html" class="btn btn-neutral float-right" title="keyboard" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="timeline.html" class="btn btn-neutral" title="timeline" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

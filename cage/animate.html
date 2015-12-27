@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>animationx &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="timeline" href="timeline.html"/>
+        <link rel="prev" title="sprite" href="sprite.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">animationx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#struct-animation">struct animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#struct-frame">struct frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#animation-modes">animation modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-animation">create_animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-animation">destroy_animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-frame">add_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-frames">add_frames</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>animationx</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="animationx">
+<h1>animationx<a class="headerlink" href="#animationx" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struct-animation">
+<h2>struct animation<a class="headerlink" href="#struct-animation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv29animation">
+<span id="animation"></span><span class="target" id="project0structanimation"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">animation</code><a class="headerlink" href="#_CPPv29animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Animation frames and durations for a sprite. You may use the same animation definition for any number of sprites: <div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">walk</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+
+<span class="n">add_frame</span><span class="p">(</span><span class="n">walk</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">add_frame</span><span class="p">(</span><span class="n">walk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">add_frame</span><span class="p">(</span><span class="n">walk</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+
+<span class="p">...</span>
+<span class="n">play_animation</span><span class="p">(</span><span class="n">zombie</span><span class="p">,</span> <span class="n">walk</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="n">play_animation</span><span class="p">(</span><span class="n">robot</span><span class="p">,</span> <span class="n">walk</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>You may also associate custom data with specific key frames. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="struct-frame">
+<h2>struct frame<a class="headerlink" href="#struct-frame" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv25frame">
+<span id="frame"></span><span class="target" id="project0structframe"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">frame</code><a class="headerlink" href="#_CPPv25frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Animation frame </p>
+</dd></dl>
+
+</div>
+<div class="section" id="animation-modes">
+<h2>animation modes<a class="headerlink" href="#animation-modes" title="Permalink to this headline">¶</a></h2>
+<dl class="type">
+<dt id="_CPPv214animation_mode">
+<span id="animation_mode"></span><span class="target" id="project0animate_8h_1a02e41169405f4010fda85f9afdb81dcb"></span><em class="property">enum </em><code class="descclassname"></code><code class="descname">animation_mode</code><a class="headerlink" href="#_CPPv214animation_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Animation playback mode </p>
+<p><em>Values:</em></p>
+<dl class="member">
+<dt id="_CPPv211LOOP_FRAMES">
+<span id="LOOP_FRAMES"></span><span class="target" id="project0animate_8h_1a02e41169405f4010fda85f9afdb81dcba9952c36ff541d80ac3a484940e2fbf29"></span><code class="descname">LOOP_FRAMES</code><a class="headerlink" href="#_CPPv211LOOP_FRAMES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loop back to loop_from </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv215PINGPONG_FRAMES">
+<span id="PINGPONG_FRAMES"></span><span class="target" id="project0animate_8h_1a02e41169405f4010fda85f9afdb81dcbae291aeecdd3e6f3f3665d0d210eed3c9"></span><code class="descname">PINGPONG_FRAMES</code><a class="headerlink" href="#_CPPv215PINGPONG_FRAMES" title="Permalink to this definition">¶</a></dt>
+<dd><p>go back in reverse and then return endlessly </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv217FREEZE_LAST_FRAME">
+<span id="FREEZE_LAST_FRAME"></span><span class="target" id="project0animate_8h_1a02e41169405f4010fda85f9afdb81dcba63bc4f9e21f93f18d922d8fdad4d3442"></span><code class="descname">FREEZE_LAST_FRAME</code><a class="headerlink" href="#_CPPv217FREEZE_LAST_FRAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop at the last frame </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="create-animation">
+<h2>create_animation<a class="headerlink" href="#create-animation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv216create_animationv">
+<span id="create_animation__void"></span><span class="target" id="project0animate_8h_1a9cfc28704fc3c9d87d0570f58cc535c3"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv29animation" title="animation">animation</a> *<code class="descclassname"></code><code class="descname">create_animation</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216create_animationv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new animation.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>New animation instance, ready to have frames added using <a class="reference internal" href="#project0animate_8h_1a7e4eb590d4336b128b4783e57a3d29ad"><span>add_frame()</span></a>. </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="destroy-animation">
+<h2>destroy_animation<a class="headerlink" href="#destroy-animation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv217destroy_animationP9animation">
+<span id="destroy_animation__animationP"></span><span class="target" id="project0animate_8h_1aa5ea79c93e8ae815215f72aeea23e1cf"></span>void <code class="descclassname"></code><code class="descname">destroy_animation</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv29animation" title="animation">animation</a> *<em>animation</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv217destroy_animationP9animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destory a previously created animation. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">animation</span></code> - <p>A previously created /ref animation to deallocate. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="add-frame">
+<h2>add_frame<a class="headerlink" href="#add-frame" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv29add_frameP9animationiiPv">
+<span id="add_frame__animationP.i.i.voidP"></span><span class="target" id="project0animate_8h_1a7e4eb590d4336b128b4783e57a3d29ad"></span>void <code class="descclassname"></code><code class="descname">add_frame</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv29animation" title="animation">animation</a> *<em>animation</em>, int <em>index_in_sprite</em>, int <em>duration</em>, void *<em>userdata</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv29add_frameP9animationiiPv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new frame to an <a class="reference internal" href="#project0structanimation"><span>animation</span></a> <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">animation</span></code> - <p>Animation to add the frame to </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">index_in_sprite</span></code> - <p>The frame index in the sprite frames image </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">duration</span></code> - <p>The time in milliseconds to play this frame </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">userdata</span></code> - <p>Any data you would like to associate with this frame You will get this data pointer back when this frame gets played </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="add-frames">
+<h2>add_frames<a class="headerlink" href="#add-frames" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210add_framesP9animationiA_5frame">
+<span id="add_frames__animationP.i.frameA"></span><span class="target" id="project0animate_8h_1a21016759f73a88d33a517b11cc69183a"></span>void <code class="descclassname"></code><code class="descname">add_frames</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv29animation" title="animation">animation</a> *<em>animation</em>, int <em>nframes</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv25frame" title="frame">frame</a> <em>frames</em>[]<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210add_framesP9animationiA_5frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new set of frames to an <a class="reference internal" href="#project0structanimation"><span>animation</span></a>. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">animation</span></code> - <p>Animation to add the frame to </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">nframes</span></code> - <p>Number of frames to add </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">frames</span></code> - <p>The frames to add as an array of <a class="reference internal" href="#project0structframe"><span>frame</span></a> structs </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="timeline.html" class="btn btn-neutral float-right" title="timeline" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sprite.html" class="btn btn-neutral" title="sprite" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>(More) Advanced &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="prev" title="samples / wizard.c" href="wizard.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">(More) Advanced</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#memory-management">Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coding-style">Coding Style</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>(More) Advanced</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="more-advanced">
+<h1>(More) Advanced<a class="headerlink" href="#more-advanced" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="memory-management">
+<h2>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h2>
+<p>Cage lets you decide how to manage your game&#8217;s memory.
+Resources such as image, sprite and animation
+will usually have a set of <strong>create</strong> and <strong>destroy</strong>
+functions you can use, releasing you from explicitly allocating and freeing memory.</p>
+<p>Alternatively, you can allocate and free structure memory by yourself
+but you will have to initialize and cleanup the resource
+internal state.</p>
+<p>For example, you can easily create and destroy images like so:</p>
+<div class="highlight-python"><div class="highlight"><pre>struct image* image;
+image = create_image(&quot;res/image.png&quot;);
+
+if (image!=NULL) {
+    destroy_image(image);
+}
+</pre></div>
+</div>
+<p>Or, if you want, you can do:</p>
+<div class="highlight-python"><div class="highlight"><pre>struct image image;
+// this will work on already allocated image structs
+if (load_image(&amp;image, &quot;res/image.png&quot;) == -1) {
+    // something went wrong
+}
+// clean up any internally allocated resources
+cleanup_image(&amp;image);
+</pre></div>
+</div>
+</div>
+<div class="section" id="coding-style">
+<h2>Coding Style<a class="headerlink" href="#coding-style" title="Permalink to this headline">¶</a></h2>
+<p>Cage uses a slightly modified version of the Linux kernel
+coding style. The main differences are:</p>
+<ul class="simple">
+<li>Indentation size is 4 spaces.</li>
+<li>Pointer &#8216;*&#8217; sign is adjacent to the type and not to the
+variable.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="wizard.html" class="btn btn-neutral" title="samples / wizard.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

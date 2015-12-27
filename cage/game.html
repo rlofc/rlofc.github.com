@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Game essentials &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="image" href="image.html"/>
+        <link rel="prev" title="Getting Started" href="start.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Game essentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#game-loop">game_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-function">create function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-function">update function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-function">destroy function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#game-state">game_state</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Game essentials</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="game-essentials">
+<h1>Game essentials<a class="headerlink" href="#game-essentials" title="Permalink to this headline">¶</a></h1>
+<p>The heart of almost every game is the game loop. The game
+loop processes events, runs the game logic and generates the
+game visuals and sounds.</p>
+<img alt="_images/cage-callbacks.png" class="align-center" src="_images/cage-callbacks.png" />
+<div class="section" id="game-loop">
+<h2>game_loop<a class="headerlink" href="#game-loop" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv29game_loop13create_func_t13update_func_t14destroy_func_t">
+<span id="game_loop__create_func_t.update_func_t.destroy_func_t"></span><span class="target" id="project0cage_8h_1a50213fb1be04d5b6154a1b6538523db8"></span>int <code class="descclassname"></code><code class="descname">game_loop</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv213create_func_t" title="create_func_t">create_func_t</a> <em>create</em>, update_func_t <em>update</em>, destroy_func_t <em>destroy</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv29game_loop13create_func_t13update_func_t14destroy_func_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this function to start your game. <div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">gameloop</span><span class="p">(</span><span class="n">create_game</span><span class="p">,</span> <span class="n">update_game</span><span class="p">,</span> <span class="n">destroy_game</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<p>To run its game loop, Cage must have a game state. The
+game state is created, updated and destroyed using three pointers to three functions:</p>
+</div>
+<div class="section" id="create-function">
+<h2>create function<a class="headerlink" href="#create-function" title="Permalink to this headline">¶</a></h2>
+<dl class="type">
+<dt id="_CPPv213create_func_t">
+<span id="create_func_t"></span><span class="target" id="project0cage_8h_1ac28c0721afcf7539327dd95ab0ef8c42"></span><em class="property">typedef </em>void *(*<code class="descclassname"></code><code class="descname">create_func_t</code>)<span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213create_func_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the prototype of the create function: <div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span><span class="o">*</span> <span class="nf">create_game</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Put any level, menu or other game state setup code here</span>
+    <span class="c1">// and return a pointer to your level data or NULL</span>
+    <span class="c1">// in case of a failure.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p>You may provide a create function to create and set up a game state. A game state will usually be a struct, holding sprites, images, fonts or any other assert required to run a level, a game menu or other game states. You pass a pointer to this function when you call <a class="reference internal" href="#project0cage_8h_1a50213fb1be04d5b6154a1b6538523db8"><span>game_loop()</span></a> or <a class="reference internal" href="#project0cage_8h_1a9ca7e4584b38578b07dcb749366fd399"><span>game_state()</span></a>.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>pointer to your game state data or NULL on failure </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="update-function">
+<h2>update function<a class="headerlink" href="#update-function" title="Permalink to this headline">¶</a></h2>
+<dl class="type">
+<dt>
+<span class="target" id="project0cage_8h_1a384e885182a136890d1df6f4aebaf414"></span><em class="property">typedef </em><code class="descname">void(* update_func_t) (void *data, float elpased_ms)</code></dt>
+<dd><p>This is the prototype of the update function: <div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">update_game</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Update and draw your game</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p>The update function is called each time Cage wants you to update a new game frame. This is the place to change your game state, play or stop sound effects and draw your graphics.</p>
+<p>You pass a pointer to this function when you call <a class="reference internal" href="#project0cage_8h_1a50213fb1be04d5b6154a1b6538523db8"><span>game_loop()</span></a> or <a class="reference internal" href="#project0cage_8h_1a9ca7e4584b38578b07dcb749366fd399"><span>game_state()</span></a>.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">data</span></code> - <p>the pointer you returned from the create function. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">elapsed_ms</span></code> - <p>time passed since last update in milliseconds. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="destroy-function">
+<h2>destroy function<a class="headerlink" href="#destroy-function" title="Permalink to this headline">¶</a></h2>
+<dl class="type">
+<dt>
+<span class="target" id="project0cage_8h_1aa5109a973bb96840343aa90e269e1352"></span><em class="property">typedef </em><code class="descname">void(* destroy_func_t) (void *data)</code></dt>
+<dd><p>This is the prototype of the destroy function that may be provided to Cage in order to free any allocated resources once a game state is being dismissed. <div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">destroy_game</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Put any cleanup code here...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p>You may pass a pointer to this function when you call <a class="reference internal" href="#project0cage_8h_1a50213fb1be04d5b6154a1b6538523db8"><span>game_loop()</span></a> or <a class="reference internal" href="#project0cage_8h_1a9ca7e4584b38578b07dcb749366fd399"><span>game_state()</span></a>.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">data</span></code> - <p>the pointer you returned from the create function. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<p>The state functions share a common feature - the state data
+argument.  The create function creates a state and returns
+a valid data pointer. The common pattern is to
+have a dedicated struct per state that holds all required
+state assets.</p>
+<p>The update function will get the same state data pointer
+back, so it is able to use it to update and draw the game.</p>
+<p>The destroy function will also get the same user data
+pointer, this time it will usually use it to clean any
+allocated assets.</p>
+<p>Games will usually have different levels, menus, high score
+displays and the likes. These are represented as different
+game states.</p>
+<img alt="_images/cage-gamestates.png" class="align-center" src="_images/cage-gamestates.png" />
+<p>Transitioning between different states allow you
+to have a more complex game structure. Use game_state() to change
+the active game state using a new set of state functions:</p>
+</div>
+<div class="section" id="game-state">
+<h2>game_state<a class="headerlink" href="#game-state" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210game_state13create_func_t13update_func_t14destroy_func_t">
+<span id="game_state__create_func_t.update_func_t.destroy_func_t"></span><span class="target" id="project0cage_8h_1a9ca7e4584b38578b07dcb749366fd399"></span>void <code class="descclassname"></code><code class="descname">game_state</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv213create_func_t" title="create_func_t">create_func_t</a> <em>create</em>, update_func_t <em>update</em>, destroy_func_t <em>destroy</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210game_state13create_func_t13update_func_t14destroy_func_t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>For example:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="c1">// These are the level state functions</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">create_level</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">level_data</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">level_data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">update_level</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Update and draw your game</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">destroy_level</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Put any cleanup code here...</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// These are the game menu state functions</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">create_menu</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">menu_data</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">menu_data</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">menu_data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">update_menu</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Handle the menu behavior.</span>
+    <span class="c1">// When ready, switch to the level game state:</span>
+    <span class="n">game_state</span><span class="p">(</span><span class="n">create_level</span><span class="p">,</span> <span class="n">update_level</span><span class="p">,</span> <span class="n">destroy_level</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">destroy_menu</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Put any cleamup code here...</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// This is your game!</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Set up the initial game state</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_menu</span><span class="p">,</span> <span class="n">update_menu</span><span class="p">,</span> <span class="n">destroy_menu</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="image.html" class="btn btn-neutral float-right" title="image" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="start.html" class="btn btn-neutral" title="Getting Started" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

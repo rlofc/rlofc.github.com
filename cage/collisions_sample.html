@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>samples / collisions.c &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="samples / wizard.c" href="wizard.html"/>
+        <link rel="prev" title="samples / callout.c" href="callout_sample.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">samples / collisions.c</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sample-setup">Sample setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#moving-the-stars">Moving the stars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#collision-detection">Collision detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cleanup">Cleanup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main">Main</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>samples / collisions.c</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="samples-collisions-c">
+<h1>samples / collisions.c<a class="headerlink" href="#samples-collisions-c" title="Permalink to this headline">¶</a></h1>
+<p>This sample demonstrates a method for pixel-perfect
+collision detection. While this may not be the most
+optimized way to do this, it is clear and effective.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &quot;cage.h&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="sample-setup">
+<h2>Sample setup<a class="headerlink" href="#sample-setup" title="Permalink to this headline">¶</a></h2>
+<p>For this demo we will use a star image.
+Each star will have its own position,
+motion vector and bounding box.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define MAX_STARS 12</span>
+
+<span class="k">struct</span> <span class="n">star</span> <span class="p">{</span>
+    <span class="n">vec</span> <span class="n">star_pos</span><span class="p">;</span>
+    <span class="n">vec</span> <span class="n">star_vec</span><span class="p">;</span>
+    <span class="n">bbox</span> <span class="n">star_bbox</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">state</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">star_img</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">star</span> <span class="n">stars</span><span class="p">[</span><span class="n">MAX_STARS</span><span class="p">];</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Web begin by creating, positioning
+and propelling the stars.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_sample</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">state</span><span class="o">*</span> <span class="n">state</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">state</span><span class="p">));</span>
+    <span class="n">state</span><span class="o">-&gt;</span><span class="n">star_img</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/star.png&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_STARS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">star_pos</span> <span class="o">=</span> <span class="n">xy_vec</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">16</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">16</span><span class="p">);</span>
+        <span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">star_vec</span> <span class="o">=</span> <span class="n">xy_vec</span><span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">4</span><span class="p">);</span>
+        <span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">star_bbox</span><span class="p">.</span><span class="n">p1</span> <span class="o">=</span> <span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">star_pos</span><span class="p">;</span>
+        <span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">star_bbox</span><span class="p">.</span><span class="n">p2</span> <span class="o">=</span>
+        <span class="n">add_vec</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">star_pos</span><span class="p">,</span> <span class="n">xy_vec</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">state</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="moving-the-stars">
+<h2>Moving the stars<a class="headerlink" href="#moving-the-stars" title="Permalink to this headline">¶</a></h2>
+<p>update_star() moves a star on the screen using the star
+motion vector and tests for screen bounds collisions.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">update_star</span><span class="p">(</span><span class="k">struct</span> <span class="n">star</span><span class="o">*</span> <span class="n">star</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">bbox</span> <span class="n">screen_bbox</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span> <span class="p">{</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">108</span> <span class="p">}</span> <span class="p">};</span>
+    <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_pos</span> <span class="o">=</span> <span class="n">add_vec</span><span class="p">(</span><span class="n">star</span><span class="o">-&gt;</span><span class="n">star_pos</span><span class="p">,</span> <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_vec</span><span class="p">);</span>
+    <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_bbox</span> <span class="o">=</span> <span class="n">translate_bbox</span><span class="p">(</span><span class="n">star</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">,</span> <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_pos</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bbox_in_bbox</span><span class="p">(</span><span class="n">star</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">,</span> <span class="n">screen_bbox</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">star</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">.</span><span class="n">p1</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">screen_bbox</span><span class="p">.</span><span class="n">p1</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_vec</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">star</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">.</span><span class="n">p1</span><span class="p">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">screen_bbox</span><span class="p">.</span><span class="n">p1</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_vec</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">star</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">.</span><span class="n">p2</span><span class="p">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">screen_bbox</span><span class="p">.</span><span class="n">p2</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_vec</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">star</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">.</span><span class="n">p2</span><span class="p">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">screen_bbox</span><span class="p">.</span><span class="n">p2</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="n">star</span><span class="o">-&gt;</span><span class="n">star_vec</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="collision-detection">
+<h2>Collision detection<a class="headerlink" href="#collision-detection" title="Permalink to this headline">¶</a></h2>
+<p>When updating a frame, we traverse the star pairs
+graph and test for a bounding box intersection.
+To detect pixel-level collisions, we us pixels_collide()
+using the portion of intersection as a test area.
+If we detect a collision, we swap the star pair
+motion vectors to create a deflection effect.</p>
+<p>When done, we update and draw the stars.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">update_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">state</span><span class="o">*</span> <span class="n">state</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">visited</span><span class="p">[</span><span class="n">MAX_STARS</span><span class="p">][</span><span class="n">MAX_STARS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}</span> <span class="p">};</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_STARS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">MAX_STARS</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">bbox</span> <span class="n">sub</span><span class="p">;</span>
+                <span class="k">struct</span> <span class="n">star</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="k">struct</span> <span class="n">star</span><span class="o">*</span> <span class="n">b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">bbox_intersect</span><span class="p">(</span><span class="n">a</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">,</span> <span class="n">b</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sub</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">;</span>
+                    <span class="n">r1</span> <span class="o">=</span> <span class="n">rect_from_sub_bbox</span><span class="p">(</span><span class="n">a</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">,</span> <span class="n">sub</span><span class="p">);</span>
+                    <span class="n">r2</span> <span class="o">=</span> <span class="n">rect_from_sub_bbox</span><span class="p">(</span><span class="n">b</span><span class="o">-&gt;</span><span class="n">star_bbox</span><span class="p">,</span> <span class="n">sub</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">pixels_collide</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">star_img</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">r1</span><span class="p">,</span> <span class="n">state</span><span class="o">-&gt;</span><span class="n">star_img</span><span class="p">,</span>
+                                       <span class="o">&amp;</span><span class="n">r2</span><span class="p">))</span>
+                        <span class="n">swap_vecs</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="o">-&gt;</span><span class="n">star_vec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="o">-&gt;</span><span class="n">star_vec</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">screen_color</span><span class="p">(</span><span class="n">color_from_RGB</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">));</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_STARS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">update_star</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+        <span class="n">draw_image</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">star_img</span><span class="p">,</span> <span class="n">VEC_XY</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">stars</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">star_pos</span><span class="p">),</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cleanup">
+<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this headline">¶</a></h2>
+<p>Clean up is simple enough. Just destroy the star
+image and free the state structure memory.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">state</span><span class="o">*</span> <span class="n">state</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">star_img</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="main">
+<h2>Main<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h2>
+<p>The usual game_loop call, using the usual state
+functions.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_sample</span><span class="p">,</span> <span class="n">update_sample</span><span class="p">,</span> <span class="n">destroy_sample</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wizard.html" class="btn btn-neutral float-right" title="samples / wizard.c" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="callout_sample.html" class="btn btn-neutral" title="samples / callout.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

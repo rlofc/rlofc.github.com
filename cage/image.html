@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>image &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="font" href="font.html"/>
+        <link rel="prev" title="Game essentials" href="game.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">image</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#struct-image">struct image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-image">create_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-blank-image">create_blank_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-target-image">create_target_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-image">destroy_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#draw-image">draw_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-image-alpha">get_image_alpha</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-image-alpha">set_image_alpha</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-image">load_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cleanup-image">cleanup_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lock-image">lock_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unlock-image">unlock_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pixels-collide">pixels_collide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>image</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="image">
+<h1>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struct-image">
+<h2>struct image<a class="headerlink" href="#struct-image" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv25image">
+<span id="image"></span><span class="target" id="project0structimage"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">image</code><a class="headerlink" href="#_CPPv25image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Images are the visual building blocks of your game. Use images to draw on screen, or as basis for sprites and fonts. Images can be read from a file or created empty and can be used to draw with or to provide frames for sprites or characters for fonts.</p>
+<p>The simplest form of creating an image is by using <a class="reference internal" href="#project0image_8h_1a1cbf7c7aeaf550f3e337053c7bd4daa6"><span>create_image()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">image</span><span class="p">;</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;path/to/image.png&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Images can also be used to draw <strong>on</strong> instead of the screen: <div class="highlight-c"><div class="highlight"><pre><span class="n">draw_on_image</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<span class="c1">// draw images, sprites or text</span>
+<span class="n">draw_on_screen</span><span class="p">();</span>
+</pre></div>
+</div>
+</p>
+<p>Images don&#8217;t just disappear. You will have to explicitly get rid of any image you create using <a class="reference internal" href="#project0image_8h_1a267f22fe90d90deaf77378006b2fb096"><span>destroy_image()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="n">destroy_image</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>If you fail to do so, you will have a memory leak. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-image">
+<h2>create_image<a class="headerlink" href="#create-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv212create_imagePKc">
+<span id="create_image__cCP"></span><span class="target" id="project0image_8h_1a1cbf7c7aeaf550f3e337053c7bd4daa6"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<code class="descclassname"></code><code class="descname">create_image</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212create_imagePKc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and load an image using a PNG file <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd><a class="reference internal" href="#project0structimage"><span>image</span></a> pointer or NULL on failure </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">filepath</span></code> - <p>File path to the image file</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-blank-image">
+<h2>create_blank_image<a class="headerlink" href="#create-blank-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv218create_blank_imageii">
+<span id="create_blank_image__i.i"></span><span class="target" id="project0image_8h_1a7faf13a39bad9d67509faf7ca8db2c66"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<code class="descclassname"></code><code class="descname">create_blank_image</code><span class="sig-paren">(</span>int <em>width</em>, int <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv218create_blank_imageii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a blank image for direct pixel manipulation <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd><a class="reference internal" href="#project0structimage"><span>image</span></a> pointer or NULL on failure </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">width</span></code> - <p>The width of the blank image </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">height</span></code> - <p>The height of the blank image</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-target-image">
+<h2>create_target_image<a class="headerlink" href="#create-target-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv219create_target_imageii5color">
+<span id="create_target_image__i.i.color"></span><span class="target" id="project0image_8h_1a7ce91a2711707e599c492f5e76d40351"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<code class="descclassname"></code><code class="descname">create_target_image</code><span class="sig-paren">(</span>int <em>width</em>, int <em>height</em>, <em class="property">struct</em> color <em>color</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv219create_target_imageii5color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an image that can be used to draw other images or sprites on. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd><a class="reference internal" href="#project0structimage"><span>image</span></a> pointer or NULL on failure </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">width</span></code> - <p>The width of the blank image </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">height</span></code> - <p>The height of the blank image </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">color</span></code> - <p>The default color of the target image</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="destroy-image">
+<h2>destroy_image<a class="headerlink" href="#destroy-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213destroy_imageP5image">
+<span id="destroy_image__imageP"></span><span class="target" id="project0image_8h_1a267f22fe90d90deaf77378006b2fb096"></span>void <code class="descclassname"></code><code class="descname">destroy_image</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213destroy_imageP5image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy an image created using <a class="reference internal" href="#project0image_8h_1a1cbf7c7aeaf550f3e337053c7bd4daa6"><span>create_image()</span></a> or <a class="reference internal" href="#project0image_8h_1a7faf13a39bad9d67509faf7ca8db2c66"><span>create_blank_image()</span></a> <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>A valid <a class="reference internal" href="#project0structimage"><span>image</span></a> pointer created using <a class="reference internal" href="#project0image_8h_1a1cbf7c7aeaf550f3e337053c7bd4daa6"><span>create_image()</span></a> </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="draw-image">
+<h2>draw_image<a class="headerlink" href="#draw-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210draw_imageP5imageiiP9rectangled">
+<span id="draw_image__imageP.i.i.rectangleP.double"></span><span class="target" id="project0image_8h_1a5af7deaee8973d88c8694b074e4ea187"></span>void <code class="descclassname"></code><code class="descname">draw_image</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em>, int <em>x</em>, int <em>y</em>, <em class="property">struct</em> rectangle *<em>clip</em>, double <em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210draw_imageP5imageiiP9rectangled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw an image on the screen <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>Image to draw </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">x</span></code> - <p>X position </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">y</span></code> - <p>Y position </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">clip</span></code> - <p>Rectangle to draw </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">angle</span></code> - <p>Rotate image in degrees </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="get-image-alpha">
+<h2>get_image_alpha<a class="headerlink" href="#get-image-alpha" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv215get_image_alphaP5image">
+<span id="get_image_alpha__imageP"></span><span class="target" id="project0image_8h_1a8542e2969d1abc597796fa77622b2e3e"></span>uint8_t <code class="descclassname"></code><code class="descname">get_image_alpha</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215get_image_alphaP5image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current image alpha value (opacity). <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>0-255 alpha value </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>Image to query</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="set-image-alpha">
+<h2>set_image_alpha<a class="headerlink" href="#set-image-alpha" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv215set_image_alphaP5image7uint8_t">
+<span id="set_image_alpha__imageP.uint8_t"></span><span class="target" id="project0image_8h_1a6f49f936864f69f868517c493d2a0dbe"></span>void <code class="descclassname"></code><code class="descname">set_image_alpha</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em>, uint8_t <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215set_image_alphaP5image7uint8_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the image alpha value (opacity). <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>Image to query </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">alpha</span></code> - <p>A new 0-255 alpha value </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="load-image">
+<h2>load_image<a class="headerlink" href="#load-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210load_imageP5imagePKc">
+<span id="load_image__imageP.cCP"></span><span class="target" id="project0image_8h_1accbb2bef9c8b4ab4c99e7c777869b24b"></span>int <code class="descclassname"></code><code class="descname">load_image</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em>, <em class="property">const</em> char *<em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210load_imageP5imagePKc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a image from an image file (PNG, JPG, etc..) <dl class="docutils">
+<dt><strong>Note</strong></dt>
+<dd>You don&#8217;t need to use <a class="reference internal" href="#project0image_8h_1accbb2bef9c8b4ab4c99e7c777869b24b"><span>load_image()</span></a> if you already used <a class="reference internal" href="#project0image_8h_1a1cbf7c7aeaf550f3e337053c7bd4daa6"><span>create_image()</span></a></dd>
+<dt><strong>Return</strong></dt>
+<dd>-1 on error </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>A preallocated image struct </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">filepath</span></code> - <p>The full path of the image file</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cleanup-image">
+<h2>cleanup_image<a class="headerlink" href="#cleanup-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213cleanup_imageP5image">
+<span id="cleanup_image__imageP"></span><span class="target" id="project0image_8h_1a3e0cab90d5d7c17e376490eda13ee5e0"></span>int <code class="descclassname"></code><code class="descname">cleanup_image</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213cleanup_imageP5image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanup any initialized image resources 
+Cleanup will free all internally allocated resources for this image, making it ready for deallocation.<dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>Existing image to cleanup</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><dl class="docutils">
+<dt><strong>Note</strong></dt>
+<dd>You don&#8217;t need to use <a class="reference internal" href="#project0image_8h_1a3e0cab90d5d7c17e376490eda13ee5e0"><span>cleanup_image()</span></a> if you use <a class="reference internal" href="#project0image_8h_1a267f22fe90d90deaf77378006b2fb096"><span>destroy_image()</span></a></dd>
+<dt><strong>Return</strong></dt>
+<dd>-1 on error </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="lock-image">
+<h2>lock_image<a class="headerlink" href="#lock-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv210lock_imageP5imagePPvPi">
+<span id="lock_image__imageP.voidPP.iP"></span><span class="target" id="project0image_8h_1afc433d54812812a5d8d5a464017639e8"></span>int <code class="descclassname"></code><code class="descname">lock_image</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em>, void **<em>pixels</em>, int *<em>pitch</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210lock_imageP5imagePPvPi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lock a image to get pixel level access <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>0 on success or -1 on error </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>Image to lock </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">pixels</span></code> - <p>pointer <strong>reference</strong> to the image pixels <a class="reference internal" href="#project0image_8h_1afc433d54812812a5d8d5a464017639e8"><span>lock_image()</span></a> will provide you with </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">pitch</span></code> - <p>pointer to update with the pixel pitch</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="unlock-image">
+<h2>unlock_image<a class="headerlink" href="#unlock-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv212unlock_imageP5image">
+<span id="unlock_image__imageP"></span><span class="target" id="project0image_8h_1a1da0d5194bb3d492207afe03acccc5ae"></span>int <code class="descclassname"></code><code class="descname">unlock_image</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212unlock_imageP5image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unlock a locked image once you are done with it <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>0 on success or -1 on error </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>Locked image to unlock</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pixels-collide">
+<h2>pixels_collide<a class="headerlink" href="#pixels-collide" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214pixels_collideP5imageP9rectangleP5imageP9rectangle">
+<span id="pixels_collide__imageP.rectangleP.imageP.rectangleP"></span><span class="target" id="project0image_8h_1a0525e3ad81eb6358e8afc058246cd329"></span>int <code class="descclassname"></code><code class="descname">pixels_collide</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>img1</em>, <em class="property">struct</em> rectangle *<em>rect1</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>img2</em>, <em class="property">struct</em> rectangle *<em>rect2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214pixels_collideP5imageP9rectangleP5imageP9rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if two images have colliding pixels <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>1 if collision was found 0 if no collisions were found -1 when error occured </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">img1</span></code> - <p>First image to test </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">rect1</span></code> - <p>Area in first image to test </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">img2</span></code> - <p>Second image to test </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">rect2</span></code> - <p>Area in second image to test</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="font.html" class="btn btn-neutral float-right" title="font" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="game.html" class="btn btn-neutral" title="Game essentials" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

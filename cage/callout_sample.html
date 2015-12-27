@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>samples / callout.c &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="samples / collisions.c" href="collisions_sample.html"/>
+        <link rel="prev" title="samples / timeline.c" href="timeline_sample.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">samples / callout.c</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sample-preparation-code">Sample preparation code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-state-data">Creating the state data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drawing-a-callout-box">Drawing a callout box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-the-frames">Updating the frames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroying-and-finalizing">Destroying and finalizing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#finally-the-main">Finally, the main</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>samples / callout.c</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="samples-callout-c">
+<h1>samples / callout.c<a class="headerlink" href="#samples-callout-c" title="Permalink to this headline">¶</a></h1>
+<p>This not so short sample will pop-up a callout bubble with
+some text in it. It will demonstrate how to use image as a
+user interface skin, how to draw text and how to use
+an the timeline and easing functions for animations.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &quot;cage.h&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="sample-preparation-code">
+<h2>Sample preparation code<a class="headerlink" href="#sample-preparation-code" title="Permalink to this headline">¶</a></h2>
+<p>For this sample we&#8217;ll need a background image, a font
+to draw text with, a stencil image that holds the skin
+of our callout box and a timeline to animate the pop-up
+effect of the callout.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">struct</span> <span class="n">sample_data</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">timeline</span><span class="o">*</span> <span class="n">timeline</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">stencil</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">font</span><span class="o">*</span> <span class="n">font</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">background</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">sample_data</span> <span class="o">=</span> <span class="p">{</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">};</span>
+</pre></div>
+</div>
+<p>This is going to be the callout text:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">CO_TEXT</span> <span class="o">=</span> <span class="s">&quot;Welcome to Cage,</span><span class="se">\n</span><span class="s">the elementary&quot;</span>
+                             <span class="s">&quot; game</span><span class="se">\n</span><span class="s">development library for</span><span class="se">\n</span><span class="s">&quot;</span>
+                             <span class="s">&quot;the C programming</span><span class="se">\n</span><span class="s">language.&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>And, this is where the callout will originate from,
+the callout arrow head position:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">coords</span> <span class="n">CO_ORIGIN</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span> <span class="p">};</span>
+<span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">coords</span> <span class="n">CO_TIP_OFFSET</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+</pre></div>
+</div>
+<p>These callback functions will be the events on
+the animation timeline. wait() will create a short
+pause when starting the sample, popup() will animate
+the appearance of the callout and show will simply
+draw the static callout.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span><span class="o">*</span> <span class="nf">popup</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">show</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>These are going to be the sample timeline
+events. The program will draw the background,
+wait for a second, then animate the callout
+during 1 second and finally, just draw the callout
+for 10 seconds. Easy peasy:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define N_CO_EVENTS 2</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">timeline_event</span> <span class="n">CO_EVENTS</span><span class="p">[</span><span class="n">N_CO_EVENTS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">SECOND</span><span class="p">,</span> <span class="n">popup</span><span class="p">,</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">SECOND</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">SECONDS</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-the-state-data">
+<h2>Creating the state data<a class="headerlink" href="#creating-the-state-data" title="Permalink to this headline">¶</a></h2>
+<p>We use the game state create() function to initialize
+the state data structure: the background image,
+the callout stencil, the font and the timeline.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define SAFELY(c) \</span>
+<span class="cp">    if ((c) == NULL) goto error</span>
+<span class="cp">#define IF_NEEDED(f, p) \</span>
+<span class="cp">    if (p != NULL) f(p)</span>
+<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_sample</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">SAFELY</span><span class="p">(</span><span class="n">sample_data</span><span class="p">.</span><span class="n">background</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/bg.png&quot;</span><span class="p">));</span>
+    <span class="n">SAFELY</span><span class="p">(</span><span class="n">sample_data</span><span class="p">.</span><span class="n">stencil</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/callout.png&quot;</span><span class="p">));</span>
+    <span class="n">SAFELY</span><span class="p">(</span><span class="n">sample_data</span><span class="p">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="s">&quot;res/cofont.png&quot;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">));</span>
+    <span class="n">sample_data</span><span class="p">.</span><span class="n">font</span><span class="o">-&gt;</span><span class="n">line_spacing</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">sample_data</span><span class="p">.</span><span class="n">font</span><span class="o">-&gt;</span><span class="n">char_spacing</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">SAFELY</span><span class="p">(</span><span class="n">sample_data</span><span class="p">.</span><span class="n">timeline</span> <span class="o">=</span> <span class="n">create_timeline</span><span class="p">());</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">append_events</span><span class="p">(</span><span class="n">sample_data</span><span class="p">.</span><span class="n">timeline</span><span class="p">,</span> <span class="n">N_CO_EVENTS</span><span class="p">,</span> <span class="n">CO_EVENTS</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ERROR</span><span class="p">(</span><span class="s">&quot;unable to append timeline events&quot;</span><span class="p">);</span>
+        <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">sample_data</span><span class="p">;</span>
+
+<span class="nl">error</span><span class="p">:</span>
+    <span class="n">IF_NEEDED</span><span class="p">(</span><span class="n">destroy_image</span><span class="p">,</span> <span class="n">sample_data</span><span class="p">.</span><span class="n">background</span><span class="p">);</span>
+    <span class="n">IF_NEEDED</span><span class="p">(</span><span class="n">destroy_image</span><span class="p">,</span> <span class="n">sample_data</span><span class="p">.</span><span class="n">stencil</span><span class="p">);</span>
+    <span class="n">IF_NEEDED</span><span class="p">(</span><span class="n">destroy_font</span><span class="p">,</span> <span class="n">sample_data</span><span class="p">.</span><span class="n">font</span><span class="p">);</span>
+    <span class="n">IF_NEEDED</span><span class="p">(</span><span class="n">destroy_timeline</span><span class="p">,</span> <span class="n">sample_data</span><span class="p">.</span><span class="n">timeline</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="drawing-a-callout-box">
+<h2>Drawing a callout box<a class="headerlink" href="#drawing-a-callout-box" title="Permalink to this headline">¶</a></h2>
+<p>The callout Stencil has the following
+skin components:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">enum</span> <span class="p">{</span>
+    <span class="n">TOP_LEFT</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">TOP</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">TOP_EX</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">TOP_RIGHT</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">FILL</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">FILL_COL_EX</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="n">LEFT_EX</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="n">FILL_ROW_EX</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="n">FILL_COL_ROW_EX</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">RIGHT_EX</span> <span class="o">=</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="n">BOTTOM_LEFT</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="n">BOTTOM</span> <span class="o">=</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="n">BOTTOM_EX</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="n">BOTTOM_RIGHT</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Each tile of the callout stencil has a 16x16 pixel size</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define GSIZE 16</span>
+<span class="cp">#define GRID(X, Y) GSIZE *X, GSIZE *Y, GSIZE, GSIZE</span>
+</pre></div>
+</div>
+<p>The stencil has each component in these grid positions:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">rects</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>This is how we draw the border tiles (corners and lines)
+of the callout.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_border</span><span class="p">(</span><span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">stencil</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">inner_cols</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">inner_rows</span><span class="p">;</span>
+
+    <span class="n">inner_cols</span> <span class="o">=</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">?</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="p">(</span><span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="nl">GSIZE</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">inner_rows</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&gt;</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">?</span> <span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="p">(</span><span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="nl">GSIZE</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="cm">/* draw corners */</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">TOP_LEFT</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">TOP_RIGHT</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">-</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">BOTTOM_LEFT</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">-</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">BOTTOM_RIGHT</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="cm">/* draw borders */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="n">inner_rows</span><span class="p">;</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">rectangle</span><span class="o">*</span> <span class="n">left</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">LEFT</span><span class="p">];</span>
+        <span class="k">struct</span> <span class="n">rectangle</span><span class="o">*</span> <span class="n">right</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">RIGHT</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">inner_rows</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">LEFT_EX</span><span class="p">];</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">RIGHT_EX</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">GSIZE</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">GSIZE</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">inner_cols</span><span class="p">;</span> <span class="n">c</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">rectangle</span><span class="o">*</span> <span class="n">top</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">TOP</span><span class="p">];</span>
+        <span class="k">struct</span> <span class="n">rectangle</span><span class="o">*</span> <span class="n">bottom</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">BOTTOM</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">inner_cols</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">TOP_EX</span><span class="p">];</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">BOTTOM_EX</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">GSIZE</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">GSIZE</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">-</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is how we fill the inner area of the callout.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">fill_box</span><span class="p">(</span><span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">stencil</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">inner_cols</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">inner_rows</span><span class="p">;</span>
+    <span class="n">inner_cols</span> <span class="o">=</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">?</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="p">(</span><span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="nl">GSIZE</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">inner_rows</span> <span class="o">=</span> <span class="n">h</span> <span class="o">&gt;</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">?</span> <span class="p">(</span><span class="n">h</span> <span class="o">-</span> <span class="p">(</span><span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="nl">GSIZE</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="n">inner_rows</span><span class="p">;</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">inner_cols</span><span class="p">;</span> <span class="n">c</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">struct</span> <span class="n">rectangle</span><span class="o">*</span> <span class="n">rect</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">FILL</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">inner_rows</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="n">inner_cols</span><span class="p">)</span>
+                <span class="n">rect</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">FILL_COL_ROW_EX</span><span class="p">];</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">inner_rows</span><span class="p">)</span>
+                <span class="n">rect</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">FILL_ROW_EX</span><span class="p">];</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">inner_cols</span><span class="p">)</span>
+                <span class="n">rect</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rects</span><span class="p">[</span><span class="n">FILL_COL_EX</span><span class="p">];</span>
+            <span class="n">draw_image</span><span class="p">(</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">GSIZE</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">GSIZE</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">GSIZE</span><span class="p">,</span>
+                       <span class="n">rect</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will draw the callout box, without the callout tip</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_box</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">rects</span><span class="p">[</span><span class="n">FILL_ROW_EX</span><span class="p">].</span><span class="n">h</span> <span class="o">=</span> <span class="n">rects</span><span class="p">[</span><span class="n">FILL_COL_ROW_EX</span><span class="p">].</span><span class="n">h</span> <span class="o">=</span> <span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">GSIZE</span><span class="p">);</span>
+    <span class="n">rects</span><span class="p">[</span><span class="n">FILL_COL_EX</span><span class="p">].</span><span class="n">w</span> <span class="o">=</span> <span class="n">rects</span><span class="p">[</span><span class="n">FILL_COL_ROW_EX</span><span class="p">].</span><span class="n">w</span> <span class="o">=</span> <span class="p">((</span><span class="n">w</span> <span class="o">-</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">GSIZE</span><span class="p">);</span>
+
+    <span class="n">rects</span><span class="p">[</span><span class="n">LEFT_EX</span><span class="p">].</span><span class="n">h</span> <span class="o">=</span> <span class="n">rects</span><span class="p">[</span><span class="n">RIGHT_EX</span><span class="p">].</span><span class="n">h</span> <span class="o">=</span> <span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">GSIZE</span><span class="p">);</span>
+    <span class="n">rects</span><span class="p">[</span><span class="n">TOP_EX</span><span class="p">].</span><span class="n">w</span> <span class="o">=</span> <span class="n">rects</span><span class="p">[</span><span class="n">BOTTOM_EX</span><span class="p">].</span><span class="n">w</span> <span class="o">=</span> <span class="p">((</span><span class="n">w</span> <span class="o">-</span> <span class="n">GSIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">GSIZE</span><span class="p">);</span>
+
+    <span class="n">draw_border</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
+    <span class="n">fill_box</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will draw the callout box and the callout tip</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_callout</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">callout</span> <span class="o">=</span> <span class="p">{</span> <span class="n">GRID</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">};</span>
+    <span class="n">draw_box</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span> <span class="o">-</span> <span class="n">GSIZE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">callout</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-the-frames">
+<h2>Updating the frames<a class="headerlink" href="#updating-the-frames" title="Permalink to this headline">¶</a></h2>
+<p>For each frame, the update state function will draw the background
+image and then use the timeline to activate the sample events
+for pop-up the callback and continue drawing it for a few seconds.
+We explicitly eliminate any unused parameter warning using
+the UNUSED macro.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">update_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">clip</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">108</span> <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">sample_data</span><span class="o">*</span> <span class="n">sdata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">screen_color</span><span class="p">(</span><span class="n">color_from_RGB</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">120</span><span class="p">));</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">background</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">clip</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">update_timeline</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">,</span> <span class="n">sdata</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="nf">popup</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sample_data</span><span class="o">*</span> <span class="n">sdata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">bounce</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounce_ease_out</span><span class="p">(</span><span class="n">progress</span><span class="p">));</span>
+    <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">;</span>
+    <span class="n">measure_text</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">font</span><span class="p">,</span> <span class="n">CO_TEXT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">w</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">h</span><span class="p">);</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">CO_ORIGIN</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">((</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">CO_TIP_OFFSET</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">bounce</span><span class="p">);</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">CO_ORIGIN</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="p">((</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">h</span> <span class="o">-</span> <span class="n">CO_TIP_OFFSET</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">bounce</span><span class="p">);</span>
+    <span class="n">draw_box</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">bounce</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">bounce</span><span class="p">)</span> <span class="o">+</span> <span class="mi">32</span><span class="p">);</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="nf">show</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sample_data</span><span class="o">*</span> <span class="n">sdata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">;</span>
+    <span class="n">measure_text</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">font</span><span class="p">,</span> <span class="n">CO_TEXT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">w</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">h</span><span class="p">);</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">CO_ORIGIN</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">((</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">CO_TIP_OFFSET</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">CO_ORIGIN</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="p">((</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">h</span> <span class="o">-</span> <span class="n">CO_TIP_OFFSET</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">draw_callout</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">stencil</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">32</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">32</span><span class="p">);</span>
+    <span class="n">draw_text</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">font</span><span class="p">,</span> <span class="n">CO_TEXT</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">16</span><span class="p">);</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">progress</span><span class="p">);</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="destroying-and-finalizing">
+<h2>Destroying and finalizing<a class="headerlink" href="#destroying-and-finalizing" title="Permalink to this headline">¶</a></h2>
+<p>When exiting the sample, the destroy_sample()
+function will destroy any allocated resources.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sample_data</span><span class="o">*</span> <span class="n">sdata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">stencil</span><span class="p">);</span>
+    <span class="n">destroy_font</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">font</span><span class="p">);</span>
+    <span class="n">destroy_timeline</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">sdata</span><span class="o">-&gt;</span><span class="n">background</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="finally-the-main">
+<h2>Finally, the main<a class="headerlink" href="#finally-the-main" title="Permalink to this headline">¶</a></h2>
+<p>Finally, the game&#8217;s main function delegates the
+execution to Cage&#8217;s game_loop() function together with
+the 3 state functions we wrote.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_sample</span><span class="p">,</span> <span class="n">update_sample</span><span class="p">,</span> <span class="n">destroy_sample</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="collisions_sample.html" class="btn btn-neutral float-right" title="samples / collisions.c" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="timeline_sample.html" class="btn btn-neutral" title="samples / timeline.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

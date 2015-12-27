@@ -1,0 +1,741 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>samples / wizard.c &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="(More) Advanced" href="advanced.html"/>
+        <link rel="prev" title="samples / collisions.c" href="collisions_sample.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">samples / wizard.c</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-wizard">Setting up the Wizard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-title-effect">The Title Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-decorative-tree">A Decorative Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tying-everything-together">Tying everything together</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-game-state-functions">The Game State Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>samples / wizard.c</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="samples-wizard-c">
+<h1>samples / wizard.c<a class="headerlink" href="#samples-wizard-c" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &quot;cage.h&quot;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+</pre></div>
+</div>
+<p>This (still incomplete) sample shows how <strong>Cage</strong> may be used
+to write a small 2D game.
+We begin with defining a few constants that
+we&#8217;ll need to use later on.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">BASE_Y</span> <span class="o">=</span> <span class="mi">57</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">float</span> <span class="n">NO_SPEED</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">float</span> <span class="n">BRAKE_SPEED</span> <span class="o">=</span> <span class="mf">0.01f</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">float</span> <span class="n">PREP_SPEED</span> <span class="o">=</span> <span class="mf">0.025f</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">float</span> <span class="n">NORMAL_SPEED</span> <span class="o">=</span> <span class="mf">0.05f</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">float</span> <span class="n">BRAKE_SPEED_L</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1f</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">float</span> <span class="n">PREP_SPEED_L</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.25f</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">float</span> <span class="n">NORMAL_SPEED_L</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5f</span><span class="p">;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/earth_tile.png"><img alt="_images/earth_tile.png" class="align-right" src="_images/earth_tile.png" style="width: 64px;" /></a>
+<a class="reference internal image-reference" href="_images/grass_tile.png"><img alt="_images/grass_tile.png" class="align-right" src="_images/grass_tile.png" style="width: 64px;" /></a>
+<p>We use a string to represent the level map.
+Each character represents a 16x16 pixels tile.
+Whitespaces are empty tiles, dashes are grass tiles
+and dots are earth tiles.
+Our game&#8217;s logical size is 196x108 pixels, so we have
+room for 12x7 tiles of 16x16 pixels.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">LEVEL</span> <span class="o">=</span> <span class="s">&quot;             &quot;</span>
+                           <span class="s">&quot;             &quot;</span>
+                           <span class="s">&quot;             &quot;</span>
+                           <span class="s">&quot;             &quot;</span>
+                           <span class="s">&quot;             &quot;</span>
+                           <span class="s">&quot;-------------&quot;</span>
+                           <span class="s">&quot;.............&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="section" id="setting-up-the-wizard">
+<h2>Setting up the Wizard<a class="headerlink" href="#setting-up-the-wizard" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>wizard</strong> struct  holds the wizard sprite, animations
+and other state fields that should be kept and
+managed in-game.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">wizard</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">sprite</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">walk_right</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">walk_left</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">stand</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">spell</span><span class="p">;</span>
+    <span class="n">point</span> <span class="n">pos</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">speed</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>In this example, the wizard character is created
+and destroyed within the scope of a single level.</p>
+<a class="reference internal image-reference" href="_images/wizard.png"><img alt="_images/wizard.png" class="align-right" src="_images/wizard.png" style="width: 256px;" /></a>
+<p>Creating a wizard means loading the sprite image
+and creating a sprite with a 32x32 frame size
+as well as creating the set of animations required
+to animate the wizard.</p>
+<p>Animations can be re-used by any number of
+sprites, however in this example the animations
+are an integral part of the wizard data-structure.</p>
+<p>Pay attention to the way we define the walking
+loop cycle. First, we associate the walking speed
+by using the user-data parameter in __add_frame__.
+Then, we set the loop sequence __loop_from__ field to
+the 2nd frame ( index=1 ). This way, the
+1st frame ( index=0 ) of the walking animation is
+used as a transition frame from the standing pose.
+We also limit the loop to the 5th frame ( index=4 )
+allowing the last frame to translate the wizard
+back into the standing pose.</p>
+<p>We finalize with setting the default pose and the
+initial position.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_wizard</span><span class="p">(</span><span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="n">wizard</span><span class="p">);</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="nf">create_wizard</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="n">wizard</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">wizard</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/wizard.png&quot;</span><span class="p">),</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">PREP_SPEED</span><span class="p">);</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED</span><span class="p">);</span> <span class="cm">/* &lt;------+ */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED</span><span class="p">);</span> <span class="cm">/*        | */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED</span><span class="p">);</span> <span class="cm">/*        | */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED</span><span class="p">);</span> <span class="cm">/* &lt;--+   | */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">BRAKE_SPEED</span><span class="p">);</span>  <span class="cm">/*    |   | */</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="o">-&gt;</span><span class="n">loop_from</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="cm">/* --------------------------|---+ */</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="o">-&gt;</span><span class="n">loop_to</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>   <span class="cm">/* --------------------------+     */</span>
+
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">PREP_SPEED_L</span><span class="p">);</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED_L</span><span class="p">);</span> <span class="cm">/* &lt;------+ */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED_L</span><span class="p">);</span> <span class="cm">/*        | */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED_L</span><span class="p">);</span>  <span class="cm">/*        | */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NORMAL_SPEED_L</span><span class="p">);</span>  <span class="cm">/* &lt;--+   | */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">BRAKE_SPEED_L</span><span class="p">);</span>  <span class="cm">/*    |   | */</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="o">-&gt;</span><span class="n">loop_from</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="cm">/* -----------------------------|---+ */</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_left</span><span class="o">-&gt;</span><span class="n">loop_to</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>   <span class="cm">/* -----------------------------+     */</span>
+
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">stand</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">stand</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">stand</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NO_SPEED</span><span class="p">);</span> <span class="cm">/* &lt;---+ */</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">stand</span><span class="o">-&gt;</span><span class="n">mode</span> <span class="o">=</span> <span class="n">FREEZE_LAST_FRAME</span><span class="p">;</span> <span class="cm">/* ------------+ */</span>
+
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NO_SPEED</span><span class="p">);</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NO_SPEED</span><span class="p">);</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NO_SPEED</span><span class="p">);</span> <span class="cm">/* &lt;--+ */</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">NO_SPEED</span><span class="p">);</span> <span class="cm">/*    | */</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="o">-&gt;</span><span class="n">loop_from</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="cm">/* ----------------------+ */</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="o">-&gt;</span><span class="n">loop_to</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>   <span class="cm">/* ----------------------+ */</span>
+
+    <span class="n">play_animation</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span> <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">stand</span><span class="p">);</span>
+
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">pos</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">pos</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">BASE_Y</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">wizard</span><span class="p">;</span>
+
+<span class="nl">error</span><span class="p">:</span>
+    <span class="n">destroy_wizard</span><span class="p">(</span><span class="n">wizard</span><span class="p">);</span>
+    <span class="n">ERROR</span><span class="p">(</span><span class="s">&quot;Unable to create wizard&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Destroying a wizard means destroying each and every
+created resource in the <strong>create_wizard</strong> function.
+If we fail to do so, we will introduce a memory leak
+to the game.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_wizard</span><span class="p">(</span><span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="n">wizard</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">wizard</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">destroy_animation</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">walk_right</span><span class="p">);</span>
+        <span class="n">destroy_animation</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="p">);</span>
+        <span class="n">destroy_animation</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">stand</span><span class="p">);</span>
+        <span class="n">destroy_image</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">);</span>
+        <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">);</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">wizard</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The wizard is controlled using the keyboard (for now).
+<strong>animate_wizard()</strong> sets the wizard animation
+based on the player keypresses and the animation user-data
+as it was set up in the <strong>create_wizard()</strong> function.</p>
+<p>We use the user-data value as a speed constant. This
+was setup as part of the animation.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">animate_wizard</span><span class="p">(</span><span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="n">wizard</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">px</span><span class="p">;</span>
+
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">active_anim</span><span class="p">;</span>
+    <span class="n">active_anim</span> <span class="o">=</span> <span class="n">key_down</span><span class="p">(</span><span class="n">KB_SPACE</span><span class="p">)</span> <span class="o">?</span> <span class="n">wizard</span><span class="o">-&gt;</span><span class="nl">spell</span> <span class="p">:</span> <span class="n">key_down</span><span class="p">(</span><span class="n">KB_RIGHT</span><span class="p">)</span>
+                                                       <span class="o">?</span> <span class="n">wizard</span><span class="o">-&gt;</span><span class="nl">walk_right</span>
+                                                       <span class="p">:</span> <span class="n">key_down</span><span class="p">(</span><span class="n">KB_LEFT</span><span class="p">)</span>
+                                                         <span class="o">?</span> <span class="n">wizard</span><span class="o">-&gt;</span><span class="nl">walk_left</span>
+                                                         <span class="p">:</span> <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">stand</span><span class="p">;</span>
+    <span class="n">play_animation</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span> <span class="n">active_anim</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="n">px</span> <span class="o">=</span> <span class="n">animate_sprite</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">speed</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="k">const</span> <span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">px</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">pos</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">wizard</span><span class="o">-&gt;</span><span class="n">speed</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-title-effect">
+<h2>The Title Effect<a class="headerlink" href="#the-title-effect" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/title.png"><img alt="_images/title.png" class="align-right" src="_images/title.png" style="width: 128px;" /></a>
+<p>At the beginning of the main game state, a title
+sprite will show up with a shining &#8220;bling&#8221; effect.
+<strong>game_title</strong> struct encapsulate both the sprite
+and the shine animation.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">game_title</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">sprite</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">bling</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">mask</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">spot</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">prepare_title</span><span class="p">(</span><span class="k">struct</span> <span class="n">game_title</span><span class="o">*</span> <span class="n">title</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">cleanup_title</span><span class="p">(</span><span class="k">struct</span> <span class="n">game_title</span><span class="o">*</span> <span class="n">title</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We create a sprite for the title and an animation
+with 6 frames.
+We also create a mask image for a spot and fade-in
+effect.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">prepare_title</span><span class="p">(</span><span class="k">struct</span> <span class="n">game_title</span><span class="o">*</span> <span class="n">title</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">f</span><span class="p">;</span>
+    <span class="n">title</span><span class="o">-&gt;</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/title.png&quot;</span><span class="p">),</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">15</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">sprite</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="n">title</span><span class="o">-&gt;</span><span class="n">bling</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">bling</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="n">add_frame</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">bling</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SECOND</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">f</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">f</span><span class="o">--</span><span class="p">)</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">bling</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">SECOND</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">title</span><span class="o">-&gt;</span><span class="n">bling</span><span class="o">-&gt;</span><span class="n">mode</span> <span class="o">=</span> <span class="n">FREEZE_LAST_FRAME</span><span class="p">;</span>
+
+    <span class="n">title</span><span class="o">-&gt;</span><span class="n">mask</span> <span class="o">=</span> <span class="n">create_target_image</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="n">color_from_RGB</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">mask</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="n">set_blend_mode</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">mask</span><span class="p">,</span> <span class="n">MULTIPLY</span><span class="p">);</span>
+    <span class="n">title</span><span class="o">-&gt;</span><span class="n">spot</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/spot.png&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">spot</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="n">set_blend_mode</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">spot</span><span class="p">,</span> <span class="n">ADD</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="nl">error</span><span class="p">:</span>
+    <span class="n">ERROR</span><span class="p">(</span><span class="s">&quot;Unable to prepare title&quot;</span><span class="p">);</span>
+    <span class="n">cleanup_title</span><span class="p">(</span><span class="n">title</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">cleanup_title</span><span class="p">(</span><span class="k">struct</span> <span class="n">game_title</span><span class="o">*</span> <span class="n">title</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">);</span>
+    <span class="n">destroy_animation</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">bling</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">spot</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">title</span><span class="o">-&gt;</span><span class="n">mask</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-decorative-tree">
+<h2>A Decorative Tree<a class="headerlink" href="#a-decorative-tree" title="Permalink to this headline">¶</a></h2>
+<p>I just added another sprite to use as an
+animated scenery element, for fun..</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">tree</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">sprite</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">windblow</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">prepare_tree</span><span class="p">(</span><span class="k">struct</span> <span class="n">tree</span><span class="o">*</span> <span class="n">tree</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">tree</span><span class="o">-&gt;</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/tree.png&quot;</span><span class="p">),</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">sprite</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_sprite</span><span class="p">;</span>
+    <span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_animation</span><span class="p">;</span>
+    <span class="n">add_frame</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">SECOND</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">add_frame</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">SECOND</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span><span class="o">-&gt;</span><span class="n">loop_from</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span><span class="o">-&gt;</span><span class="n">loop_to</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="nl">cleanup_animation</span><span class="p">:</span>
+    <span class="n">destroy_animation</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span><span class="p">);</span>
+<span class="nl">cleanup_sprite</span><span class="p">:</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">);</span>
+<span class="nl">error</span><span class="p">:</span>
+    <span class="n">ERROR</span><span class="p">(</span><span class="s">&quot;Unable to prepare tree&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">cleanup_tree</span><span class="p">(</span><span class="k">struct</span> <span class="n">tree</span><span class="o">*</span> <span class="n">tree</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">);</span>
+    <span class="n">destroy_animation</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">windblow</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tying-everything-together">
+<h2>Tying everything together<a class="headerlink" href="#tying-everything-together" title="Permalink to this headline">¶</a></h2>
+<p><strong>level_data</strong> is stored in the state data
+variable.
+We populate the state data using the return
+value of the create state function.
+The same data pointer is passed back to
+the update and destory functions.
+This is the perfect place to store anything we
+need to work with: characters, sprites, tiles,
+timelines and the likes.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">level_data</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">game_title</span> <span class="n">title</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">wizard</span><span class="o">*</span> <span class="n">wizard</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">grass_tile</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">earth_tile</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">tree</span> <span class="n">tree</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">timeline</span><span class="o">*</span> <span class="n">timeline</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">font</span><span class="o">*</span> <span class="n">font</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sound</span><span class="o">*</span> <span class="n">music</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="nf">create_level_data</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_level_data</span><span class="p">(</span><span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>slide_title_in()</strong>, <strong>slide_title_out()</strong> and
+<strong>bling_title()</strong> are used by the level
+timeline to animate the title.</p>
+<p>We use cosine interpolation to slide the title in
+and out, creating a smoother effect.</p>
+<p><strong>progress</strong> will hold a value between 0 to 1
+based on the event progess/duration, making it ideal
+for use with interpolation functions.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">before_title_in</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">108</span> <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span> <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">progress</span><span class="p">);</span>
+    <span class="n">clear_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">color_from_RGB</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+    <span class="n">draw_on_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">mask</span><span class="p">);</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">spot</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">draw_on_screen</span><span class="p">();</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">slide_title_in</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">108</span> <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span> <span class="p">};</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">clear_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span>
+                <span class="n">color_from_RGB</span><span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="n">progress</span><span class="p">,</span> <span class="mi">255</span> <span class="o">*</span> <span class="n">progress</span><span class="p">,</span> <span class="mi">255</span> <span class="o">*</span> <span class="n">progress</span><span class="p">));</span>
+    <span class="n">draw_on_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">mask</span><span class="p">);</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">spot</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">draw_on_screen</span><span class="p">();</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">draw_sprite</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span>
+                <span class="n">interpolate</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">circular_ease_out</span><span class="p">),</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">slide_title_out</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">draw_sprite</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span>
+                <span class="n">interpolate</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">circular_ease_in</span><span class="p">),</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="n">set_volume</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">music</span><span class="p">,</span> <span class="n">clamp</span><span class="p">(</span><span class="mf">1.0f</span> <span class="o">-</span> <span class="n">progress</span><span class="p">,</span> <span class="mf">0.2f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">));</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">bling_title</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">,</span> <span class="kt">float</span> <span class="n">progress</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">draw_sprite</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">progress</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">)</span> <span class="n">play_animation</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span> <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">bling</span><span class="p">);</span>
+    <span class="n">animate_sprite</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>level_data</strong> is created and populated with
+level specific entities. Some entities require further
+initialization, such as the timeline.
+A timeline allows creating a sequence of events
+on a, well.. time line. Each event has a start time,
+duration and callback function the will get called
+each time the timeline is updated and if the event
+is active.
+We use a timeline to animate the title, creating 3
+events: (1) slide the title into the screen (2)
+make the title &#8220;bling&#8221; and (3) slide the title out
+of the screen.
+Using the SECOND and SECONDS constant is for
+the sake of readability only.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="nf">create_level_data</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">ldata</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+
+    <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span> <span class="o">=</span> <span class="n">create_wizard</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_level_data</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">prepare_title</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_level_data</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">prepare_tree</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">tree</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_level_data</span><span class="p">;</span>
+
+    <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">grass_tile</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/grass_tile.png&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">grass_tile</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_level_data</span><span class="p">;</span>
+
+    <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">earth_tile</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/earth_tile.png&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">earth_tile</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_level_data</span><span class="p">;</span>
+
+    <span class="n">play_animation</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">tree</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span> <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">tree</span><span class="p">.</span><span class="n">windblow</span><span class="p">);</span>
+
+    <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span> <span class="o">=</span> <span class="n">create_timeline</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_level_data</span><span class="p">;</span>
+    <span class="n">append_event</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">SECOND</span><span class="p">,</span> <span class="n">before_title_in</span><span class="p">);</span>
+    <span class="n">append_event</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">SECOND</span><span class="p">,</span> <span class="n">slide_title_in</span><span class="p">);</span>
+    <span class="n">append_event</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">SECONDS</span><span class="p">,</span> <span class="n">bling_title</span><span class="p">);</span>
+    <span class="n">append_event</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">SECOND</span><span class="p">,</span> <span class="n">slide_title_out</span><span class="p">);</span>
+
+    <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">font</span> <span class="o">=</span> <span class="n">create_font</span><span class="p">(</span><span class="s">&quot;res/font.png&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">font</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">cleanup_level_data</span><span class="p">;</span>
+
+    <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">music</span> <span class="o">=</span> <span class="n">create_sound</span><span class="p">(</span><span class="s">&quot;res/wizard.ogg&quot;</span><span class="p">);</span>
+    <span class="n">play_sound</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">music</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">ldata</span><span class="p">;</span>
+
+<span class="nl">cleanup_level_data</span><span class="p">:</span>
+    <span class="n">destroy_level_data</span><span class="p">(</span><span class="n">ldata</span><span class="p">);</span>
+
+<span class="nl">error</span><span class="p">:</span>
+    <span class="n">ERROR</span><span class="p">(</span><span class="s">&quot;Unable to create level data&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>All good things come to an end, and
+just like after a fine dinner, someone has to do
+the dishes.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_level_data</span><span class="p">(</span><span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">destroy_sound</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">music</span><span class="p">);</span>
+    <span class="n">destroy_font</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">font</span><span class="p">);</span>
+    <span class="n">cleanup_title</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">);</span>
+    <span class="n">cleanup_tree</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">tree</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">grass_tile</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">earth_tile</span><span class="p">);</span>
+    <span class="n">destroy_wizard</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="p">);</span>
+    <span class="n">destroy_timeline</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">ldata</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-game-state-functions">
+<h2>The Game State Functions<a class="headerlink" href="#the-game-state-functions" title="Permalink to this headline">¶</a></h2>
+<p><strong>create_level()</strong> is called by Cage before the game loop
+starts to update frames. This is the place
+to setup the level and its data.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_level</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">create_level_data</span><span class="p">();</span>
+    <span class="n">screen_color</span><span class="p">(</span><span class="n">color_from_RGB</span><span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">250</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>draw_level()</strong> draws the game frames, using
+the content of the level (the wizard, level tiles, monsters, etc..).
+It uses the level_data stored inside the data arg as well
+as the LEVEL string that represents the level map using
+ascii chars as tiles index;</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_level</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">tile_size</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span> <span class="p">};</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">fps</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="n">sprintf</span><span class="p">(</span><span class="n">fps</span><span class="p">,</span> <span class="s">&quot;FPS:%02.0f&quot;</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">/</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">active_animation</span> <span class="o">==</span> <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">spell</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">current_frame</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="n">shake_screen</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">relax_screen</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">LEVEL</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">LEVEL</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">13</span><span class="p">);</span>
+            <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">13</span><span class="p">);</span>
+            <span class="n">draw_image</span><span class="p">(</span><span class="n">LEVEL</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;-&#39;</span> <span class="o">?</span> <span class="n">ldata</span><span class="o">-&gt;</span><span class="nl">grass_tile</span> <span class="p">:</span> <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">earth_tile</span><span class="p">,</span>
+                       <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tile_size</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">draw_sprite</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">tree</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">56</span><span class="p">);</span>
+    <span class="n">draw_sprite</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span>
+                <span class="n">xy</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">pos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">pos</span><span class="p">.</span><span class="n">y</span><span class="p">));</span>
+
+    <span class="n">draw_text</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">font</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>update_level()</strong> is called by the Cage game loop for every frame
+and has to update the game state ( animations, positions, etc..)
+as well as redraw the frame using <strong>draw_level()</strong>.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">update_level</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">animate_wizard</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">wizard</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">animate_sprite</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">tree</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">draw_level</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">update_timeline</span><span class="p">(</span><span class="n">ldata</span><span class="o">-&gt;</span><span class="n">timeline</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key_pressed</span><span class="p">(</span><span class="n">KB_ESC</span><span class="p">))</span> <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>destory_level()</strong> is called by the Cage game loop once the state
+is invalidated (by setting a different game state) or when the
+game exits.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_level</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">level_data</span><span class="o">*</span> <span class="n">ldata</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ldata</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">destroy_level_data</span><span class="p">(</span><span class="n">ldata</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Nothing much in here, just a setting the
+initial game state and starting the
+game loop.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_level</span><span class="p">,</span> <span class="n">update_level</span><span class="p">,</span> <span class="n">destroy_level</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="advanced.html" class="btn btn-neutral float-right" title="(More) Advanced" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="collisions_sample.html" class="btn btn-neutral" title="samples / collisions.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

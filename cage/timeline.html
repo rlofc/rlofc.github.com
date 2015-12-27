@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>timeline &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="sound" href="sound.html"/>
+        <link rel="prev" title="animationx" href="animate.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">timeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#struct-timeline">struct timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#struct-timeline-event">struct timeline_event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-timeline">create_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-timeline">destroy_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#append-event">append_event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#append-events">append_events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-timeline">update_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#init-timeline">init_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pause-timeline">pause_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reset-timeline">reset_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cleanup-timeline">cleanup_timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#easing">Easing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>timeline</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="timeline">
+<h1>timeline<a class="headerlink" href="#timeline" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struct-timeline">
+<h2>struct timeline<a class="headerlink" href="#struct-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv28timeline">
+<span id="timeline"></span><span class="target" id="project0structtimeline"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">timeline</code><a class="headerlink" href="#_CPPv28timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>A timeline holds a sequence of events on a, well.. time line. Each event has a start time, a duration and a callback function. The callback gets called each time the timeline is updated, as long as the event is active.</p>
+<p>You can use a time line to sequence animations, cut-scenes, in-level scenes and other event-driven behaviors.</p>
+<p>Events in a timeline cannot overlap. If you need events to overlap (such as in a dialogue) you will need to create more than one timeline, just like you would have separate tracks in a video editor or an animation software. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="struct-timeline-event">
+<h2>struct timeline_event<a class="headerlink" href="#struct-timeline-event" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv214timeline_event">
+<span id="timeline_event"></span><span class="target" id="project0structtimeline__event"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">timeline_event</code><a class="headerlink" href="#_CPPv214timeline_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timeline event holds a single registered event in a timeline. Timeline events can have a gap of time between the last scheduled event. Timeline events can also have a duration, which makes them long-running events. The manifestation of a timeline event is a callback call. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-timeline">
+<h2>create_timeline<a class="headerlink" href="#create-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv215create_timelinev">
+<span id="create_timeline__void"></span><span class="target" id="project0timeline_8h_1a3e5d1671da26de5e7f20051c582a0adb"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<code class="descclassname"></code><code class="descname">create_timeline</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215create_timelinev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate and prepare a new timeline ready for use.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>- an allocated, ready to use timeline. </dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="destroy-timeline">
+<h2>destroy_timeline<a class="headerlink" href="#destroy-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv216destroy_timelineP8timeline">
+<span id="destroy_timeline__timelineP"></span><span class="target" id="project0timeline_8h_1ac452b413c6f071a2f8b3ba6ef9d7e3ba"></span>void <code class="descclassname"></code><code class="descname">destroy_timeline</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<em>timeline</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216destroy_timelineP8timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy a previously created timeline </p>
+</dd></dl>
+
+</div>
+<div class="section" id="append-event">
+<h2>append_event<a class="headerlink" href="#append-event" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<span class="target" id="project0timeline_8h_1adcb1d1eb06a6b25f57d893db6cbb9069"></span><code class="descname">int append_event(struct  timeline  * timeline, void *(*callback)(void *data, float elapsed_ms, float progress))</code></dt>
+<dd><p>Append an event to the timeline <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>-1 on error or the new event index </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">timeline</span></code> - <p>Timeline to append the event to </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">wait</span></code> - <p>Time to wait after the last event </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">duration</span></code> - <p>Time to actively call the callback or 0 for a single call </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">callback</span></code> - <p>Callback function to call to</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="append-events">
+<h2>append_events<a class="headerlink" href="#append-events" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213append_eventsP8timelineiA_14timeline_event">
+<span id="append_events__timelineP.i.timeline_eventA"></span><span class="target" id="project0timeline_8h_1a77f79562699cbb05799f83af578ec13f"></span>int <code class="descclassname"></code><code class="descname">append_events</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<em>timeline</em>, int <em>nevents</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv214timeline_event" title="timeline_event">timeline_event</a> <em>events</em>[]<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213append_eventsP8timelineiA_14timeline_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append an set of events to the timeline <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>-1 on error or the number of appended events </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">timeline</span></code> - <p>Timeline to append the events to </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">nevents</span></code> - <p>Number of events to append </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">events</span></code> - <p><a class="reference internal" href="#project0structtimeline__event"><span>timeline_event</span></a> array</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="update-timeline">
+<h2>update_timeline<a class="headerlink" href="#update-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv215update_timelineP8timelinePvf">
+<span id="update_timeline__timelineP.voidP.float"></span><span class="target" id="project0timeline_8h_1a5797e1faf1b265f52eb79be2ef0058e1"></span>void *<code class="descclassname"></code><code class="descname">update_timeline</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<em>timeline</em>, void *<em>data</em>, float <em>elapsed_ms</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215update_timelineP8timelinePvf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the timeline timers and invoke event callbacks </p>
+</dd></dl>
+
+</div>
+<div class="section" id="init-timeline">
+<h2>init_timeline<a class="headerlink" href="#init-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213init_timelineP8timeline">
+<span id="init_timeline__timelineP"></span><span class="target" id="project0timeline_8h_1ab55b80c495cb8e163e627def7094f1ab"></span>void <code class="descclassname"></code><code class="descname">init_timeline</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<em>timeline</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213init_timelineP8timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to prepare an already allocated timeline </p>
+</dd></dl>
+
+</div>
+<div class="section" id="pause-timeline">
+<h2>pause_timeline<a class="headerlink" href="#pause-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214pause_timelineP8timeline">
+<span id="pause_timeline__timelineP"></span><span class="target" id="project0timeline_8h_1a5fee4a8173954f4f0ce03b1e0fd6a961"></span>void <code class="descclassname"></code><code class="descname">pause_timeline</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<em>timeline</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214pause_timelineP8timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pause a running timeline, stopping any running timer accounting. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="reset-timeline">
+<h2>reset_timeline<a class="headerlink" href="#reset-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214reset_timelineP8timeline">
+<span id="reset_timeline__timelineP"></span><span class="target" id="project0timeline_8h_1a09a2e13b6c0e9cdacc50a52c36115838"></span>void <code class="descclassname"></code><code class="descname">reset_timeline</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<em>timeline</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214reset_timelineP8timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset &amp; restart a running or completed timeline. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="cleanup-timeline">
+<h2>cleanup_timeline<a class="headerlink" href="#cleanup-timeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv216cleanup_timelineP8timeline">
+<span id="cleanup_timeline__timelineP"></span><span class="target" id="project0timeline_8h_1aacf22f06e818c07d88b94b508ededbcb"></span>void <code class="descclassname"></code><code class="descname">cleanup_timeline</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv28timeline" title="timeline">timeline</a> *<em>timeline</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216cleanup_timelineP8timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans a used timeline, but does not deallocate it </p>
+</dd></dl>
+
+</div>
+<div class="section" id="easing">
+<h2>Easing<a class="headerlink" href="#easing" title="Permalink to this headline">¶</a></h2>
+<p>Using easing interpolation functions you can use the progress
+argument in the timeline callbacks to create a factor value for
+animation effects such as smoothing the motion of a game title
+or even bouncing a ball.</p>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv211interpolatefffPFffE">
+<span class="target" id="project0easing_8h_1a8dbb22dcf4ec086b986ec9837c1346c3"></span>float <code class="descname">interpolate</code><span class="sig-paren">(</span>float <em>from</em>, float <em>to</em>, float <em>amount</em>, float (*<em>easing</em>)<span class="sig-paren">(</span>float<span class="sig-paren">)</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv211interpolatefffPFffE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolate two values using an easing function <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>interpolated value </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">from</span></code> - <p>start value </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">to</span></code> - <p>end value </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">amount</span></code> - <p>a value from 0 to 1 </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">easing</span></code> - <p>one of the following easing functions</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv220linear_interpolationf">
+<span id="linear_interpolation__float"></span><span class="target" id="project0easing_8h_1a7557495c9297904881047c89c430f9b4"></span>float <code class="descname">linear_interpolation</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv220linear_interpolationf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                      _.-&#39;
+|                 _,,-&#39;
+|             _.-&#39;
+|         ,,-&#39;
+|    _,-&#39;&#39;
+|,.-&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv217quadratic_ease_inf">
+<span id="quadratic_ease_in__float"></span><span class="target" id="project0easing_8h_1a4a1d83741004b890cfcc2b82ea2ea026"></span>float <code class="descname">quadratic_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv217quadratic_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                          &#39;
+|                        ,&#39;
+|                      ,&#39;
+|                   _,&#39;
+|              _,.-&#39;
+| .........--&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv218quadratic_ease_outf">
+<span id="quadratic_ease_out__float"></span><span class="target" id="project0easing_8h_1a2136c9ee15cc3963df1c1454a0adcfba"></span>float <code class="descname">quadratic_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv218quadratic_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|            _..,----&#39;&#39;&#39;&#39;---
+|        ,,-&#39;
+|     ,-&#39;
+|   ,&#39;
+| ,&#39;
+|&lt;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv221quadratic_ease_in_outf">
+<span id="quadratic_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a86852f16e66c8d54b7fffcb0c5da1644"></span>float <code class="descname">quadratic_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv221quadratic_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                   _,,..--
+|                ,-&#39;
+|              ,&#39;
+|             &#39;
+|          _,&#39;
+|--....,-&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv213cubic_ease_inf">
+<span id="cubic_ease_in__float"></span><span class="target" id="project0easing_8h_1ab8777aa48b42a441388e5c16b8b89ad5"></span>float <code class="descname">cubic_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213cubic_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                          &#39;
+|                        ,&#39;
+|                      ,&#39;
+|                   _,&#39;
+|              _,.-&#39;
+| .........--&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv214cubic_ease_outf">
+<span id="cubic_ease_out__float"></span><span class="target" id="project0easing_8h_1a0e2f84b19e1ba24adcc3b4c4246b3bf4"></span>float <code class="descname">cubic_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214cubic_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|            _..,----&#39;&#39;&#39;&#39;---
+|        ,,-&#39;
+|     ,-&#39;
+|   ,&#39;
+| ,&#39;
+|&lt;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv217cubic_ease_in_outf">
+<span id="cubic_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a1b18fe63f937d570cfeee18e1e8f6b5b"></span>float <code class="descname">cubic_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv217cubic_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                   _,,..--
+|                ,-&#39;
+|              ,&#39;
+|             &#39;
+|          _,&#39;
+|--....,-&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv215quartic_ease_inf">
+<span id="quartic_ease_in__float"></span><span class="target" id="project0easing_8h_1a307ca6589a4ddc987a8505af6d8a5f22"></span>float <code class="descname">quartic_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215quartic_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                          /
+|                         /
+|                        /
+|                      ,&#39;
+|                  _,-&#39;
+|...________,,..--&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv216quartic_ease_outf">
+<span id="quartic_ease_out__float"></span><span class="target" id="project0easing_8h_1a36ef4f99c548fbdd82107c5b02d67c47"></span>float <code class="descname">quartic_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216quartic_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|          _,..,---------...
+|     ,,-&#39;&#39;
+|   ,&#39;
+|  /
+| /
+|`
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv219quartic_ease_in_outf">
+<span id="quartic_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a45ca0bef4aa72aac8c8148d07b69cf71"></span>float <code class="descname">quartic_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv219quartic_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                  _..------
+|                ,&#39;
+|              .-
+|              +
+|            _/
+|..____,,.--&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv215quintic_ease_inf">
+<span id="quintic_ease_in__float"></span><span class="target" id="project0easing_8h_1ad0fa925ae0deed06e327d678cb18af8c"></span>float <code class="descname">quintic_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215quintic_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                           |
+|                           |
+|                          /
+|                        ,&#39;
+|                   _,.-&#39;
+|..............--&#39;&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv216quintic_ease_outf">
+<span id="quintic_ease_out__float"></span><span class="target" id="project0easing_8h_1a47eb8ad5d66856129215cd94d356099f"></span>float <code class="descname">quintic_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216quintic_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|        __..--&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;--
+|    ,-&#39;&#39;
+|  ,&#39;
+| /
+||
+||
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv219quintic_ease_in_outf">
+<span id="quintic_ease_in_out__float"></span><span class="target" id="project0easing_8h_1ab430b3eda72b4c0ba46bf4d2b67f0fce"></span>float <code class="descname">quintic_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv219quintic_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                 _..-------
+|               ,&#39;
+|              |
+|              &#39;
+|             /
+|..__,,....--&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv212sine_ease_inf">
+<span id="sine_ease_in__float"></span><span class="target" id="project0easing_8h_1a43be1c614e9b48da2a137f4d09824712"></span>float <code class="descname">sine_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212sine_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                         _,
+|                       ,&#39;
+|                     ,&#39;
+|                 _.-&#39;
+|             _.-&#39;
+|..._,,..,--&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv213sine_ease_outf">
+<span id="sine_ease_out__float"></span><span class="target" id="project0easing_8h_1acab14b2bf430dd589698bd1d886c1c28"></span>float <code class="descname">sine_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213sine_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                  __...----
+|            _,.-&#39;&#39;
+|         ,,&#39;
+|     _.-&#39;
+|  ,-&#39;
+|-&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv216sine_ease_in_outf">
+<span id="sine_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a3530837eb9c2a4666f52c61e12376489"></span>float <code class="descname">sine_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216sine_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                      ___..
+|                  ,-&#39;&#39;
+|               ,-&#39;
+|             ,-
+|        __.-&#39;
+|.,----&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv216circular_ease_inf">
+<span id="circular_ease_in__float"></span><span class="target" id="project0easing_8h_1aa9f4a5eb27c0a77da24772e28d0ed87e"></span>float <code class="descname">circular_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216circular_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                          |
+|                         ,&#39;
+|                      _,&#39;
+|                  _,-&#39;
+|          _,.--&#39;&#39;&#39;
+|__...---&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv217circular_ease_outf">
+<span id="circular_ease_out__float"></span><span class="target" id="project0easing_8h_1a007203272588af3f7e7039f45ac00915"></span>float <code class="descname">circular_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv217circular_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                 _,,.....,-
+|        _,,.---&#39;&#39;
+|    _,-&#39;
+|  ,&#39;
+|,&#39;
+|/
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv220circular_ease_in_outf">
+<span id="circular_ease_in_out__float"></span><span class="target" id="project0easing_8h_1ae601f3e68b4b0873143ea889efb55c9f"></span>float <code class="descname">circular_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv220circular_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                  _,..-----
+|              ,-&#39;&#39;
+|             &#39;.
+|             ]
+|        _,,.-
+|_,.---&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv219exponential_ease_inf">
+<span id="exponential_ease_in__float"></span><span class="target" id="project0easing_8h_1a2e402f10282e8d7de5ee820ab4d66979"></span>float <code class="descname">exponential_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv219exponential_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                           .
+|                           |
+|                           |
+|                         ,&#39;
+|                     _,-&#39;
+|..._________.....--&#39;&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv220exponential_ease_outf">
+<span id="exponential_ease_out__float"></span><span class="target" id="project0easing_8h_1ac48c8cfebf0b162b1b01d6fa4bf09721"></span>float <code class="descname">exponential_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv220exponential_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|       _,.--&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;`----
+|    ,,&#39;
+|  ,&#39;
+| /
+|.&#39;
+||
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv223exponential_ease_in_outf">
+<span id="exponential_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a40b85e91074da7bb36a260a30c06ca48"></span>float <code class="descname">exponential_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv223exponential_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>1               _,,--&#39;&#39;&#39;&#39;&#39;--
+|              /
+|             |
+|             |
+|            ,&#39;
+|..._,,....--
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv215elastic_ease_inf">
+<span id="elastic_ease_in__float"></span><span class="target" id="project0easing_8h_1a4494a35e4826d6f6ad715ca9baca5ba5"></span>float <code class="descname">elastic_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215elastic_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>1                          )
+|                         .&#39;
+|                         |
+|                         |
+|                _..     |
+|__...----.   ,--   ;    /
++----------`&#39;&#39;-------+--+---
+|                    `-
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv216elastic_ease_outf">
+<span id="elastic_ease_out__float"></span><span class="target" id="project0easing_8h_1a526c601c9b218dc5f75fbee559f8e8d4"></span>float <code class="descname">elastic_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216elastic_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>| ,--
+1 |   `.   &lt;&#39;&#39;`.__
+| |    :_ ,&#39;      `&#39;------&#39;
+| |      &#39;
+||
+||
+||
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv219elastic_ease_in_outf">
+<span id="elastic_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a254c725236ce22f79c2b080f79fa9dd8"></span>float <code class="descname">elastic_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv219elastic_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|             _,\      _.._
+1             /   `._,&#39;&#39;
+|            .&#39;
+|            |
+|           |
+|          .&#39;
+|_,,-&#39;&#39;;   &#39;
++-------`=+-----------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv212back_ease_inf">
+<span id="back_ease_in__float"></span><span class="target" id="project0easing_8h_1a0c3bb4e762483778447e43e0af37c82b"></span>float <code class="descname">back_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212back_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>1                          ,
+|                        ,&#39;
+|                       /
+|                     ,&#39;
+|                   ,&#39;
+|._               ,&#39;
++--`..=------=,,-&#39;----------
+|     `&#39;&#39;&#39;&#39;&#39;
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv213back_ease_outf">
+<span id="back_ease_out__float"></span><span class="target" id="project0easing_8h_1a39ae7753967214e2e082edc6fe9382a9"></span>float <code class="descname">back_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213back_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|        _,.------...__
+1      ,-&#39;              `--.
+|    ,&#39;
+|   /
+|  /
+| /
+|/
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv216back_ease_in_outf">
+<span id="back_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a2ce5310b8a4f5339ff6743ce08a48e3c"></span>float <code class="descname">back_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv216back_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|               _,----..
+1               /        `-.
+|              /
+|             |
+|             &#39;
+|            /
+|_          /
++-`.=-----,&#39;----------------
+|   ``-&#39;&#39;
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv214bounce_ease_inf">
+<span id="bounce_ease_in__float"></span><span class="target" id="project0easing_8h_1ad66dfe0fc7df3a63942a772de55d6f99"></span>float <code class="descname">bounce_ease_in</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214bounce_ease_inf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                        _,.
+|                     ,-&#39;
+|                    /
+|              _    .&#39;
+| _._ ,-&#39;-. ,-&#39; `-. |
+|-   &#39;     &#39;       &#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv215bounce_ease_outf">
+<span id="bounce_ease_out__float"></span><span class="target" id="project0easing_8h_1a0720f9567ffb1751b8ccb1898a2637e7"></span>float <code class="descname">bounce_ease_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215bounce_ease_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|         \     `.   ,&#39;. _.
+|        | `-.-&#39;  `-&#39;   &#39;
+|        /
+|       /
+|     ,&#39;
+|..--&#39;
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv218bounce_ease_in_outf">
+<span id="bounce_ease_in_out__float"></span><span class="target" id="project0easing_8h_1a5710ec08b617d344ebb96a8ab2d68755"></span>float <code class="descname">bounce_ease_in_out</code><span class="sig-paren">(</span>float <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv218bounce_ease_in_outf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function Graph: <div class="highlight-c"><div class="highlight"><pre>|                 /\   &#39;_,&#39;/
+|                ,&#39; `-&#39;
+|              ,&#39;
+|          ,&#39;-&#39;
+|     .--.|
+|,-`.&#39;   &#39;|
++---------------------------
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sound.html" class="btn btn-neutral float-right" title="sound" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="animate.html" class="btn btn-neutral" title="animationx" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

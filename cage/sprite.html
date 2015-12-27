@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sprite &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="animationx" href="animate.html"/>
+        <link rel="prev" title="font" href="font.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">sprite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#struct-sprite">struct sprite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-sprite">create_sprite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-sprite">destroy_sprite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-sprite">prepare_sprite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#draw-sprite">draw_sprite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#draw-sprite-frame">draw_sprite_frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#animate-sprite">animate_sprite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#play-animation">play_animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stop-animation">stop_animation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>sprite</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sprite">
+<h1>sprite<a class="headerlink" href="#sprite" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struct-sprite">
+<h2>struct sprite<a class="headerlink" href="#struct-sprite" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv26sprite">
+<span id="sprite"></span><span class="target" id="project0structsprite"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">sprite</code><a class="headerlink" href="#_CPPv26sprite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sprites use images sliced into frames to play short animations. Sprites can be used for game characters, props, tiles and titles. To create a sprite, you will need to create an image containing a set of fixed-sized frames and then pass it to <a class="reference internal" href="#project0sprite_8h_1ac94b40ccb41b9d99e239257b84c1bbf2"><span>create_sprite()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">wizard</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="n">wizard</span> <span class="o">=</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="s">&quot;wizard.png&quot;</span><span class="p">,</span> <span class="n">screen</span><span class="p">),</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Note that by creating both the sprite and the image, you are responsible to the clean-up once you&#8217;re done: <div class="highlight-c"><div class="highlight"><pre><span class="n">destroy_image</span><span class="p">(</span><span class="n">wizard</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">);</span>
+<span class="n">destroy_sprite</span><span class="p">(</span><span class="n">wizard</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>To animate a sprite, you need to create /ref animation instances, indicating the frames to play. To actually play an animation, use <a class="reference internal" href="#project0sprite_8h_1a7c5b5ecf68a20b419adcd1eacd41c67a"><span>play_animation()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="n">play_animation</span><span class="p">(</span><span class="n">wizard</span><span class="p">,</span> <span class="n">walk</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Finally, to update the sprite animation, call <a class="reference internal" href="#project0sprite_8h_1ab44384aaae81376abba72b15a75e6bf7"><span>animate_sprite()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">animate_sprite</span><span class="p">(</span><span class="n">wizard</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">-&gt;</span><span class="n">stopwatch</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Once a frame that has a user-data associated with it is played, you will get the data pointer back. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-sprite">
+<h2>create_sprite<a class="headerlink" href="#create-sprite" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213create_spriteP5imageii">
+<span id="create_sprite__imageP.i.i"></span><span class="target" id="project0sprite_8h_1ac94b40ccb41b9d99e239257b84c1bbf2"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<code class="descclassname"></code><code class="descname">create_sprite</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="image.html#_CPPv25image" title="image">image</a> *<em>image</em>, int <em>w</em>, int <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213create_spriteP5imageii" title="Permalink to this definition">¶</a></dt>
+<dd><p>allocate and initialize a new sprite <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>valid sprite pointer or NULL on error </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>sprite <a class="reference internal" href="image.html#project0structimage"><span>image</span></a> </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">w</span></code> - <p>sprite frame width </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">h</span></code> - <p>sprite frame height</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="destroy-sprite">
+<h2>destroy_sprite<a class="headerlink" href="#destroy-sprite" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214destroy_spriteP6sprite">
+<span id="destroy_sprite__spriteP"></span><span class="target" id="project0sprite_8h_1a18751d8707a0cad46c9d05f64abeea55"></span>void <code class="descclassname"></code><code class="descname">destroy_sprite</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<em>sprite</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214destroy_spriteP6sprite" title="Permalink to this definition">¶</a></dt>
+<dd><p>destroy an allocated sprite <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sprite</span></code> - <p>sprite created using <a class="reference internal" href="#project0sprite_8h_1ac94b40ccb41b9d99e239257b84c1bbf2"><span>create_sprite()</span></a>. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="prepare-sprite">
+<h2>prepare_sprite<a class="headerlink" href="#prepare-sprite" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214prepare_spriteP6spriteP5imageii">
+<span id="prepare_sprite__spriteP.imageP.i.i"></span><span class="target" id="project0sprite_8h_1a6dfbc972217929ad30da6fcde57b1585"></span>int <code class="descclassname"></code><code class="descname">prepare_sprite</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<em>sprite</em>, <em class="property">struct</em> <a class="reference internal" href="image.html#_CPPv25image" title="image">image</a> *<em>image</em>, int <em>frame_width</em>, int <em>frame_height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214prepare_spriteP6spriteP5imageii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a sprite from a sprite image file containing frame tiles. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>-1 on error </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sprite</span></code> - <p>sprite resource to generate </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>image containing the sprite frames. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">frame_width</span></code> - <p>width of each frame tile </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">frame_height</span></code> - <p>height of each frame tile</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="draw-sprite">
+<h2>draw_sprite<a class="headerlink" href="#draw-sprite" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv211draw_spriteP6spriteii">
+<span id="draw_sprite__spriteP.i.i"></span><span class="target" id="project0sprite_8h_1a065f4b57203a5b9bf7dbe5a481bd4948"></span>void <code class="descclassname"></code><code class="descname">draw_sprite</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<em>sprite</em>, int <em>x</em>, int <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv211draw_spriteP6spriteii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the active frame of the sprite. 
+If no sprite <a class="reference internal" href="animate.html#project0structanimation"><span>animation</span></a> is active, the first frame will be drawn. If an <a class="reference internal" href="animate.html#project0structanimation"><span>animation</span></a> is active, the animation state will determine the frame to draw. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sprite</span></code> - <p>sprite to use </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">x</span></code> - <p>x coordinates </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">y</span></code> - <p>y coordinates</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="draw-sprite-frame">
+<h2>draw_sprite_frame<a class="headerlink" href="#draw-sprite-frame" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv217draw_sprite_frameP6spriteiii">
+<span id="draw_sprite_frame__spriteP.i.i.i"></span><span class="target" id="project0sprite_8h_1a7819624a1f75d409863eee94693eac72"></span>void <code class="descclassname"></code><code class="descname">draw_sprite_frame</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<em>sprite</em>, int <em>x</em>, int <em>y</em>, int <em>frame</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv217draw_sprite_frameP6spriteiii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the specified frame of the sprite. 
+This function can be used to override any animation or just use a sprite for its sprite sheet. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sprite</span></code> - <p>sprite to use </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">x</span></code> - <p>x coordinates </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">y</span></code> - <p>y coordinates </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">frame</span></code> - <p>frame index to draw from the sprite sheet</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="animate-sprite">
+<h2>animate_sprite<a class="headerlink" href="#animate-sprite" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214animate_spriteP6sprite8uint32_t">
+<span id="animate_sprite__spriteP.uint32_t"></span><span class="target" id="project0sprite_8h_1ab44384aaae81376abba72b15a75e6bf7"></span>void *<code class="descclassname"></code><code class="descname">animate_sprite</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<em>sprite</em>, uint32_t <em>elapsed_ms</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214animate_spriteP6sprite8uint32_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the sprite animation state <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sprite</span></code> - <p>sprite to animate </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">elapsed_ms</span></code> - <p>time since last rendered frame (usually elapsed_ms) </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="play-animation">
+<h2>play_animation<a class="headerlink" href="#play-animation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214play_animationP6spriteP9animation">
+<span id="play_animation__spriteP.animationP"></span><span class="target" id="project0sprite_8h_1a7c5b5ecf68a20b419adcd1eacd41c67a"></span>void <code class="descclassname"></code><code class="descname">play_animation</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<em>sprite</em>, <em class="property">struct</em> <a class="reference internal" href="animate.html#_CPPv29animation" title="animation">animation</a> *<em>animation</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214play_animationP6spriteP9animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play a any binded sprite animation <dl class="docutils">
+<dt><strong>Note</strong></dt>
+<dd>If a previous animation keyframe is not through playing, the requested animation will be defered until the previous keyframe is completed. </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sprite</span></code> - <p>/ref sprite to use the animation for. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">animation</span></code> - <p>/ref animation to play.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="stop-animation">
+<h2>stop_animation<a class="headerlink" href="#stop-animation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214stop_animationP6sprite">
+<span id="stop_animation__spriteP"></span><span class="target" id="project0sprite_8h_1a61b86aa61647120d7d4b9863d77567cd"></span>void <code class="descclassname"></code><code class="descname">stop_animation</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv26sprite" title="sprite">sprite</a> *<em>sprite</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214stop_animationP6sprite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop any playing animation 
+Use this function to stop any currently playing or staged animation. This will clear any running animation and so any new animation activated using /ref play_animation will start immediately. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">sprite</span></code> - <p>/ref sprite to work on.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="animate.html" class="btn btn-neutral float-right" title="animationx" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="font.html" class="btn btn-neutral" title="font" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

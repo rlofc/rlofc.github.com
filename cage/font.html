@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>font &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="sprite" href="sprite.html"/>
+        <link rel="prev" title="image" href="image.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">font</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#struct-font">struct font</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-font">create_font</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-font">destroy_font</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-font">load_font</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cleanup-font">cleanup_font</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#draw-text">draw_text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#measure-text">measure_text</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>font</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="font">
+<h1>font<a class="headerlink" href="#font" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struct-font">
+<h2>struct font<a class="headerlink" href="#struct-font" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv24font">
+<span id="font"></span><span class="target" id="project0structfont"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">font</code><a class="headerlink" href="#_CPPv24font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use bitmap fonts to draw text Bitmap fonts are made from images with a matrix of characters in ascii order. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="create-font">
+<h2>create_font<a class="headerlink" href="#create-font" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv211create_fontPKcii">
+<span id="create_font__cCP.i.i"></span><span class="target" id="project0font_8h_1a066ebdeae86510cfc5e284cf1a0e5f70"></span><em class="property">struct</em> <a class="reference internal" href="#_CPPv24font" title="font">font</a> *<code class="descclassname"></code><code class="descname">create_font</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>filepath</em>, int <em>cols</em>, int <em>rows</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv211create_fontPKcii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new font from an image file <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>New font, ready to use </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">filepath</span></code> - <p>Image to use for font </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">cols</span></code> - <p>Number of columns in the font bitmap image. </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">rows</span></code> - <p>Number of rows in the font bitmap image.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="destroy-font">
+<h2>destroy_font<a class="headerlink" href="#destroy-font" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv212destroy_fontP4font">
+<span id="destroy_font__fontP"></span><span class="target" id="project0font_8h_1a71eb9a758c554145375e602dc9730300"></span>void <code class="descclassname"></code><code class="descname">destroy_font</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv24font" title="font">font</a> *<em>font</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212destroy_fontP4font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destory an existing font <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">font</span></code> - <p>Font to cleanup and deallocate </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="load-font">
+<h2>load_font<a class="headerlink" href="#load-font" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv29load_fontP4fontPKcii">
+<span id="load_font__fontP.cCP.i.i"></span><span class="target" id="project0font_8h_1a44171c8b85e68de41acefa23cdd3b778"></span>int <code class="descclassname"></code><code class="descname">load_font</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv24font" title="font">font</a> *<em>font</em>, <em class="property">const</em> char *<em>filepath</em>, int <em>cols</em>, int <em>rows</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv29load_fontP4fontPKcii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a font from a font image file containing 16x16 (256) characters <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>-1 on error </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">font</span></code> - <p>Font resource to generate </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">filepath</span></code> - <p>font image to load </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">cols</span></code> - <p>Number of columns in the font bitmap </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">rows</span></code> - <p>Number of rows in the font bitmap</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cleanup-font">
+<h2>cleanup_font<a class="headerlink" href="#cleanup-font" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv212cleanup_fontP4font">
+<span id="cleanup_font__fontP"></span><span class="target" id="project0font_8h_1afbe76660e22b5b1d4d8fac241fc87d00"></span>int <code class="descclassname"></code><code class="descname">cleanup_font</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv24font" title="font">font</a> *<em>font</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212cleanup_fontP4font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Free any internally allocated resources for the font <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>-1 on error </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">font</span></code> - <p>Font to cleanup</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="draw-text">
+<h2>draw_text<a class="headerlink" href="#draw-text" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv29draw_textP4fontPKcii">
+<span id="draw_text__fontP.cCP.i.i"></span><span class="target" id="project0font_8h_1a73a4f07f344f609cc26624716589f625"></span>void <code class="descclassname"></code><code class="descname">draw_text</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv24font" title="font">font</a> *<em>font</em>, <em class="property">const</em> char *<em>text</em>, int <em>x</em>, int <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv29draw_textP4fontPKcii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use font to render text <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">font</span></code> - <p>Font to use </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">text</span></code> - <p>text to render </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">x</span></code> - <p>x coordinates </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">y</span></code> - <p>y coordinates </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="measure-text">
+<h2>measure_text<a class="headerlink" href="#measure-text" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv212measure_textP4fontPKcPiPi">
+<span id="measure_text__fontP.cCP.iP.iP"></span><span class="target" id="project0font_8h_1a2e0728c67c47e8e741b7f1f6c387c676"></span>void <code class="descclassname"></code><code class="descname">measure_text</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv24font" title="font">font</a> *<em>font</em>, <em class="property">const</em> char *<em>text</em>, int *<em>width</em>, int *<em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212measure_textP4fontPKcPiPi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the expected width and height of some text using a font <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">font</span></code> - <p>Font to use </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">text</span></code> - <p>text to render </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">width</span></code> - <p>a pointer to where the width will be stored </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">height</span></code> - <p>a pointer to where the height will be stored </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sprite.html" class="btn btn-neutral float-right" title="sprite" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="image.html" class="btn btn-neutral" title="image" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Ithai Levi.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
