@@ -92,7 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
@@ -159,7 +159,7 @@ game visuals and sounds.</p>
 <span id="game_loop__create_func_t.update_func_t.destroy_func_t"></span><span class="target" id="project0cage_8h_1a50213fb1be04d5b6154a1b6538523db8"></span>int <code class="descclassname"></code><code class="descname">game_loop</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv213create_func_t" title="create_func_t">create_func_t</a> <em>create</em>, update_func_t <em>update</em>, destroy_func_t <em>destroy</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv29game_loop13create_func_t13update_func_t14destroy_func_t" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call this function to start your game. <div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">return</span> <span class="n">gameloop</span><span class="p">(</span><span class="n">create_game</span><span class="p">,</span> <span class="n">update_game</span><span class="p">,</span> <span class="n">destroy_game</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_game</span><span class="p">,</span> <span class="n">update_game</span><span class="p">,</span> <span class="n">destroy_game</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -267,7 +267,18 @@ the active game state using a new set of state functions:</p>
 <dl class="function">
 <dt id="_CPPv210game_state13create_func_t13update_func_t14destroy_func_t">
 <span id="game_state__create_func_t.update_func_t.destroy_func_t"></span><span class="target" id="project0cage_8h_1a9ca7e4584b38578b07dcb749366fd399"></span>void <code class="descclassname"></code><code class="descname">game_state</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv213create_func_t" title="create_func_t">create_func_t</a> <em>create</em>, update_func_t <em>update</em>, destroy_func_t <em>destroy</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv210game_state13create_func_t13update_func_t14destroy_func_t" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Call this function to change your game state functions. <div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">update_current_level</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Yay.. level was just completed, let&#39;s</span>
+    <span class="c1">// change the game state to the next level.</span>
+    <span class="n">game_state</span><span class="p">(</span><span class="n">create_next_level</span><span class="p">,</span>
+               <span class="n">update_next_level</span><span class="p">,</span>
+               <span class="n">destroy_next_level</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
 
 <p>For example:</p>
 <div class="highlight-c"><div class="highlight"><pre><span class="c1">// These are the level state functions</span>

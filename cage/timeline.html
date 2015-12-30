@@ -34,7 +34,7 @@
   
     <link rel="top" title="Cage  documentation" href="index.html"/>
         <link rel="next" title="sound" href="sound.html"/>
-        <link rel="prev" title="animationx" href="animate.html"/> 
+        <link rel="prev" title="animation" href="animate.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animate.html">animationx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">timeline</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#struct-timeline">struct timeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#struct-timeline-event">struct timeline_event</a></li>
@@ -202,7 +202,7 @@
 <h2>append_event<a class="headerlink" href="#append-event" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt>
-<span class="target" id="project0timeline_8h_1adcb1d1eb06a6b25f57d893db6cbb9069"></span><code class="descname">int append_event(struct  timeline  * timeline, void *(*callback)(void *data, float elapsed_ms, float progress))</code></dt>
+<span class="target" id="project0timeline_8h_1ad47aa6bdb5e368ff22b0187e5eede61f"></span><code class="descname">int append_event(struct  timeline  * timeline, uint32_t wait, uint32_t duration, void *(*callback)(void *data, float elapsed_ms, float progress))</code></dt>
 <dd><p>Append an event to the timeline <dl class="docutils">
 <dt><strong>Return</strong></dt>
 <dd>-1 on error or the new event index </dd>
@@ -807,7 +807,7 @@ or even bouncing a ball.</p>
         <a href="sound.html" class="btn btn-neutral float-right" title="sound" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="animate.html" class="btn btn-neutral" title="animationx" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="animate.html" class="btn btn-neutral" title="animation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

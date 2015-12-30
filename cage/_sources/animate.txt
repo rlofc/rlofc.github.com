@@ -1,5 +1,6 @@
-animationx
+animation
 =========
+
 .. highlight:: c
 
 struct animation
