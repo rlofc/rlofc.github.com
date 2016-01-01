@@ -91,10 +91,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#draw-image">draw_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-image-alpha">get_image_alpha</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-image-alpha">set_image_alpha</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-blend-mode">set_blend_mode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#load-image">load_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cleanup-image">cleanup_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lock-image">lock_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unlock-image">unlock_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#draw-on-image">draw_on_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pixels-collide">pixels_collide</a></li>
 </ul>
 </li>
@@ -104,6 +106,8 @@
 <li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
@@ -111,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
 </ul>
 
@@ -161,23 +166,23 @@
 <dl class="class">
 <dt id="_CPPv25image">
 <span id="image"></span><span class="target" id="project0structimage"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">image</code><a class="headerlink" href="#_CPPv25image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Images are the visual building blocks of your game. Use images to draw on screen, or as basis for sprites and fonts. Images can be read from a file or created empty and can be used to draw with or to provide frames for sprites or characters for fonts.</p>
+<dd><p>Images are the visual building blocks of your game. Use images to draw on screen, or as sources for sprites and fonts. Images can be read from a file or created empty and can be used directly or provide frames for sprites or characters for fonts.</p>
 <p>The simplest form of creating an image is by using <a class="reference internal" href="#project0image_8h_1a1cbf7c7aeaf550f3e337053c7bd4daa6"><span>create_image()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">image</span><span class="p">;</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;path/to/image.png&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </p>
-<p>Images can also be used to draw <strong>on</strong> instead of the screen: <div class="highlight-c"><div class="highlight"><pre><span class="n">draw_on_image</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<p>Images can also be used as a drawing target instead of the screen: <div class="highlight-c"><div class="highlight"><pre><span class="n">draw_on_image</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
 <span class="c1">// draw images, sprites or text</span>
 <span class="n">draw_on_screen</span><span class="p">();</span>
 </pre></div>
 </div>
 </p>
-<p>Images don&#8217;t just disappear. You will have to explicitly get rid of any image you create using <a class="reference internal" href="#project0image_8h_1a267f22fe90d90deaf77378006b2fb096"><span>destroy_image()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="n">destroy_image</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+<p>You will have to explicitly get rid of any image you create using <a class="reference internal" href="#project0image_8h_1a267f22fe90d90deaf77378006b2fb096"><span>destroy_image()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="n">destroy_image</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
 </pre></div>
 </div>
 </p>
-<p>If you fail to do so, you will have a memory leak. </p>
+<p>Not doing so will result a memory leak. </p>
 </dd></dl>
 
 </div>
@@ -324,6 +329,25 @@
 </dd></dl>
 
 </div>
+<div class="section" id="set-blend-mode">
+<h2>set_blend_mode<a class="headerlink" href="#set-blend-mode" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<span class="target" id="project0image_8h_1a210bd9693e2090f64a213e4d5672f879"></span><code class="descname">void set_blend_mode(struct  image  * image, enum  blend_mode blend_mode)</code></dt>
+<dd><p>Set the method to use when drawing an image <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p><a class="reference internal" href="#project0structimage"><span>image</span></a> The blend method will work for </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">blend_mode</span></code> - <p>The blend method to apply </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
 <div class="section" id="load-image">
 <h2>load_image<a class="headerlink" href="#load-image" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -414,6 +438,23 @@ Cleanup will free all internally allocated resources for this image, making it r
 </dd></dl>
 
 </div>
+<div class="section" id="draw-on-image">
+<h2>draw_on_image<a class="headerlink" href="#draw-on-image" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv213draw_on_imageP5image">
+<span id="draw_on_image__imageP"></span><span class="target" id="project0image_8h_1a6ef1a5cf2da8a8679a0aab045d397fb4"></span>void <code class="descclassname"></code><code class="descname">draw_on_image</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25image" title="image">image</a> *<em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv213draw_on_imageP5image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch to draw on an image instead of the actual screen <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">image</span></code> - <p>Image to draw on to </p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
 <div class="section" id="pixels-collide">
 <h2>pixels_collide<a class="headerlink" href="#pixels-collide" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -460,7 +501,7 @@ Cleanup will free all internally allocated resources for this image, making it r
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Ithai Levi.
+        &copy; Copyright 2014-2016, Ithai Levi (RLofC@).
 
     </p>
   </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>(More) Advanced &mdash; Cage  documentation</title>
+  <title>mouse &mdash; Cage  documentation</title>
   
 
   
@@ -33,7 +33,8 @@
 
   
     <link rel="top" title="Cage  documentation" href="index.html"/>
-        <link rel="prev" title="CAGE on Android" href="android.html"/> 
+        <link rel="next" title="screen" href="screen.html"/>
+        <link rel="prev" title="keyboard" href="keyboard.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,6 +89,8 @@
 <li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">mouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
@@ -96,11 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">(More) Advanced</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#memory-management">Memory Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#coding-style">Coding Style</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
 </ul>
 
             
@@ -131,7 +130,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>(More) Advanced</li>
+    <li>mouse</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -143,47 +142,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="more-advanced">
-<h1>(More) Advanced<a class="headerlink" href="#more-advanced" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="memory-management">
-<h2>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h2>
-<p>Cage lets you decide how to manage your game&#8217;s memory.
-Resources such as image, sprite and animation
-will usually have a set of <strong>create</strong> and <strong>destroy</strong>
-functions you can use, releasing you from explicitly allocating and freeing memory.</p>
-<p>Alternatively, you can allocate and free structure memory by yourself
-but you will have to initialize and cleanup the resource
-internal state.</p>
-<p>For example, you can easily create and destroy images like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>struct image* image;
-image = create_image(&quot;res/image.png&quot;);
+  <div class="section" id="mouse">
+<h1>mouse<a class="headerlink" href="#mouse" title="Permalink to this headline">¶</a></h1>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv212update_mouseP5mouse">
+<span id="update_mouse__mouseP"></span><span class="target" id="project0mouse_8h_1a21c295c5d4caac9db6c94520f5d5e2f7"></span>void <code class="descname">update_mouse</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv25mouse" title="mouse">mouse</a> *<em>mouse</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212update_mouseP5mouse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query the current mouse state and update the passed mouse struct. </p>
+</dd></dl>
 
-if (image!=NULL) {
-    destroy_image(image);
-}
-</pre></div>
 </div>
-<p>Or, if you want, you can do:</p>
-<div class="highlight-python"><div class="highlight"><pre>struct image image;
-// this will work on already allocated image structs
-if (load_image(&amp;image, &quot;res/image.png&quot;) == -1) {
-    // something went wrong
-}
-// clean up any internally allocated resources
-cleanup_image(&amp;image);
-</pre></div>
+<dl class="class">
+<dt id="_CPPv25mouse">
+<span id="mouse"></span><span class="target" id="project0structmouse"></span><em class="property">struct </em><code class="descname">mouse</code><a class="headerlink" href="#_CPPv25mouse" title="Permalink to this definition">¶</a></dt>
+<dd><em>#include &lt;mouse.h&gt;</em><div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv2N5mouse10left_clickE">
+<span id="mouse::left_click__b"></span><span class="target" id="project0structmouse_1a19dc847ad7665710f7ecadcd52195777"></span>bool <code class="descname">left_click</code><a class="headerlink" href="#_CPPv2N5mouse10left_clickE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set to true if left click was detected </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N5mouse11right_clickE">
+<span id="mouse::right_click__b"></span><span class="target" id="project0structmouse_1a6815886288dc5813bb9e0877d09b3702"></span>bool <code class="descname">right_click</code><a class="headerlink" href="#_CPPv2N5mouse11right_clickE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set to true if right click was detected </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N5mouse12middle_clickE">
+<span id="mouse::middle_click__b"></span><span class="target" id="project0structmouse_1af987baf46c80ad36d8bead955d728834"></span>bool <code class="descname">middle_click</code><a class="headerlink" href="#_CPPv2N5mouse12middle_clickE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set to true if middle click was detected </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N5mouse10x_positionE">
+<span id="mouse::x_position__float"></span><span class="target" id="project0structmouse_1abeb03a7875f0c2b6a1c4f80e0c364794"></span>float <code class="descname">x_position</code><a class="headerlink" href="#_CPPv2N5mouse10x_positionE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized value. 0.0 is the left edge of the screen. 1.0 is the right edge of the screen. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N5mouse10y_positionE">
+<span id="mouse::y_position__float"></span><span class="target" id="project0structmouse_1a09470dc474e9c3a97167454975e7551f"></span>float <code class="descname">y_position</code><a class="headerlink" href="#_CPPv2N5mouse10y_positionE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized value. 0.0 is the top edge of the screen. 1.0 is the bottom edge of the screen. </p>
+</dd></dl>
+
 </div>
-</div>
-<div class="section" id="coding-style">
-<h2>Coding Style<a class="headerlink" href="#coding-style" title="Permalink to this headline">¶</a></h2>
-<p>Cage uses a slightly modified version of the Linux kernel
-coding style. The main differences are:</p>
-<ul class="simple">
-<li>Indentation size is 4 spaces.</li>
-<li>Pointer &#8216;*&#8217; sign is adjacent to the type and not to the
-variable.</li>
-</ul>
-</div>
+</dd></dl>
+
 </div>
 
 
@@ -193,8 +200,10 @@ variable.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="screen.html" class="btn btn-neutral float-right" title="screen" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="android.html" class="btn btn-neutral" title="CAGE on Android" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="keyboard.html" class="btn btn-neutral" title="keyboard" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

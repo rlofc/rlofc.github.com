@@ -88,6 +88,8 @@
 <li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
@@ -95,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
 </ul>
 
@@ -332,14 +335,22 @@
   <dt><a href="sprite.html#_CPPv214destroy_spriteP6sprite">destroy_sprite (C++ function)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="timeline.html#_CPPv216destroy_timelineP8timeline">destroy_timeline (C++ function)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="image.html#_CPPv210draw_imageP5imageiiP9rectangled">draw_image (C++ function)</a>
+  </dt>
+
+      
+  <dt><a href="image.html#_CPPv213draw_on_imageP5image">draw_on_image (C++ function)</a>
+  </dt>
+
+      
+  <dt><a href="screen.html#_CPPv214draw_on_screenv">draw_on_screen (C++ function)</a>
   </dt>
 
       
@@ -508,6 +519,32 @@
   <dt><a href="font.html#_CPPv212measure_textP4fontPKcPiPi">measure_text (C++ function)</a>
   </dt>
 
+      
+  <dt><a href="mouse.html#_CPPv25mouse">mouse (C++ class)</a>
+  </dt>
+
+      
+  <dt><a href="mouse.html#_CPPv2N5mouse10left_clickE">mouse::left_click (C++ member)</a>
+  </dt>
+
+      
+  <dt><a href="mouse.html#_CPPv2N5mouse12middle_clickE">mouse::middle_click (C++ member)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="mouse.html#_CPPv2N5mouse11right_clickE">mouse::right_click (C++ member)</a>
+  </dt>
+
+      
+  <dt><a href="mouse.html#_CPPv2N5mouse10x_positionE">mouse::x_position (C++ member)</a>
+  </dt>
+
+      
+  <dt><a href="mouse.html#_CPPv2N5mouse10y_positionE">mouse::y_position (C++ member)</a>
+  </dt>
+
   </dl></td>
 </tr></table>
 
@@ -591,6 +628,12 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="screen.html#_CPPv212relax_screenf">relax_screen (C++ function)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="timeline.html#_CPPv214reset_timelineP8timeline">reset_timeline (C++ function)</a>
   </dt>
 
@@ -601,7 +644,19 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="screen.html#_CPPv212screen_color5color">screen_color (C++ function)</a>
+  </dt>
+
+      
+  <dt><a href="screen.html#_CPPv211screen_sizeii">screen_size (C++ function)</a>
+  </dt>
+
+      
   <dt><a href="image.html#_CPPv215set_image_alphaP5image7uint8_t">set_image_alpha (C++ function)</a>
+  </dt>
+
+      
+  <dt><a href="screen.html#_CPPv212shake_screenf">shake_screen (C++ function)</a>
   </dt>
 
       
@@ -612,12 +667,12 @@
   <dt><a href="timeline.html#_CPPv216sine_ease_in_outf">sine_ease_in_out (C++ function)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="timeline.html#_CPPv213sine_ease_outf">sine_ease_out (C++ function)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="sound.html#_CPPv25sound">sound (C++ class)</a>
   </dt>
@@ -660,6 +715,10 @@
   <dt><a href="image.html#_CPPv212unlock_imageP5image">unlock_image (C++ function)</a>
   </dt>
 
+      
+  <dt><a href="mouse.html#_CPPv212update_mouseP5mouse">update_mouse (C++ function)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -680,7 +739,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Ithai Levi.
+        &copy; Copyright 2014-2016, Ithai Levi (RLofC@).
 
     </p>
   </div>

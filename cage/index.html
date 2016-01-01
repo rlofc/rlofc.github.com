@@ -88,6 +88,8 @@
 <li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
@@ -95,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
 </ul>
 
@@ -142,9 +145,10 @@
 <div class="section" id="welcome-to-cage">
 <h1>Welcome to Cage<a class="headerlink" href="#welcome-to-cage" title="Permalink to this headline">¶</a></h1>
 <p>Cage is an elementary game development library.
-It is designed and developed to help teach 2D game development using the C programming language.
-Cage prefers readability over flexibility and ease-of-use over a rich feature set, in the spirit of
-<strong>less is more</strong>.</p>
+It was initially designed and developed to help teach 2D game
+development using the C programming language.
+Cage prefers readability over flexibility and ease-of-use over
+a rich feature set, in the spirit of <strong>less is more</strong>.</p>
 <hr/>
 
 <iframe src="http://ghbtns.com/github-btn.html?user=rlofc&repo=cage&type=watch&count=true&size=large"
@@ -154,12 +158,11 @@ Cage prefers readability over flexibility and ease-of-use over a rich feature se
   allowtransparency="true" frameborder="0" scrolling="0" width="156px" height="30px"></iframe>
 
 
-<hr/><p>Cage aims to make it easier for beginner game developers to write games in C,
-emphasizing <strong>beginner</strong> and <strong>C</strong>.</p>
-<p>Internally, Cage contains (and restraints) SDL2, the Simple Direct-media Library.
-Apart of knowing it is in there, you will not have to deal with SDL directly.
-However, Cage is completely transparent, so you can &#8220;reach in&#8221; and work
-with SDL directly, should you want to.</p>
+<hr/><p>As a library, Cage is just a thin layer on top of SDL2,
+the Simple Direct-media Library. Cage offers the essential
+constructs for developing 2D games. It lets you handle images,
+sprites, animations, fonts, sounds and other game-specific
+entities using a clear and straighforward API.</p>
 <div class="section" id="the-short-version">
 <h2>The short version<a class="headerlink" href="#the-short-version" title="Permalink to this headline">¶</a></h2>
 <p>Here is one of the shortest and most boring game you can write using Cage:</p>
@@ -184,15 +187,14 @@ with SDL directly, should you want to.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Granted, there are far better ways to write actual games.
-If C gives you the shivers, Lua and Haxe are excellent
-alternatives that have great game development toolkits. If
-you are not a beginner, you may want to work with SDL2
-(or Allegro) directly, with no &#8220;bars&#8221; between you and the raw toolkit.</p>
-<p>However, if you enjoy the beauty of C and want minimal cognitive burden
-than Cage is a viable option.</p>
-<p>For the full picture all at once, jump over to <a class="reference internal" href="wizard.html"><em>samples / wizard.c</em></a>.
-Or, follow along with the docs and learn Cage, bar by bar (pun intended).</p>
+<p>Yes, there are easier ways to write games, and C may not look like
+the best choice. There is no <cite>but</cite> here. LÖVE2D, HaxeFlixer and
+Cocos2D are fine examples.</p>
+<p>However, if you enjoy the beauty of C, if you want minimal cognitive burden
+and if you want to have long-living, portable code, then Cage could be
+a viable option.</p>
+<p>For the full story all at once, jump over to <a class="reference internal" href="wizard.html"><em>samples / wizard.c</em></a>.
+Or, follow along with the docs and learn Cage step by step.</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -215,7 +217,7 @@ Or, follow along with the docs and learn Cage, bar by bar (pun intended).</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Ithai Levi.
+        &copy; Copyright 2014-2016, Ithai Levi (RLofC@).
 
     </p>
   </div>

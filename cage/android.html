@@ -1,0 +1,437 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CAGE on Android &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="(More) Advanced" href="advanced.html"/>
+        <link rel="prev" title="samples / wizard.c" href="wizard.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">CAGE on Android</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-project">Setting up the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coding-a-basic-game">Coding a basic game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-for-android">Building for Android</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bootstrapping-the-build-project">Bootstrapping the build project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#injecting-the-dependencies">Injecting the dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tweaking-the-ndk-build-files">Tweaking the NDK build files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-and-run">Build and Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-build-your-game-for-linux">Optional - Build your game for Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>CAGE on Android</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cage-on-android">
+<h1>CAGE on Android<a class="headerlink" href="#cage-on-android" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pre-requisites">
+<h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
+<p>Before we begin building our SDL2 and libcage project,
+make sure you have the Android SDK and NDK
+environment properly set up. You should be able
+to run <code class="docutils literal"><span class="pre">ndk-build</span></code> and <code class="docutils literal"><span class="pre">adb</span></code>,
+and you should also have the latest Android SDK
+installed using the <code class="docutils literal"><span class="pre">android</span></code> application. <a class="footnote-reference" href="#f1" id="id1">[1]</a></p>
+<p>If you want to use a real device to test your game (you probably should),
+make sure you can see it using <code class="docutils literal"><span class="pre">adb</span> <span class="pre">devices</span></code>.</p>
+<p>This tutorial also assumes you&#8217;re running in Linux (Mac OS should
+work similar) and optionally, that you can edit and build C files
+using <code class="docutils literal"><span class="pre">make</span></code> <code class="docutils literal"><span class="pre">gcc</span></code> or <code class="docutils literal"><span class="pre">clang</span></code>. We will create a Linux build
+of our game as well.</p>
+</div>
+<div class="section" id="setting-up-the-project">
+<h2>Setting up the project<a class="headerlink" href="#setting-up-the-project" title="Permalink to this headline">¶</a></h2>
+<p>Begin by creating your project folders:</p>
+<div class="highlight-bash"><div class="highlight"><pre>mkdir my-game <span class="o">&amp;&amp;</span> <span class="nb">cd </span>my-game<span class="p">;</span> mkdir src deps res build build/android build/linux
+</pre></div>
+</div>
+<p>Note <code class="docutils literal"><span class="pre">build/android</span></code> and <code class="docutils literal"><span class="pre">build/linux</span></code>. You can use the Linux build for
+on-going development and the Android build when you want to test the game
+on a real device.</p>
+<p>Now we will get <strong>SDL2</strong>, <strong>SDL2_image</strong>, <strong>SDL2_mixer</strong> and <strong>CAGE</strong>. We need
+everything in its source form to build it using the NDK.</p>
+<div class="highlight-bash"><div class="highlight"><pre>hg clone http://hg.libsdl.org/SDL deps/SDL2
+hg clone http://hg.libsdl.org/SDL_image deps/SDL2_image
+hg clone http://hg.libsdl.org/SDL_mixer deps/SDL2_mixer
+git clone https://github.com/rlofc/cage deps/cage
+</pre></div>
+</div>
+</div>
+<div class="section" id="coding-a-basic-game">
+<h2>Coding a basic game<a class="headerlink" href="#coding-a-basic-game" title="Permalink to this headline">¶</a></h2>
+<p>Create and edit <code class="docutils literal"><span class="pre">src/game.c</span></code></p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &quot;cage.h&quot;</span>
+
+<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_game</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">screen_color</span><span class="p">(</span><span class="n">color_from_RGB</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">create_font</span><span class="p">(</span><span class="s">&quot;res/font.png&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">update_game</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">draw_text</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s">&quot;hello, world&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_game</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">destroy_font</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_game</span><span class="p">,</span> <span class="n">update_game</span><span class="p">,</span> <span class="n">destroy_game</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You will also need to put this bitmap font in your game
+resources folder, <code class="docutils literal"><span class="pre">my-game/res/</span></code>.</p>
+<a class="reference internal image-reference" href="_images/font.png"><img alt="_images/font.png" src="_images/font.png" style="width: 128px;" /></a>
+<p>(Use right-click and save link as to
+download and save the bitmap file)</p>
+</div>
+<div class="section" id="building-for-android">
+<h2>Building for Android<a class="headerlink" href="#building-for-android" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bootstrapping-the-build-project">
+<h3>Bootstrapping the build project<a class="headerlink" href="#bootstrapping-the-build-project" title="Permalink to this headline">¶</a></h3>
+<p>SDL2 come with a handy build script that we can use to bootstrap
+our Android project, but before we can use it, we need to let it know
+which Android SDK version to target. This should be the same API version
+you chose to install using the <code class="docutils literal"><span class="pre">android</span></code> command and you can run it again
+just to make sure.</p>
+<p>Now, edit <code class="docutils literal"><span class="pre">deps/SDL2/build-scripts/androidbuild.sh</span></code> and change</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ANDROID</span> update project --path <span class="nv">$BUILDPATH</span>
+</pre></div>
+</div>
+<p>to:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ANDROID</span> update project --path <span class="nv">$BUILDPATH</span> --target android-<span class="o">{</span>API version<span class="o">}</span>
+</pre></div>
+</div>
+<p>To keep things clean, let&#8217;s also change the <code class="docutils literal"><span class="pre">BUILDPATH</span></code>
+to our project&#8217;s build folder:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">BUILDPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SDLPATH</span><span class="s2">/build/</span><span class="nv">$APP</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">BUILDPATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$SDLPATH</span><span class="s2">/../../build/android/</span><span class="nv">$APP</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>The script is now ready to bootstrap your build
+environment using the SDL2 Android project template files:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>deps/SDL2/build-scripts/
+./androidbuild.sh com.your.game /dev/null
+<span class="nb">cd</span> -
+</pre></div>
+</div>
+<p>Your game&#8217;s build project is now in <code class="docutils literal"><span class="pre">my-game/build/android/com.your.game</span></code>
+and we can now inject the rest of the dependencies into it.</p>
+</div>
+<div class="section" id="injecting-the-dependencies">
+<h3>Injecting the dependencies<a class="headerlink" href="#injecting-the-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>To inject the rest of our build project dependencies, create symbolic files
+links for SDL2_image, SDL2_mixer, CAGE, your source file
+and your game resources folder:</p>
+<div class="highlight-bash"><div class="highlight"><pre>ln -s <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/deps/SDL2_image build/android/com.your.game/jni/
+ln -s <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/deps/SDL2_mixer build/android/com.your.game/jni/
+ln -s <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/deps/cage build/android/com.your.game/jni/
+ln -s <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/src/game.c build/android/com.your.game/jni/src/
+mkdir build/android/com.your.game/assets
+ln -s <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/res build/android/com.your.game/assets
+</pre></div>
+</div>
+<p>This will allow NDK to build everything we need, but we will still need
+to tweak the build files.</p>
+</div>
+<div class="section" id="tweaking-the-ndk-build-files">
+<h3>Tweaking the NDK build files<a class="headerlink" href="#tweaking-the-ndk-build-files" title="Permalink to this headline">¶</a></h3>
+<p>Just a few required tweaks before we can run a succesful build.</p>
+<p>Edit <code class="docutils literal"><span class="pre">build/android/com.your.game/jni/Android.mk</span></code> and add the following
+lines to the beginning of the file:</p>
+<div class="highlight-bash"><div class="highlight"><pre>SUPPORT_MOD_MODPLUG :<span class="o">=</span> <span class="nb">false</span>
+SUPPORT_MOD_MIKMOD :<span class="o">=</span> <span class="nb">false</span>
+SUPPORT_MP3_SMPEG :<span class="o">=</span> <span class="nb">false</span>
+SUPPORT_WEBP :<span class="o">=</span> <span class="nb">false</span>
+include <span class="k">$(</span>call all-subdir-makefiles<span class="k">)</span>
+</pre></div>
+</div>
+<p>Now edit <code class="docutils literal"><span class="pre">build/android/com.your.game/jni/src/Android.mk</span></code> and make sure
+you have the needed <code class="docutils literal"><span class="pre">LOCAL_C_INCLUDES</span></code> added:</p>
+<div class="highlight-bash"><div class="highlight"><pre>LOCAL_C_INCLUDES :<span class="o">=</span> <span class="k">$(</span>LOCAL_PATH<span class="k">)</span>/<span class="k">$(</span>SDL_PATH<span class="k">)</span>/include <span class="se">\</span>
+        <span class="k">$(</span>LOCAL_PATH<span class="k">)</span>/../SDL2_image <span class="se">\</span>
+        <span class="k">$(</span>LOCAL_PATH<span class="k">)</span>/../SDL2_mixer <span class="se">\</span>
+        <span class="k">$(</span>LOCAL_PATH<span class="k">)</span>/../cage/src
+</pre></div>
+</div>
+<p>Your game.c files added to <code class="docutils literal"><span class="pre">LOCAL_SRC_FILES</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Add your application source files here...</span>
+LOCAL_SRC_FILES :<span class="o">=</span> <span class="k">$(</span>SDL_PATH<span class="k">)</span>/src/main/android/SDL_android_main.c <span class="se">\</span>
+         game.c
+</pre></div>
+</div>
+<p>And the needed libraries added to <code class="docutils literal"><span class="pre">LOCAL_SHARED_LIBRARIES</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>LOCAL_SHARED_LIBRARIES :<span class="o">=</span> SDL2 SDL2_image SDL2_mixer CAGE
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-and-run">
+<h3>Build and Run<a class="headerlink" href="#build-and-run" title="Permalink to this headline">¶</a></h3>
+<p>Here we go! time to build and install your game on your Android device:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>build/android/com.your.game/jni
+ndk-build -j<span class="k">$(</span>nproc<span class="k">)</span>
+<span class="nb">cd</span> ..
+ant debug install
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="optional-build-your-game-for-linux">
+<h2>Optional - Build your game for Linux<a class="headerlink" href="#optional-build-your-game-for-linux" title="Permalink to this headline">¶</a></h2>
+<p>To have a smoother workflow, you will probably want to use your
+Linux build for on-going development.</p>
+<p>Begin by building and installing your project&#8217;s SDL2 SDL2_image and SDL2_mixer.
+<strong>Note: this will replace any previously installed SDL in your system.
+If you already have SDL2, SDL2_image and SDL2_mixer installed and you do not
+want to change these, you may skip this step.</strong>
+You will still need the source files for the Android build though.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="k">for</span> lib in SDL2 SDL2_mixer SDL2_image<span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
+    <span class="nb">cd </span>deps/<span class="nv">$lib</span><span class="p">;</span> ./autogen.sh <span class="o">&amp;&amp;</span> ./configure <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    make <span class="o">&amp;&amp;</span> sudo make install<span class="p">;</span> <span class="nb">cd</span> -<span class="p">;</span> <span class="k">done</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Running autotools will change some files in the SDL2 include folder.
+This has to be reverted before you try to build for Android again, otherwise
+the NDK build will fail.</strong></p>
+<p>Run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>deps/SDL2
+hg revert deps/SDL2/include/**
+<span class="nb">cd</span> -
+</pre></div>
+</div>
+<p>Build CAGE:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>deps/cage<span class="p">;</span> make<span class="p">;</span> <span class="nb">cd</span> -
+</pre></div>
+</div>
+<p>If everything went well, you should now have SDL2 and CAGE ready
+for Linux game development.</p>
+<p>Let&#8217;s create a simple Makefile:</p>
+<div class="highlight-makefile"><div class="highlight"><pre><span class="nv">GAME_BUILD_PATH</span> <span class="o">=</span> build/linux
+<span class="nv">GAME_BINARY</span> <span class="o">=</span> game
+<span class="cp">include deps/cage/linux.mk</span>
+</pre></div>
+</div>
+<p>Now <code class="docutils literal"><span class="pre">make</span></code> and try your shiny new game:</p>
+<div class="highlight-bash"><div class="highlight"><pre>make <span class="o">&amp;&amp;</span> <span class="nb">cd </span>build/linux<span class="p">;</span> ./game<span class="p">;</span> <span class="nb">cd</span> -
+</pre></div>
+</div>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>You can follow the Pre-requisites instructions in
+<a class="reference external" href="https://wiki.libsdl.org/Android">https://wiki.libsdl.org/Android</a> or your platform specific guidelines.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="advanced.html" class="btn btn-neutral float-right" title="(More) Advanced" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="wizard.html" class="btn btn-neutral" title="samples / wizard.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2016, Ithai Levi (RLofC@).
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

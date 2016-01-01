@@ -100,6 +100,8 @@
 <li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
@@ -107,6 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
 </ul>
 
@@ -167,12 +170,12 @@
 </pre></div>
 </div>
 </p>
-<p>To animate a sprite, you need to create /ref animation instances, indicating the frames to play. To actually play an animation, use <a class="reference internal" href="#project0sprite_8h_1a7c5b5ecf68a20b419adcd1eacd41c67a"><span>play_animation()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="n">play_animation</span><span class="p">(</span><span class="n">wizard</span><span class="p">,</span> <span class="n">walk</span><span class="p">);</span>
+<p>To animate a sprite, you need to create <a class="reference internal" href="animate.html#project0structanimation"><span>animation</span></a> instances, indicating the frames to play. To actually play an animation, use <a class="reference internal" href="#project0sprite_8h_1a7c5b5ecf68a20b419adcd1eacd41c67a"><span>play_animation()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="n">play_animation</span><span class="p">(</span><span class="n">wizard</span><span class="p">,</span> <span class="n">walk</span><span class="p">);</span>
 </pre></div>
 </div>
 </p>
 <p>Finally, to update the sprite animation, call <a class="reference internal" href="#project0sprite_8h_1ab44384aaae81376abba72b15a75e6bf7"><span>animate_sprite()</span></a>: <div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">animate_sprite</span><span class="p">(</span><span class="n">wizard</span><span class="p">,</span> <span class="n">toolbox</span><span class="o">-&gt;</span><span class="n">stopwatch</span><span class="p">);</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">animate_sprite</span><span class="p">(</span><span class="n">wizard</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
 </pre></div>
 </div>
 </p>
@@ -370,7 +373,7 @@ Use this function to stop any currently playing or staged animation. This will c
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2014, Ithai Levi.
+        &copy; Copyright 2014-2016, Ithai Levi (RLofC@).
 
     </p>
   </div>

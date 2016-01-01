@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>(More) Advanced &mdash; Cage  documentation</title>
+  <title>screen &mdash; Cage  documentation</title>
   
 
   
@@ -33,7 +33,8 @@
 
   
     <link rel="top" title="Cage  documentation" href="index.html"/>
-        <link rel="prev" title="CAGE on Android" href="android.html"/> 
+        <link rel="next" title="samples / state.c" href="state_sample.html"/>
+        <link rel="prev" title="mouse" href="mouse.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,6 +89,8 @@
 <li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">screen</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
@@ -96,11 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">(More) Advanced</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#memory-management">Memory Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#coding-style">Coding Style</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
 </ul>
 
             
@@ -131,7 +130,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>(More) Advanced</li>
+    <li>screen</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -143,46 +142,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="more-advanced">
-<h1>(More) Advanced<a class="headerlink" href="#more-advanced" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="memory-management">
-<h2>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h2>
-<p>Cage lets you decide how to manage your game&#8217;s memory.
-Resources such as image, sprite and animation
-will usually have a set of <strong>create</strong> and <strong>destroy</strong>
-functions you can use, releasing you from explicitly allocating and freeing memory.</p>
-<p>Alternatively, you can allocate and free structure memory by yourself
-but you will have to initialize and cleanup the resource
-internal state.</p>
-<p>For example, you can easily create and destroy images like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>struct image* image;
-image = create_image(&quot;res/image.png&quot;);
+  <div class="section" id="screen">
+<h1>screen<a class="headerlink" href="#screen" title="Permalink to this headline">¶</a></h1>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv212screen_color5color">
+<span id="screen_color__color"></span><span class="target" id="project0screen_8h_1a3cc741739f7d30a4e355f9562d914a97"></span>void <code class="descname">screen_color</code><span class="sig-paren">(</span><em class="property">struct</em> color <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212screen_color5color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the screen background color. </p>
+</dd></dl>
 
-if (image!=NULL) {
-    destroy_image(image);
-}
-</pre></div>
-</div>
-<p>Or, if you want, you can do:</p>
-<div class="highlight-python"><div class="highlight"><pre>struct image image;
-// this will work on already allocated image structs
-if (load_image(&amp;image, &quot;res/image.png&quot;) == -1) {
-    // something went wrong
-}
-// clean up any internally allocated resources
-cleanup_image(&amp;image);
-</pre></div>
-</div>
-</div>
-<div class="section" id="coding-style">
-<h2>Coding Style<a class="headerlink" href="#coding-style" title="Permalink to this headline">¶</a></h2>
-<p>Cage uses a slightly modified version of the Linux kernel
-coding style. The main differences are:</p>
-<ul class="simple">
-<li>Indentation size is 4 spaces.</li>
-<li>Pointer &#8216;*&#8217; sign is adjacent to the type and not to the
-variable.</li>
-</ul>
+<dl class="function">
+<dt id="_CPPv211screen_sizeii">
+<span id="screen_size__i.i"></span><span class="target" id="project0screen_8h_1a15b0295c235a02cb32c89a6389438770"></span>void <code class="descname">screen_size</code><span class="sig-paren">(</span>int <em>width</em>, int <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv211screen_sizeii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the screen size. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv212shake_screenf">
+<span id="shake_screen__float"></span><span class="target" id="project0screen_8h_1adc201652a529e0dd474def20654df32e"></span>void <code class="descname">shake_screen</code><span class="sig-paren">(</span>float <em>stopwatch</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212shake_screenf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shake the virtual camera (e.g. for explosions and hits). The screen will keep shaking as long as you call <a class="reference internal" href="#project0screen_8h_1adc201652a529e0dd474def20654df32e"><span>shake_screen()</span></a>. To return the screen to its normal state, you should complement with calling <a class="reference internal" href="#project0screen_8h_1a4cec16d535e0d3c4d2003199d1180cf4"><span>relax_screen()</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv212relax_screenf">
+<span id="relax_screen__float"></span><span class="target" id="project0screen_8h_1a4cec16d535e0d3c4d2003199d1180cf4"></span>void <code class="descname">relax_screen</code><span class="sig-paren">(</span>float <em>stopwatch</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212relax_screenf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Undo the screen shake effect. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv214draw_on_screenv">
+<span id="draw_on_screen__void"></span><span class="target" id="project0screen_8h_1ad1614e6008503a1d70641fa1c3f551df"></span>void <code class="descname">draw_on_screen</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214draw_on_screenv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch back to draw on the actual screen following a call to <code class="docutils literal"><a class="reference internal" href="image.html#project0image_8h_1a6ef1a5cf2da8a8679a0aab045d397fb4"><span><span class="pre">draw_on_image()</span></span></a></code> on an <a class="reference internal" href="image.html#project0structimage"><span>image</span></a>. </p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -193,8 +186,10 @@ variable.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="state_sample.html" class="btn btn-neutral float-right" title="samples / state.c" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="android.html" class="btn btn-neutral" title="CAGE on Android" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="mouse.html" class="btn btn-neutral" title="mouse" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
