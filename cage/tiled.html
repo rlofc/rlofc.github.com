@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>samples / tiled.c &mdash; Cage  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Cage  documentation" href="index.html"/>
+        <link rel="next" title="CAGE on Android" href="android.html"/>
+        <link rel="prev" title="samples / wizard.c" href="wizard.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cage
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">Game essentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="font.html">font</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite.html">sprite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animate.html">animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline.html">timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.html">color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chipmunk_sample.html">samples / chipmunk.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">samples / tiled.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Cage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>samples / tiled.c</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="samples-tiled-c">
+<h1>samples / tiled.c<a class="headerlink" href="#samples-tiled-c" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &quot;cage.h&quot;</span>
+<span class="cp">#include &quot;tiled_actor.h&quot;</span>
+<span class="cp">#include &quot;tmx.h&quot;</span>
+</pre></div>
+</div>
+<p>The tile size we&#8217;ll use for this sample is exactly 16 pixels.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define TILE_SIZE 16</span>
+</pre></div>
+</div>
+<p>The hero struct is used to animate and manage our main actor.
+It contains an actor struct that in turn, makes sure the hero
+moves properly inside our tilemap.
+We use a 2x2 array to store the different animations for the
+hero using the actor valid states and directions as dimension
+sizes.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">hero</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">sprite</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">mask</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">animation</span><span class="o">*</span> <span class="n">mode_anims</span><span class="p">[</span><span class="n">_NUM_OF_ACTOR_STATES</span><span class="p">][</span><span class="n">_NUM_OF_ACTOR_DIRS</span><span class="p">];</span>
+    <span class="k">struct</span> <span class="n">actor</span> <span class="n">actor</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>We assume having exactly 4 layers in our Tiled file.
+BASE is mostly our background layer - meaning anything
+that is drawn behind our hero.
+FEATURES is used for things that obscure our actors.
+OVERLAY is used for things we blend onto our actors,
+such as grass or shadows.
+OBJECTS is used for shapes. In this sample it is
+used only to indicate our hero origin tile.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">enum</span> <span class="n">map_layer</span> <span class="p">{</span> <span class="n">BASE</span><span class="p">,</span> <span class="n">FEATURES</span><span class="p">,</span> <span class="n">OVERLAY</span><span class="p">,</span> <span class="n">OBJECTS</span><span class="p">,</span> <span class="n">_NUM_OF_LAYERS</span> <span class="p">};</span>
+</pre></div>
+</div>
+<p>The game struct holds everything we need to run the main
+game state, including our hero,  the Tiled layers we need
+and the tiles spritemaps.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">struct</span> <span class="n">game</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">screen_width</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">screen_height</span><span class="p">;</span>
+    <span class="n">point</span> <span class="n">camera</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">hero</span> <span class="n">hero</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">tiles</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">grass</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">shadows</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">image</span><span class="o">*</span> <span class="n">actor_effects</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">map_spec</span> <span class="n">map_spec</span><span class="p">;</span>
+    <span class="n">tmx_layer</span><span class="o">*</span> <span class="n">layers</span><span class="p">[</span><span class="n">_NUM_OF_LAYERS</span><span class="p">];</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>We use a straightforward approach to read the Tiled
+tilemap using libtmx. We assume the existance of
+exactly 4 layers and we make sure to populate
+all 4 of them, otherwise we indicate an error
+by returning -1.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">read_map</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span> <span class="n">tmx_map</span><span class="o">*</span> <span class="n">m</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">rows</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">;</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">;</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">tile_size</span> <span class="o">=</span> <span class="n">TILE_SIZE</span><span class="p">;</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">tmx_layer</span><span class="o">*</span> <span class="n">l</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">layers</span><span class="p">[</span><span class="n">BASE</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">ly_head</span><span class="p">)</span> <span class="o">?</span>
+                   <span class="p">(</span><span class="n">l</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">layers</span><span class="p">[</span><span class="n">FEATURES</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="o">?</span>
+                   <span class="p">(</span><span class="n">l</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">layers</span><span class="p">[</span><span class="n">OVERLAY</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="o">?</span>
+                   <span class="p">(</span><span class="n">l</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">layers</span><span class="p">[</span><span class="n">OBJECTS</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="o">:</span> <span class="nb">NULL</span> <span class="o">:</span> <span class="nb">NULL</span> <span class="o">:</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">l</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>get_tile_id makes it easier to get the int gid value from libtmx
+for a specific tile_pos.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">get_tile_id</span><span class="p">(</span><span class="n">tmx_map</span><span class="o">*</span> <span class="n">m</span><span class="p">,</span> <span class="n">tmx_layer</span><span class="o">*</span> <span class="n">l</span><span class="p">,</span> <span class="k">struct</span> <span class="n">tile_pos</span> <span class="n">tp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">content</span><span class="p">.</span><span class="n">gids</span><span class="p">[</span><span class="n">tp</span><span class="p">.</span><span class="n">row</span> <span class="o">*</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">+</span> <span class="n">tp</span><span class="p">.</span><span class="n">col</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">TMX_FLIP_BITS_REMOVAL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We use libtmx to load our game&#8217;s Tiled file and
+then call read_map to store our required tilemap
+layers.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">build_tilemap</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">tmx_map</span><span class="o">*</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">tmx_load</span><span class="p">(</span><span class="s">&quot;res/game.tmx&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Error reading tmx file.&quot;</span><span class="p">);</span>
+        <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">read_map</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nl">error</span><span class="p">:</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#define CHECK(S,E) if ((S) == NULL) { \</span>
+<span class="cp">        ERROR(#E&quot; when trying &quot;#S); \</span>
+<span class="cp">        goto E; \</span>
+<span class="cp">    }</span>
+</pre></div>
+</div>
+<p>Drawing all the actors. For now, this is just
+our hero.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">int</span> <span class="nf">draw_actors</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">draw_sprite</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">sprite</span><span class="p">,</span>
+                       <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+                       <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">TILE_SIZE</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Our tiles art are stored as spritemaps. Drawing
+the tiles means drawing one of the frames in
+one of the spritemaps we use for each layer.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_tile</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span>
+                      <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="n">tilemap</span><span class="p">,</span>
+                      <span class="k">enum</span> <span class="n">map_layer</span> <span class="n">layer_name</span><span class="p">,</span>
+                      <span class="k">struct</span> <span class="n">tile_pos</span> <span class="n">pos</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">draw_sprite_frame</span><span class="p">(</span><span class="n">tilemap</span><span class="p">,</span>
+                      <span class="n">TILE_SIZE</span> <span class="o">*</span> <span class="p">(</span><span class="n">pos</span><span class="p">.</span><span class="n">col</span><span class="p">)</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+                      <span class="n">TILE_SIZE</span> <span class="o">*</span> <span class="p">(</span><span class="n">pos</span><span class="p">.</span><span class="n">row</span><span class="p">)</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">y</span><span class="p">,</span>
+                      <span class="n">get_tile_id</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
+                                  <span class="n">game</span><span class="o">-&gt;</span><span class="n">layers</span><span class="p">[</span><span class="n">layer_name</span><span class="p">],</span> <span class="n">pos</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This high-order function will help us apply a function
+for each visible tile that we need to draw. It will
+help us draw the different layers of our tilemap
+with significantly less lines of code.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">foreach_visible_tile</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span>
+                                 <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">callback</span><span class="p">)(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span>
+                                                  <span class="kt">int</span> <span class="n">r</span><span class="p">,</span>
+                                                  <span class="kt">int</span> <span class="n">c</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">base_row</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">y</span> <span class="o">/</span> <span class="n">TILE_SIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">base_col</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">TILE_SIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">max_row</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_height</span> <span class="o">/</span> <span class="n">TILE_SIZE</span> <span class="o">+</span> <span class="n">base_row</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">max_col</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_width</span> <span class="o">/</span> <span class="n">TILE_SIZE</span> <span class="o">+</span> <span class="n">base_col</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">base_row</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">max_row</span><span class="p">;</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">base_col</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">max_col</span><span class="p">;</span> <span class="n">c</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">cols</span> <span class="o">&amp;&amp;</span>
+                <span class="n">r</span> <span class="o">&lt;</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">rows</span><span class="p">)</span>
+                <span class="n">callback</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The following set of callback functions are defined for
+use with foreach_visible_tile. Each function is designed
+to draw one of the layers of our tilemap.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_background</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">draw_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">tiles</span><span class="p">,</span> <span class="n">BASE</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">tile_pos</span><span class="p">){</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_features</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">draw_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">grass</span><span class="p">,</span> <span class="n">BASE</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">tile_pos</span><span class="p">){</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="p">});</span>
+    <span class="n">draw_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">grass</span><span class="p">,</span> <span class="n">FEATURES</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">tile_pos</span><span class="p">){</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_foreground</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">draw_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">tiles</span><span class="p">,</span> <span class="n">OVERLAY</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">tile_pos</span><span class="p">){</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_shadows</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">draw_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">shadows</span><span class="p">,</span> <span class="n">FEATURES</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">tile_pos</span><span class="p">){</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The main drawing function carefully draws all the layers
+of the tilemap and our hero using a nice scheme to help
+up have shadows and grass overlay effects.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">draw_game</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">foreach_visible_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">draw_background</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">f</span> <span class="o">=</span> <span class="n">draw_actors</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+    <span class="n">foreach_visible_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">draw_features</span><span class="p">);</span>
+    <span class="cm">/** Creating an overlay image for the actors sprite effects</span>
+<span class="cm">     * such as grass transparency and shadows.</span>
+<span class="cm">     */</span>
+    <span class="n">set_blend_mode</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">actor_effects</span><span class="p">,</span> <span class="n">BLEND</span><span class="p">);</span>
+    <span class="n">clear_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">actor_effects</span><span class="p">,</span> <span class="n">color_from_RGBA</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+    <span class="n">draw_on_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">actor_effects</span><span class="p">);</span>
+    <span class="n">draw_sprite_frame</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">TILE_SIZE</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
+    <span class="n">set_blend_mode</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">shadows</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">,</span> <span class="n">MULTIPLY</span><span class="p">);</span>
+    <span class="n">foreach_visible_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">draw_shadows</span><span class="p">);</span>
+    <span class="cm">/** Time to render the prepared the effects layer. */</span>
+    <span class="n">draw_on_screen</span><span class="p">();</span>
+    <span class="n">set_blend_mode</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">actor_effects</span><span class="p">,</span> <span class="n">BLEND</span><span class="p">);</span>
+    <span class="n">draw_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">actor_effects</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="cm">/** Finally, we draw the forground layer, such as tree canopies, bushes,</span>
+<span class="cm">     * etc.. */</span>
+    <span class="n">foreach_visible_tile</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">draw_foreground</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">read_controller</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">active_mode</span><span class="p">.</span><span class="n">state</span> <span class="o">!=</span> <span class="n">ACTOR_INACTIVE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">intent</span> <span class="o">=</span> <span class="n">key_down</span><span class="p">(</span><span class="n">KB_DOWN</span><span class="p">)</span> <span class="o">?</span> <span class="nl">ACTOR_DOWN</span> <span class="p">:</span>
+                     <span class="n">key_down</span><span class="p">(</span><span class="n">KB_LEFT</span><span class="p">)</span> <span class="o">?</span> <span class="nl">ACTOR_LEFT</span> <span class="p">:</span>
+                     <span class="n">key_down</span><span class="p">(</span><span class="n">KB_UP</span><span class="p">)</span> <span class="o">?</span> <span class="nl">ACTOR_UP</span> <span class="p">:</span>
+                     <span class="n">key_down</span><span class="p">(</span><span class="n">KB_RIGHT</span><span class="p">)</span> <span class="o">?</span> <span class="nl">ACTOR_RIGHT</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">intent</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">set_actor_mode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">actor_mode</span><span class="p">){</span>
+                <span class="p">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ACTOR_MOVING</span><span class="p">,</span>
+                <span class="p">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">intent</span><span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">bool</span> <span class="nf">custom_hero_walk</span><span class="p">(</span><span class="k">struct</span> <span class="n">map_spec</span><span class="o">*</span> <span class="n">map</span><span class="p">,</span>
+                             <span class="k">struct</span> <span class="n">actor</span><span class="o">*</span> <span class="n">actor</span><span class="p">,</span>
+                             <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">is_actor_in_integral_tile</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">actor</span><span class="p">))</span> <span class="p">{</span>
+        <span class="cm">/* Add custom movement logic here */</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">is_tile_walkable</span><span class="p">(</span><span class="k">struct</span> <span class="n">map_spec</span><span class="o">*</span> <span class="n">map_spec</span><span class="p">,</span>
+                            <span class="k">struct</span> <span class="n">actor</span><span class="o">*</span> <span class="n">actor</span><span class="p">,</span>
+                            <span class="k">struct</span> <span class="n">tile_pos</span> <span class="n">pos</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">tmx_map</span><span class="o">*</span> <span class="n">map</span> <span class="o">=</span> <span class="n">map_spec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">base_tile_id</span> <span class="o">=</span> <span class="n">get_tile_id</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">map</span><span class="o">-&gt;</span><span class="n">ly_head</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">feature_tile_id</span> <span class="o">=</span> <span class="n">get_tile_id</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">map</span><span class="o">-&gt;</span><span class="n">ly_head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">base_tile_id</span> <span class="o">!=</span> <span class="mi">17</span> <span class="o">&amp;&amp;</span> <span class="n">feature_tile_id</span> <span class="o">!=</span> <span class="mi">50</span> <span class="o">&amp;&amp;</span>
+            <span class="n">feature_tile_id</span> <span class="o">!=</span> <span class="mi">47</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">cleanup_hero</span><span class="p">(</span><span class="k">struct</span> <span class="n">hero</span><span class="o">*</span> <span class="n">hero</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_NUM_OF_ACTOR_DIRS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">destroy_animation</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">mode_anims</span><span class="p">[</span><span class="n">ACTOR_MOVING</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+        <span class="n">destroy_animation</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">mode_anims</span><span class="p">[</span><span class="n">ACTOR_STILL</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">);</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#define MS_F 1</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">init_hero</span><span class="p">(</span><span class="k">struct</span> <span class="n">hero</span><span class="o">*</span> <span class="n">hero</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CHECK</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">sprite</span> <span class="o">=</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/sprite.png&quot;</span><span class="p">),</span>
+                                       <span class="n">TILE_SIZE</span><span class="p">,</span>
+                                       <span class="n">TILE_SIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span> <span class="n">create_failed</span><span class="p">);</span>
+    <span class="n">CHECK</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">mask</span> <span class="o">=</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/spritemask.png&quot;</span><span class="p">),</span>
+                                     <span class="n">TILE_SIZE</span><span class="p">,</span> <span class="n">TILE_SIZE</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span> <span class="n">create_failed</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_NUM_OF_ACTOR_DIRS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">CHECK</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">mode_anims</span><span class="p">[</span><span class="n">ACTOR_MOVING</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">(),</span>
+              <span class="n">create_failed</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">walk_seq</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">sizeof</span> <span class="n">walk_seq</span> <span class="o">/</span> <span class="k">sizeof</span> <span class="n">walk_seq</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">add_frame</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">mode_anims</span><span class="p">[</span><span class="n">ACTOR_MOVING</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                      <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">walk_seq</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mi">200</span> <span class="o">*</span> <span class="n">MS_F</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">CHECK</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">mode_anims</span><span class="p">[</span><span class="n">ACTOR_STILL</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_animation</span><span class="p">(),</span>
+              <span class="n">create_failed</span><span class="p">);</span>
+        <span class="n">add_frame</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">mode_anims</span><span class="p">[</span><span class="n">ACTOR_STILL</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                  <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">32</span> <span class="o">*</span> <span class="n">MS_F</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">hero</span><span class="o">-&gt;</span><span class="n">actor</span><span class="p">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nl">create_failed</span><span class="p">:</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">update_hero_animation</span><span class="p">(</span><span class="k">struct</span> <span class="n">hero</span><span class="o">*</span> <span class="n">hero</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">play_animation</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span>
+                   <span class="n">hero</span><span class="o">-&gt;</span><span class="n">mode_anims</span><span class="p">[</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">actor</span><span class="p">.</span><span class="n">active_mode</span><span class="p">.</span><span class="n">state</span><span class="p">]</span>
+                                   <span class="p">[</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">actor</span><span class="p">.</span><span class="n">active_mode</span><span class="p">.</span><span class="n">dir</span><span class="p">]);</span>
+    <span class="n">animate_sprite</span><span class="p">(</span><span class="n">hero</span><span class="o">-&gt;</span><span class="n">sprite</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">update_hero</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">read_controller</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">update_actor</span><span class="p">(</span><span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">,</span>
+                 <span class="n">is_tile_walkable</span><span class="p">,</span> <span class="n">custom_hero_walk</span><span class="p">);</span>
+    <span class="n">update_hero_animation</span><span class="p">(</span><span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">camera</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sprite</span><span class="o">*</span> <span class="nf">create_tileset</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">img</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">create_sprite</span><span class="p">(</span><span class="n">create_image</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">TILE_SIZE</span><span class="p">,</span> <span class="n">TILE_SIZE</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_game</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">game</span><span class="p">));</span>
+    <span class="n">get_screen_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_width</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_height</span><span class="p">);</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">actor_effects</span> <span class="o">=</span> <span class="n">create_target_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_width</span><span class="p">,</span>
+                                              <span class="n">game</span><span class="o">-&gt;</span><span class="n">screen_height</span><span class="p">,</span>
+                                              <span class="n">color_from_RGBA</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+    <span class="n">CHECK</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">tiles</span> <span class="o">=</span> <span class="n">create_tileset</span><span class="p">(</span><span class="s">&quot;res/tileset.png&quot;</span><span class="p">),</span> <span class="n">create_failure</span><span class="p">);</span>
+    <span class="n">CHECK</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">grass</span> <span class="o">=</span> <span class="n">create_tileset</span><span class="p">(</span><span class="s">&quot;res/overlay.png&quot;</span><span class="p">),</span> <span class="n">create_failure</span><span class="p">);</span>
+    <span class="n">CHECK</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">shadows</span> <span class="o">=</span> <span class="n">create_tileset</span><span class="p">(</span><span class="s">&quot;res/shadowmap.png&quot;</span><span class="p">),</span> <span class="n">create_failure</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">init_hero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">goto</span> <span class="n">init_hero_error</span><span class="p">;</span>
+    <span class="n">build_tilemap</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">layers</span><span class="p">[</span><span class="n">OBJECTS</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">L_OBJGR</span><span class="p">)</span> <span class="k">goto</span> <span class="n">invalid_layers</span><span class="p">;</span>
+    <span class="n">tmx_object</span><span class="o">*</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">game</span><span class="o">-&gt;</span><span class="n">layers</span><span class="p">[</span><span class="n">OBJECTS</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">content</span><span class="p">.</span><span class="n">objgr</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">goto</span> <span class="n">invalid_layers</span><span class="p">;</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">/</span> <span class="n">TILE_SIZE</span><span class="p">)</span> <span class="o">*</span> <span class="n">TILE_SIZE</span><span class="p">;</span>
+    <span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">.</span><span class="n">actor</span><span class="p">.</span><span class="n">pos</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">/</span> <span class="n">TILE_SIZE</span><span class="p">)</span> <span class="o">*</span> <span class="n">TILE_SIZE</span><span class="p">;</span>
+<span class="nl">all_is_well</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">game</span><span class="p">;</span>
+<span class="nl">create_failure</span><span class="p">:</span>
+<span class="nl">invalid_layers</span><span class="p">:</span>
+<span class="nl">init_hero_error</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">update_game</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">update_hero</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+    <span class="n">draw_game</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">elapsed_ms</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_game</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">game</span><span class="o">*</span> <span class="n">game</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">tiles</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">);</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">tiles</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">grass</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">);</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">grass</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">shadows</span><span class="o">-&gt;</span><span class="n">image</span><span class="p">);</span>
+    <span class="n">destroy_sprite</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">shadows</span><span class="p">);</span>
+    <span class="n">destroy_image</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">actor_effects</span><span class="p">);</span>
+    <span class="n">cleanup_hero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">hero</span><span class="p">);</span>
+    <span class="n">tmx_map_free</span><span class="p">(</span><span class="n">game</span><span class="o">-&gt;</span><span class="n">map_spec</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_game</span><span class="p">,</span> <span class="n">update_game</span><span class="p">,</span> <span class="n">destroy_game</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="android.html" class="btn btn-neutral float-right" title="CAGE on Android" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="wizard.html" class="btn btn-neutral" title="samples / wizard.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014-2016, Ithai Levi (RLofC@).
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

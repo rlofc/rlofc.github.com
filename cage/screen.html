@@ -33,7 +33,7 @@
 
   
     <link rel="top" title="Cage  documentation" href="index.html"/>
-        <link rel="next" title="samples / state.c" href="state_sample.html"/>
+        <link rel="next" title="color" href="color.html"/>
         <link rel="prev" title="mouse" href="mouse.html"/> 
 
   
@@ -91,13 +91,16 @@
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">screen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.html">color</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collisions_sample.html">samples / collisions.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chipmunk_sample.html">samples / chipmunk.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wizard.html">samples / wizard.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiled.html">samples / tiled.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="android.html">CAGE on Android</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced.html">(More) Advanced</a></li>
 </ul>
@@ -148,14 +151,8 @@
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt id="_CPPv212screen_color5color">
-<span id="screen_color__color"></span><span class="target" id="project0screen_8h_1a3cc741739f7d30a4e355f9562d914a97"></span>void <code class="descname">screen_color</code><span class="sig-paren">(</span><em class="property">struct</em> color <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212screen_color5color" title="Permalink to this definition">¶</a></dt>
+<span id="screen_color__color"></span><span class="target" id="project0screen_8h_1a3cc741739f7d30a4e355f9562d914a97"></span>void <code class="descname">screen_color</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="color.html#_CPPv25color" title="color">color</a> <em>background</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv212screen_color5color" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the screen background color. </p>
-</dd></dl>
-
-<dl class="function">
-<dt id="_CPPv211screen_sizeii">
-<span id="screen_size__i.i"></span><span class="target" id="project0screen_8h_1a15b0295c235a02cb32c89a6389438770"></span>void <code class="descname">screen_size</code><span class="sig-paren">(</span>int <em>width</em>, int <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv211screen_sizeii" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change the screen size. </p>
 </dd></dl>
 
 <dl class="function">
@@ -176,6 +173,30 @@
 <dd><p>Switch back to draw on the actual screen following a call to <code class="docutils literal"><a class="reference internal" href="image.html#project0image_8h_1a6ef1a5cf2da8a8679a0aab045d397fb4"><span><span class="pre">draw_on_image()</span></span></a></code> on an <a class="reference internal" href="image.html#project0structimage"><span>image</span></a>. </p>
 </dd></dl>
 
+<dl class="function">
+<dt id="_CPPv215set_screen_sizeii">
+<span id="set_screen_size__i.i"></span><span class="target" id="project0screen_8h_1a95f1603a5e25580b412b1d2f0b038253"></span>void <code class="descname">set_screen_size</code><span class="sig-paren">(</span>int <em>width</em>, int <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215set_screen_sizeii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the screen size. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv215get_screen_sizePiPi">
+<span id="get_screen_size__iP.iP"></span><span class="target" id="project0screen_8h_1a64f6e356fb8a51b7a95279d0aed5195f"></span>void <code class="descname">get_screen_size</code><span class="sig-paren">(</span>int *<em>width</em>, int *<em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215get_screen_sizePiPi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the screen size. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv215set_window_sizeii">
+<span id="set_window_size__i.i"></span><span class="target" id="project0screen_8h_1a302f6f64915b91dde26278600f67adc9"></span>void <code class="descname">set_window_size</code><span class="sig-paren">(</span>int <em>width</em>, int <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215set_window_sizeii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the real window size. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv215get_window_sizePiPi">
+<span id="get_window_size__iP.iP"></span><span class="target" id="project0screen_8h_1a2a2170e3b6b9a7dde62e2840f8feeff6"></span>void <code class="descname">get_window_size</code><span class="sig-paren">(</span>int *<em>width</em>, int *<em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215get_window_sizePiPi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the real window size. </p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -186,7 +207,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="state_sample.html" class="btn btn-neutral float-right" title="samples / state.c" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="color.html" class="btn btn-neutral float-right" title="color" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="mouse.html" class="btn btn-neutral" title="mouse" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

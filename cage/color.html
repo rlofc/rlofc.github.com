@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>samples / image.c &mdash; Cage  documentation</title>
+  <title>color &mdash; Cage  documentation</title>
   
 
   
@@ -33,8 +33,8 @@
 
   
     <link rel="top" title="Cage  documentation" href="index.html"/>
-        <link rel="next" title="samples / sprite.c" href="sprite_sample.html"/>
-        <link rel="prev" title="samples / state.c" href="state_sample.html"/> 
+        <link rel="next" title="samples / state.c" href="state_sample.html"/>
+        <link rel="prev" title="screen" href="screen.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -91,15 +91,14 @@
 <li class="toctree-l1"><a class="reference internal" href="keyboard.html">keyboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mouse.html">mouse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="color.html">color</a></li>
-<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">samples / image.c</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#create">Create</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#update">Update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#destroy">Destroy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#finally-the-main">Finally, the main</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">color</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#struct-color">struct color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#color-from-rgba">color_from_RGBA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#color-from-rgb">color_from_RGB</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="state_sample.html">samples / state.c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_sample.html">samples / image.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sprite_sample.html">samples / sprite.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="timeline_sample.html">samples / timeline.c</a></li>
 <li class="toctree-l1"><a class="reference internal" href="callout_sample.html">samples / callout.c</a></li>
@@ -139,7 +138,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>samples / image.c</li>
+    <li>color</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -151,61 +150,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="samples-image-c">
-<h1>samples / image.c<a class="headerlink" href="#samples-image-c" title="Permalink to this headline">¶</a></h1>
-<p>This short sample demonstrate how to use images in Cage</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &quot;cage.h&quot;</span>
-</pre></div>
+  <div class="section" id="color">
+<h1>color<a class="headerlink" href="#color" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="struct-color">
+<h2>struct color<a class="headerlink" href="#struct-color" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv25color">
+<span id="color"></span><span class="target" id="project0structcolor"></span><em class="property">struct </em><code class="descclassname"></code><code class="descname">color</code><a class="headerlink" href="#_CPPv25color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="create">
-<h2>Create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h2>
-<p>We use the game state create() function to load the image resource
-and return it as the state user data pointer.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span><span class="o">*</span> <span class="nf">create_sample</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">create_image</span><span class="p">(</span><span class="s">&quot;res/cage.png&quot;</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
+<div class="section" id="color-from-rgba">
+<h2>color_from_RGBA<a class="headerlink" href="#color-from-rgba" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv215color_from_RGBA7uint8_t7uint8_t7uint8_t7uint8_t">
+<span id="color_from_RGBA__uint8_t.uint8_t.uint8_t.uint8_t"></span><span class="target" id="project0color_8h_1ac48d557af28fd2b794f9e787220933aa"></span><em class="property">static</em> <em class="property">struct</em> <a class="reference internal" href="#_CPPv25color" title="color">color</a> <code class="descclassname"></code><code class="descname">color_from_RGBA</code><span class="sig-paren">(</span>uint8_t <em>red</em>, uint8_t <em>green</em>, uint8_t <em>blue</em>, uint8_t <em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv215color_from_RGBA7uint8_t7uint8_t7uint8_t7uint8_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new color using Red Green Blue and Alpha values.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>new color struct by value </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">red</span></code> - <p>0-255 intensity of red </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">green</span></code> - <p>0-255 intensity of blue </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">blue</span></code> - <p>0-255 intensity of green </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">alpha</span></code> - <p>0-255 alpha value</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
-</div>
-<div class="section" id="update">
-<h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
-<p>For each frame, the update state function will draw the image
-using the image size as clipping boundaries.
-We explicitly eliminate the unused parameter warning using
-the UNUSED macro.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">update_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">float</span> <span class="n">elapsed_ms</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">struct</span> <span class="n">rectangle</span> <span class="n">clip</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">76</span> <span class="p">};</span>
-    <span class="n">draw_image</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">clip</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">UNUSED</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="destroy">
-<h2>Destroy<a class="headerlink" href="#destroy" title="Permalink to this headline">¶</a></h2>
-<p>A create_image() call allocates the image and its
-internal resources. To properly clean up our state we
-need to use destroy_image() in the destroy state function.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="nf">destroy_sample</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">destroy_image</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="finally-the-main">
-<h2>Finally, the main<a class="headerlink" href="#finally-the-main" title="Permalink to this headline">¶</a></h2>
-<p>Finally, the game&#8217;s main function delegates the
-execution to Cage&#8217;s game_loop() function together with
-the 3 state functions we wrote.</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">game_loop</span><span class="p">(</span><span class="n">create_sample</span><span class="p">,</span> <span class="n">update_sample</span><span class="p">,</span> <span class="n">destroy_sample</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<div class="section" id="color-from-rgb">
+<h2>color_from_RGB<a class="headerlink" href="#color-from-rgb" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="_CPPv214color_from_RGB7uint8_t7uint8_t7uint8_t">
+<span id="color_from_RGB__uint8_t.uint8_t.uint8_t"></span><span class="target" id="project0color_8h_1a2148f4dc04eb849bdcf87fdc242ac572"></span><em class="property">static</em> <em class="property">struct</em> <a class="reference internal" href="#_CPPv25color" title="color">color</a> <code class="descclassname"></code><code class="descname">color_from_RGB</code><span class="sig-paren">(</span>uint8_t <em>red</em>, uint8_t <em>green</em>, uint8_t <em>blue</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv214color_from_RGB7uint8_t7uint8_t7uint8_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new color using Red Green and Blue values. The color will be opaque with a default alpha value of 255.</p>
+<p><dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>new color struct by value </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last">
+<li><code class="first docutils literal"><span class="pre">red</span></code> - <p>0-255 intensity of red </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">green</span></code> - <p>0-255 intensity of blue </p>
+</li>
+<li><code class="first docutils literal"><span class="pre">blue</span></code> - <p>0-255 intensity of green</p>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -216,10 +219,10 @@ the 3 state functions we wrote.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sprite_sample.html" class="btn btn-neutral float-right" title="samples / sprite.c" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="state_sample.html" class="btn btn-neutral float-right" title="samples / state.c" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="state_sample.html" class="btn btn-neutral" title="samples / state.c" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="screen.html" class="btn btn-neutral" title="screen" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
