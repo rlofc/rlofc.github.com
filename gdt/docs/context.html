@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Put it in context &mdash; GDT  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="GDT  documentation" href="index.html"/>
+        <link rel="next" title="Make a Scene" href="scenes.html"/>
+        <link rel="prev" title="It’s your App" href="application.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GDT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="application.html">It&#8217;s your App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Put it in context</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gdt-context">gdt::context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gdt-context-components">gdt::context components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_basic_rendering.html">examples / basic_rendering.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_skeletal_animation.html">examples / skeletal_animation.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_physics_instancing.html">examples / physics_instancing.cc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">GDT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Put it in context</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="put-it-in-context">
+<h1>Put it in context<a class="headerlink" href="#put-it-in-context" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gdt-context">
+<h2>gdt::context<a class="headerlink" href="#gdt-context" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<span class="target" id="GDTstructgdt_1_1context"></span><em class="property">template </em>&lt;<em class="property">typename</em> PLATFORM, <em class="property">typename</em> GRAPHICS, <em class="property">typename</em> AUDIO, <em class="property">typename</em> PHYSICS&gt;</dt>
+<dt id="_CPPv2N3gdt7contextE">
+<span id="gdt::context"></span><em class="property">struct </em><code class="descclassname">gdt::</code><code class="descname">context</code><a class="headerlink" href="#_CPPv2N3gdt7contextE" title="Permalink to this definition">¶</a></dt>
+<dd><p>When you start your application or game, GDT will create your main backend objects as part of you application instance. These objects are later required to create different game assets. Instead of having a set of singletons, GDT uses dependency injection and asks you to provide a special packaged object called <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context</span></a> to many different constructors.</p>
+<p>You can subclass the generic context to create your own customized context with additional state (for example, a scripting engine of your choice): <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">PLATFORM</span><span class="p">,</span> <span class="k">typename</span> <span class="n">GRAPHICS</span><span class="p">,</span> <span class="k">typename</span> <span class="n">AUDIO</span><span class="p">,</span> <span class="k">typename</span> <span class="n">PHYSICS</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nl">my_context</span> <span class="p">:</span> <span class="n">gdt</span><span class="o">::</span><span class="n">context</span><span class="o">&lt;</span><span class="n">PLATFORM</span><span class="p">,</span> <span class="n">GRAPHICS</span><span class="p">,</span> <span class="n">AUDIO</span><span class="p">,</span> <span class="n">PHYSICS</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// additional state goes here</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</p>
+<p>You will have to specify either your subclassed context type or the default one when you create your application type: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">my_game</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">application</span><span class="o">&lt;</span> <span class="p">...</span> <span class="p">,</span> <span class="n">my_context</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<p>In any case, always use the context type provided by your specified application type: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">my_game</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">application</span><span class="o">&lt;</span><span class="p">...,</span> <span class="n">my_context</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">any_method_accepting_context</span><span class="p">(</span><span class="k">const</span> <span class="n">my_game</span><span class="o">::</span><span class="n">context</span> <span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">....</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ </p>
+<p>Inherits from <a class="reference internal" href="#GDTstructgdt_1_1platform__context"><span class="std std-ref">gdt::platform_context&lt; PLATFORM &gt;</span></a>, <a class="reference internal" href="#GDTstructgdt_1_1graphics__context"><span class="std std-ref">gdt::graphics_context&lt; GRAPHICS &gt;</span></a>, <a class="reference internal" href="#GDTstructgdt_1_1audio__context"><span class="std std-ref">gdt::audio_context&lt; AUDIO &gt;</span></a>, <a class="reference internal" href="#GDTstructgdt_1_1physics__context"><span class="std std-ref">gdt::physics_context&lt; PHYSICS &gt;</span></a>, <a class="reference internal" href="#GDTstructgdt_1_1core__context"><span class="std std-ref">gdt::core_context</span></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="gdt-context-components">
+<h2>gdt::context components<a class="headerlink" href="#gdt-context-components" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv2N3gdt12core_contextE">
+<span id="gdt::core_context"></span><span class="target" id="GDTstructgdt_1_1core__context"></span><em class="property">struct </em><code class="descclassname">gdt::</code><code class="descname">core_context</code><a class="headerlink" href="#_CPPv2N3gdt12core_contextE" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context</span></a> is also composed from this <a class="reference internal" href="#GDTstructgdt_1_1core__context"><span class="std std-ref">core_context</span></a>. The core context provides the frame elapsed time, useful in many time-based game state updates.</p>
+<p>You can directly access <code class="docutils literal"><span class="pre">elapsed</span></code> through your game&#8217;s specified context type. </p>
+<p>Subclassed by <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context&lt; PLATFORM, GRAPHICS, AUDIO, PHYSICS &gt;</span></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<span class="target" id="GDTstructgdt_1_1platform__context"></span><em class="property">template </em>&lt;typename <em>PLATFORM</em>&gt;</dt>
+<dt id="_CPPv2N3gdt16platform_contextE">
+<span id="gdt::platform_context"></span><em class="property">struct </em><code class="descclassname">gdt::</code><code class="descname">platform_context</code><a class="headerlink" href="#_CPPv2N3gdt16platform_contextE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#GDTstructgdt_1_1platform__context"><span class="std std-ref">platform_context</span></a> is a component of the default <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context</span></a> template. You will normally not be using this template in your game code. </p>
+<p>Subclassed by <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context&lt; PLATFORM, GRAPHICS, AUDIO, PHYSICS &gt;</span></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<span class="target" id="GDTstructgdt_1_1graphics__context"></span><em class="property">template </em>&lt;typename <em>GRAPHICS</em>&gt;</dt>
+<dt id="_CPPv2N3gdt16graphics_contextE">
+<span id="gdt::graphics_context"></span><em class="property">struct </em><code class="descclassname">gdt::</code><code class="descname">graphics_context</code><a class="headerlink" href="#_CPPv2N3gdt16graphics_contextE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#GDTstructgdt_1_1graphics__context"><span class="std std-ref">graphics_context</span></a> is a component of the default <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context</span></a> template. You will normally not be using this template in your game code. </p>
+<p>Subclassed by <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context&lt; PLATFORM, GRAPHICS, AUDIO, PHYSICS &gt;</span></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<span class="target" id="GDTstructgdt_1_1audio__context"></span><em class="property">template </em>&lt;<em class="property">typename</em> AUDIO&gt;</dt>
+<dt id="_CPPv2N3gdt13audio_contextE">
+<span id="gdt::audio_context"></span><em class="property">struct </em><code class="descclassname">gdt::</code><code class="descname">audio_context</code><a class="headerlink" href="#_CPPv2N3gdt13audio_contextE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#GDTstructgdt_1_1audio__context"><span class="std std-ref">audio_context</span></a> is a component of the default <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context</span></a> template. You will normally not be using this template in your game code. </p>
+<p>Subclassed by <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context&lt; PLATFORM, GRAPHICS, AUDIO, PHYSICS &gt;</span></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<span class="target" id="GDTstructgdt_1_1physics__context"></span><em class="property">template </em>&lt;typename <em>PHYSICS</em>&gt;</dt>
+<dt id="_CPPv2N3gdt15physics_contextE">
+<span id="gdt::physics_context"></span><em class="property">struct </em><code class="descclassname">gdt::</code><code class="descname">physics_context</code><a class="headerlink" href="#_CPPv2N3gdt15physics_contextE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#GDTstructgdt_1_1physics__context"><span class="std std-ref">physics_context</span></a> is a component of the default <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context</span></a> template. You will normally not be using this template in your game code. </p>
+<p>Subclassed by <a class="reference internal" href="#GDTstructgdt_1_1context"><span class="std std-ref">gdt::context&lt; PLATFORM, GRAPHICS, AUDIO, PHYSICS &gt;</span></a></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="scenes.html" class="btn btn-neutral float-right" title="Make a Scene" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="application.html" class="btn btn-neutral" title="It’s your App" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2017, Ithai Levi - RLofC@.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

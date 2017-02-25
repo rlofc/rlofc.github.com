@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Key Concepts &mdash; GDT  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="GDT  documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GDT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="application.html">It&#8217;s your App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Put it in context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_basic_rendering.html">examples / basic_rendering.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_skeletal_animation.html">examples / skeletal_animation.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_physics_instancing.html">examples / physics_instancing.cc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">GDT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Key Concepts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="key-concepts">
+<h1>Key Concepts<a class="headerlink" href="#key-concepts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interchangable-backends">
+<h2>Interchangable Backends<a class="headerlink" href="#interchangable-backends" title="Permalink to this headline">¶</a></h2>
+<p>GDT was designed to support different implementations
+for platform interface, graphics, physics etc.
+The gdt::application object is a generic type that
+you as a game developer must specify with your choice
+of backend implementations.</p>
+</div>
+<div class="section" id="prefer-compilation-over-runtime-mutations">
+<h2>Prefer compilation over runtime mutations<a class="headerlink" href="#prefer-compilation-over-runtime-mutations" title="Permalink to this headline">¶</a></h2>
+<p>GDT prefers structuring your program behavior through
+compilation rather than runtime logic.
+In C++, this spells out templates, extensively.</p>
+<p>For example, we prefer:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span>
+          <span class="n">gdt</span><span class="o">::</span><span class="n">box_proxy</span><span class="o">&lt;</span><span class="n">ammo_crate</span><span class="o">&gt;</span>
+          <span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">gdt</span><span class="o">::</span><span class="n">rigid_body_driver</span>
+    <span class="o">&gt;</span> <span class="n">_ammo_crate</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>over</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="n">ammo_crate_node</span><span class="p">;</span>
+<span class="n">ammo_crate</span> <span class="n">_ammo_crate</span><span class="p">;</span>
+<span class="n">rigid_body_shape</span> <span class="n">_ammo_crate_shape</span><span class="p">;</span>
+<span class="n">rigid_body</span> <span class="n">_ammo_crate_rigid_body</span><span class="p">;</span>
+
+<span class="n">node</span><span class="p">.</span><span class="n">set_drawable</span><span class="p">(</span><span class="n">ammo_crate</span><span class="p">);</span>
+<span class="n">_ammo_crate_shape</span><span class="p">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">ammo_crate</span><span class="p">);</span>
+<span class="n">_ammo_crate_rigid_body</span><span class="p">.</span><span class="n">set_shape</span><span class="p">(</span><span class="n">_amme_crate_shape</span><span class="p">)</span>
+<span class="n">node</span><span class="p">.</span><span class="n">set_physics</span><span class="p">(</span><span class="n">_ammo_crate_rigid_body</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>in GDT, wiring the different types together is done
+in compile time. The provides you with usable objects
+at the get go.</p>
+</div>
+<div class="section" id="prefer-static-polymorphism">
+<h2>Prefer static polymorphism<a class="headerlink" href="#prefer-static-polymorphism" title="Permalink to this headline">¶</a></h2>
+<p>Whenever possible, GDT will prefer static polymorphism over runtime polymorphism.
+The most obvious advantage of this is almost always having access to your own types.
+This means that when you define your own custom drawable for example, you will be
+dealing with your type and not an abstract interface, similar to when you use
+your own types with say, std::vector.</p>
+</div>
+<div class="section" id="memory-management">
+<h2>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h2>
+<p>GDT was designed in a way that could potentially
+eliminate your need to dynamically allocate memory.
+This does not mean you won&#8217;t have dynamic memory
+allocation happening throughout your game&#8217;s execution.
+It means that in most cases, you won&#8217;t have to
+explicitly use <code class="docutils literal"><span class="pre">new</span></code> or <code class="docutils literal"><span class="pre">make_unique</span></code> in your game
+code.</p>
+<p>In GDT, your game is split into Scene objects. Each
+scene represents a unique game state. No two game
+states can run concurrently. When you initialize your
+game or switch between game states, GDT will
+dynamically allocate your new state&#8217;s memory for you.
+Any member variable you have in your gdt::scene
+deriving class will then be allocated as well.</p>
+<p>GDT uses C++ constructors to initialize objects.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2017, Ithai Levi - RLofC@.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>examples / skeletal_animation.cc &mdash; GDT  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="GDT  documentation" href="index.html"/>
+        <link rel="next" title="examples / physics_instancing.cc" href="example_physics_instancing.html"/>
+        <link rel="prev" title="examples / basic_rendering.cc" href="example_basic_rendering.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GDT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="application.html">It&#8217;s your App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Put it in context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_basic_rendering.html">examples / basic_rendering.cc</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">examples / skeletal_animation.cc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#specifying-our-app">Specifying our app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-imrod-asset-class">The imrod asset class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#member-variables">Member variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constructing-imrod">Constructing imrod</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-imrod-scene-class">The imrod_scene class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Member variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating">Updating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rendering">Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imgui">ImGui</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-app">Running the app</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example_physics_instancing.html">examples / physics_instancing.cc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">GDT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>examples / skeletal_animation.cc</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="examples-skeletal-animation-cc">
+<h1>examples / skeletal_animation.cc<a class="headerlink" href="#examples-skeletal-animation-cc" title="Permalink to this headline">¶</a></h1>
+<p>In this example we&#8217;ll animate Imrod, .... amazing model.</p>
+<p>Let&#8217;s begin by including GDT:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;gdt.h&quot;</span><span class="cp"></span>
+</pre></div>
+</div>
+<div class="section" id="specifying-our-app">
+<h2>Specifying our app<a class="headerlink" href="#specifying-our-app" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll use SDL as the platform backend with OpenGL as the graphics backend:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;backends/sdl/sdl.hh&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;backends/opengl/opengl.hh&quot;</span><span class="cp"></span>
+
+<span class="n">using</span> <span class="n">my_app</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">application</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">platform</span><span class="o">::</span><span class="n">sdl</span><span class="o">::</span><span class="n">backend_for_opengl</span><span class="p">,</span>
+                                 <span class="n">gdt</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">opengl</span><span class="o">::</span><span class="n">backend</span><span class="p">,</span>
+                                 <span class="n">gdt</span><span class="o">::</span><span class="n">no_audio</span><span class="p">,</span>
+                                 <span class="n">gdt</span><span class="o">::</span><span class="n">no_physics</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">no_networking</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">context</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Our rendering pipeline is going to be a forward rendering pipeline with
+skeletal animation support:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">using</span> <span class="n">rigged_pipeline</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">rigged_pipeline</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">graphics</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-imrod-asset-class">
+<h2>The imrod asset class<a class="headerlink" href="#the-imrod-asset-class" title="Permalink to this headline">¶</a></h2>
+<p>Our main asset in this example is Imrod, so we&#8217;ll
+create an asset class, subclassing from both gdt::drawable
+and gdt::animatable types. This will provide us with
+the ability to have a skeleton animatable and drawable model.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="nl">imrod</span> <span class="p">:</span> <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">asset</span><span class="o">&lt;</span><span class="n">imrod</span><span class="o">&gt;</span><span class="p">,</span>
+              <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">imrod</span><span class="o">&gt;</span><span class="p">,</span>
+              <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">animatable</span><span class="o">&lt;</span><span class="n">imrod</span><span class="o">&gt;</span> <span class="p">{</span>
+</pre></div>
+</div>
+<div class="section" id="member-variables">
+<h3>Member variables<a class="headerlink" href="#member-variables" title="Permalink to this headline">¶</a></h3>
+<p>There are just a few more things we need in our asset class, such
+as our material assets and an animation object to hold our single
+animation for Imrod.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="nl">private</span><span class="p">:</span>
+  <span class="n">my_app</span><span class="o">::</span><span class="n">texture</span> <span class="n">_diffuse_map</span><span class="p">,</span> <span class="n">_normal_map</span><span class="p">,</span> <span class="n">_specular_map</span><span class="p">;</span>
+  <span class="n">rigged_pipeline</span><span class="o">::</span><span class="n">material</span> <span class="n">_material</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">animation</span> <span class="n">_anim</span><span class="p">;</span>
+
+<span class="nl">public</span><span class="p">:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="constructing-imrod">
+<h3>Constructing imrod<a class="headerlink" href="#constructing-imrod" title="Permalink to this headline">¶</a></h3>
+<p>Our constructor has some work to do before we can use the imrod
+class:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Construct drawable_asset with our imrod model file,</li>
+<li>Construct animatable_asset with a skeleton read from the imrod model file,</li>
+<li>Construct our texture maps,</li>
+<li>Construct our material; and</li>
+<li>Construct the animation object with our animation sequence for this example.</li>
+</ul>
+</div></blockquote>
+<div class="highlight-c"><div class="highlight"><pre><span></span>    <span class="n">imrod</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span>
+        <span class="o">:</span> <span class="n">my_app</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span> <span class="n">imrod</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod.smd&quot;</span><span class="p">),</span>
+          <span class="n">my_app</span><span class="o">::</span><span class="n">animatable</span><span class="o">&lt;</span><span class="n">imrod</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">read_skeleton</span><span class="p">(</span><span class="s">&quot;res/examples/imrod.smd&quot;</span><span class="p">)),</span>
+          <span class="n">_diffuse_map</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod.png&quot;</span><span class="p">),</span>
+          <span class="n">_normal_map</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod_nm.png&quot;</span><span class="p">),</span>
+          <span class="n">_specular_map</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod_s.png&quot;</span><span class="p">),</span>
+          <span class="n">_material</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">_diffuse_map</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">_normal_map</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">_specular_map</span><span class="p">),</span>
+          <span class="n">_anim</span><span class="p">(</span><span class="s">&quot;res/examples/imrod.ani&quot;</span><span class="p">,</span> <span class="n">get_skeleton</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">play</span><span class="p">(</span><span class="o">&amp;</span><span class="n">_anim</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">const</span> <span class="n">rigged_pipeline</span><span class="o">::</span><span class="n">material</span><span class="o">&amp;</span> <span class="n">get_material</span><span class="p">()</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_material</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-imrod-scene-class">
+<h2>The imrod_scene class<a class="headerlink" href="#the-imrod-scene-class" title="Permalink to this headline">¶</a></h2>
+<p>Our imrod scene is going to set up everything needed to render our asset
+using a camera we can control with the mouse and keyboard.</p>
+<p>Let&#8217;s take a look at the private members first:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="nl">imrod_scene</span> <span class="p">:</span> <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">scene</span> <span class="p">{</span>
+  <span class="nl">private</span><span class="p">:</span>
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h3>Member variables<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>First, we set up our <cite>_imrod</cite> asset as a driven (gdt::driven) instance
+(gdt::instance) of our imrod class. We use gdt::direct_driver
+to allow code-based control over the asset location, scale and rotation.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">imrod</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">direct_driver</span><span class="o">&gt;</span> <span class="n">_imrod</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>We also set up our <cite>_camera</cite>, again as a driven instance, but this time
+using gdt::hover_driver to allow the camera to move freely in 3D using
+standard camera control semantics (pan, track, dolly, etc..)</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">hover_driver</span><span class="o">&gt;</span> <span class="n">_camera</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Instead of controlling the camera through code, we&#8217;ll allow the user
+to control it using gdt::wsad_controller</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">wsad_controller</span> <span class="n">_wsad</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>For rendering, we&#8217;ll use a forward rendering pipeline with skeletal
+animation support.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span>  <span class="n">rigged_pipeline</span> <span class="n">_pipeline</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">_ambient_light</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">_light_direction</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">};</span>
+
+<span class="nl">public</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Note how the constructure initializes both <cite>_imrod</cite> and <cite>_camera</cite>
+using a driver initializator - a special function object designed to
+provide initializers for the drivers instantiated by gdt::driven.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">imrod_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">screen</span><span class="o">*</span> <span class="n">screen</span><span class="p">)</span> <span class="o">:</span>
+      <span class="n">_imrod</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pos</span><span class="o">::</span><span class="n">origin</span><span class="p">),</span>
+      <span class="n">_camera</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">::</span><span class="n">look_at</span><span class="p">({</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">}),</span> <span class="n">screen</span><span class="p">),</span>
+      <span class="n">_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+</pre></div>
+</div>
+<p>Our model is rotated 90 degrees on the X axis, so we fix this:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span>    <span class="n">_imrod</span><span class="p">.</span><span class="n">get_driver_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">rotate</span><span class="p">({</span><span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">PI</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating">
+<h3>Updating<a class="headerlink" href="#updating" title="Permalink to this headline">¶</a></h3>
+<p>Update is called on every frame and this is where you
+would usually begin running your own scene logic,
+as well as call other update methods for assets, controllers or other
+GDT objects you manage in the scene.</p>
+<p>In our case, we&#8217;ll update our gdt::wsad_controller, our imrod asset
+object, check if Q was pressed to exit and finally, call render to draw
+a frame.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="n">_wsad</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">_camera</span><span class="p">.</span><span class="n">get_driver_ptr</span><span class="p">());</span>
+    <span class="n">_imrod</span><span class="p">.</span><span class="n">get_animatable_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">get_platform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_key_pressed</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">key</span><span class="o">::</span><span class="n">Q</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">ctx</span><span class="p">.</span><span class="n">quit</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rendering">
+<h3>Rendering<a class="headerlink" href="#rendering" title="Permalink to this headline">¶</a></h3>
+<p>To render Imrod, we&#8217;ll create a render pass targeting the screen
+and clear it. We&#8217;ll then use the forward rendering pipeline,
+set the material to use, the camera and some lighting information
+we can control with our ImGui UI.
+Finally, we&#8217;ll draw our imrod asset.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">render</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">target</span><span class="p">(</span><span class="n">my_app</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">screen_buffer</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+    <span class="n">_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">_imrod</span><span class="p">.</span><span class="n">get_drawable</span><span class="p">().</span><span class="n">get_material</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">set_camera</span><span class="p">(</span><span class="n">_camera</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">set_ambient_additive</span><span class="p">(</span><span class="n">_ambient_light</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">set_light_direction</span><span class="p">(</span><span class="n">_light_direction</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_imrod</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="imgui">
+<h3>ImGui<a class="headerlink" href="#imgui" title="Permalink to this headline">¶</a></h3>
+<p>Overriding the imgui method allows you to use ImGui as a development
+and debugging tool.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span>    <span class="kt">void</span> <span class="nf">imgui</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
+    <span class="p">{</span>
+        <span class="n">_camera</span><span class="p">.</span><span class="n">entity_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">imgui</span><span class="p">();</span>
+        <span class="n">ImGui</span><span class="o">::</span><span class="n">InputFloat4</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">_camera</span><span class="p">.</span><span class="n">get_transformable_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get_transform_ptr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">xx</span><span class="p">);</span>
+        <span class="n">ImGui</span><span class="o">::</span><span class="n">InputFloat4</span><span class="p">(</span><span class="s">&quot;y&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">_camera</span><span class="p">.</span><span class="n">get_transformable_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get_transform_ptr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">yx</span><span class="p">);</span>
+        <span class="n">ImGui</span><span class="o">::</span><span class="n">InputFloat4</span><span class="p">(</span><span class="s">&quot;z&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">_camera</span><span class="p">.</span><span class="n">get_transformable_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get_transform_ptr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">zx</span><span class="p">);</span>
+        <span class="n">ImGui</span><span class="o">::</span><span class="n">InputFloat4</span><span class="p">(</span><span class="s">&quot;w&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">_camera</span><span class="p">.</span><span class="n">get_transformable_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get_transform_ptr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">wx</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ImGui</span><span class="o">::</span><span class="n">CollapsingHeader</span><span class="p">(</span><span class="s">&quot;shader&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">ImGui</span><span class="o">::</span><span class="n">SliderFloat</span><span class="p">(</span><span class="s">&quot;Ambient&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">_ambient_light</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+            <span class="n">ImGui</span><span class="o">::</span><span class="n">SliderFloat3</span><span class="p">(</span><span class="s">&quot;Light Direction&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">_light_direction</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">ImGui</span><span class="o">::</span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Application average %.3f ms/frame (%.1f FPS)&quot;</span><span class="p">,</span>
+                    <span class="mf">1000.0f</span> <span class="o">/</span> <span class="n">ImGui</span><span class="o">::</span><span class="n">GetIO</span><span class="p">().</span><span class="n">Framerate</span><span class="p">,</span> <span class="n">ImGui</span><span class="o">::</span><span class="n">GetIO</span><span class="p">().</span><span class="n">Framerate</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-app">
+<h2>Running the app<a class="headerlink" href="#running-the-app" title="Permalink to this headline">¶</a></h2>
+<p>Nothing too special here. Just create the app object
+and use the template method <cite>run</cite> to start our one and only
+scene.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">try</span> <span class="p">{</span>
+        <span class="n">my_app</span><span class="p">().</span><span class="n">run</span><span class="o">&lt;</span><span class="n">imrod_scene</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">exception</span> <span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">LOG_ERROR</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="example_physics_instancing.html" class="btn btn-neutral float-right" title="examples / physics_instancing.cc" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="example_basic_rendering.html" class="btn btn-neutral" title="examples / basic_rendering.cc" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2017, Ithai Levi - RLofC@.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

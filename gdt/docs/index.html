@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The C++ Game Development Templates Library &mdash; GDT  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="GDT  documentation" href="#"/>
+        <link rel="next" title="It’s your App" href="application.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> GDT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="application.html">It&#8217;s your App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Put it in context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_basic_rendering.html">examples / basic_rendering.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_skeletal_animation.html">examples / skeletal_animation.cc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_physics_instancing.html">examples / physics_instancing.cc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">GDT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>The C++ Game Development Templates Library</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <img alt="_images/gdt.png" class="align-center" src="_images/gdt.png" />
+<div class="section" id="the-c-game-development-templates-library">
+<h1>The C++ Game Development Templates Library<a class="headerlink" href="#the-c-game-development-templates-library" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-it">
+<h2>What is it?<a class="headerlink" href="#what-is-it" title="Permalink to this headline">¶</a></h2>
+<p>The Game Development Templates (GDT) is a minimal game
+development toolkit written mostly as a set of generic modern C++ templates.</p>
+<div class="section" id="built-for-freedom">
+<h3>Built for freedom<a class="headerlink" href="#built-for-freedom" title="Permalink to this headline">¶</a></h3>
+<p>GDT was designed to allow easy switching between different libraries for
+graphics, audio physics and other game backends.
+While still being work-in-progress, GDT currently supports GLFW or SDL, OpenGL,
+OpenAL and Bullet physics. Vulkan and Newton support is coming soon, followed
+by the yet to be chosen network backends.</p>
+<p>Here&#8217;s how you specify a GDT application with a set of changable backends:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">my_game</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">application</span><span class="o">&lt;</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">platform</span><span class="o">::</span><span class="n">sdl</span><span class="o">::</span><span class="n">backend_for_opengl</span><span class="p">,</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">opengl</span><span class="o">::</span><span class="n">backend</span><span class="p">,</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">audio</span><span class="o">::</span><span class="n">openal</span><span class="o">::</span><span class="n">backend</span><span class="p">,</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">physics</span><span class="o">::</span><span class="n">bullet</span><span class="o">::</span><span class="n">backend</span><span class="p">,</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">no_networking</span><span class="p">,</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">context</span>
+<span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Soon you would be able to change this set completely,
+<strong>without changing other parts of your game code</strong>:</p>
+</div>
+<div class="section" id="built-for-coding">
+<h3>Built for coding<a class="headerlink" href="#built-for-coding" title="Permalink to this headline">¶</a></h3>
+<p>In GDT, your C++ code is your main game modeling environment.
+Any other tools are considered peripherial. You will use standard C++
+constructs to model your game assets, materials, scenes and animations.
+You choose your editor or IDE, you choose your project structure and
+everything is visible and controllable:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">zombie</span> <span class="p">{</span>
+    <span class="n">my_game</span><span class="o">::</span><span class="n">model</span> <span class="n">model</span><span class="p">;</span>
+    <span class="n">my_game</span><span class="o">::</span><span class="n">shader</span><span class="o">::</span><span class="n">material</span> <span class="n">material</span><span class="p">;</span>
+    <span class="n">my_game</span><span class="o">::</span><span class="n">animation</span> <span class="n">walk</span><span class="p">,</span>
+                       <span class="n">attack</span><span class="p">,</span>
+                       <span class="n">die</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>We also try to prefer structuring things in compilation time rather than runtime.
+This is done through using templates, static polymorphism, CRTP and other nasty
+tricks. The general idea is that it&#8217;s faster to parse through a compiler&#8217;s error
+message (even ones involving templates) than debugging a misbehavior in runtime.</p>
+</div>
+<div class="section" id="built-for-tomorrow">
+<h3>Built for tomorrow<a class="headerlink" href="#built-for-tomorrow" title="Permalink to this headline">¶</a></h3>
+<p>GDT is using modern C++, applying smart techniques where it makes sense,
+while holding back from over-using the language where it isn&#8217;t.</p>
+</div>
+<div class="section" id="built-for-you">
+<h3>Built for you<a class="headerlink" href="#built-for-you" title="Permalink to this headline">¶</a></h3>
+<p>GDT prefers your code readability on the expense of its inner complexity.
+Game developers should be able to read their code easily, without parsing
+through forced and obscured code constructs. GDT tries to follow this guideline
+as much as possible.</p>
+<p>For example, here&#8217;s how you will set up a deferred rendering pass in GDT:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">deferred_shader</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">set_pov</span><span class="p">(</span><span class="n">_camera</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">set_lights</span><span class="p">(</span><span class="n">_lights_rig</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_graveyard</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_zombie</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_hero</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="call-for-help">
+<h2>Call for help<a class="headerlink" href="#call-for-help" title="Permalink to this headline">¶</a></h2>
+<p>GDT is far from being ready. It needs people like you who
+share the vision of having templates-based C++ game engine and who can
+submit pull requests with cool new features, sample code or documentation
+improvements. No contribution is too small!</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="application.html" class="btn btn-neutral float-right" title="It’s your App" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2017, Ithai Levi - RLofC@.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
