@@ -170,9 +170,11 @@
 <span class="cp">#include</span> <span class="cpf">&quot;backends/opengl/opengl.hh&quot;</span><span class="cp"></span>
 
 <span class="n">using</span> <span class="n">my_app</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">application</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">platform</span><span class="o">::</span><span class="n">sdl</span><span class="o">::</span><span class="n">backend_for_opengl</span><span class="p">,</span>
-                                 <span class="n">gdt</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">opengl</span><span class="o">::</span><span class="n">backend</span><span class="p">,</span>
-                                 <span class="n">gdt</span><span class="o">::</span><span class="n">no_audio</span><span class="p">,</span>
-                                 <span class="n">gdt</span><span class="o">::</span><span class="n">no_physics</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">no_networking</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">context</span><span class="o">&gt;</span><span class="p">;</span>
+                                <span class="n">gdt</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">opengl</span><span class="o">::</span><span class="n">backend</span><span class="p">,</span>
+                                <span class="n">gdt</span><span class="o">::</span><span class="n">no_audio</span><span class="p">,</span>
+                                <span class="n">gdt</span><span class="o">::</span><span class="n">no_physics</span><span class="p">,</span>
+                                <span class="n">gdt</span><span class="o">::</span><span class="n">no_networking</span><span class="p">,</span>
+                                <span class="n">gdt</span><span class="o">::</span><span class="n">context</span><span class="o">&gt;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Our rendering pipeline is going to be a forward rendering pipeline with
@@ -220,7 +222,7 @@ class:</p>
 </ul>
 </div></blockquote>
 <div class="highlight-c"><div class="highlight"><pre><span></span>    <span class="n">imrod</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span>
-        <span class="o">:</span> <span class="n">my_app</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span> <span class="n">imrod</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod.smd&quot;</span><span class="p">),</span>
+        <span class="o">:</span> <span class="n">my_app</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">imrod</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod.smd&quot;</span><span class="p">),</span>
           <span class="n">my_app</span><span class="o">::</span><span class="n">animatable</span><span class="o">&lt;</span><span class="n">imrod</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">read_skeleton</span><span class="p">(</span><span class="s">&quot;res/examples/imrod.smd&quot;</span><span class="p">)),</span>
           <span class="n">_diffuse_map</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod.png&quot;</span><span class="p">),</span>
           <span class="n">_normal_map</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/examples/imrod_nm.png&quot;</span><span class="p">),</span>
@@ -260,7 +262,7 @@ to allow code-based control over the asset location, scale and rotation.</p>
 </div>
 <p>We also set up our <cite>_camera</cite>, again as a driven instance, but this time
 using gdt::hover_driver to allow the camera to move freely in 3D using
-standard camera control semantics (pan, track, dolly, etc..)</p>
+standard camera controls (pan, track, dolly, etc..)</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">hover_driver</span><span class="o">&gt;</span> <span class="n">_camera</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -278,9 +280,9 @@ animation support.</p>
 <span class="nl">public</span><span class="p">:</span>
 </pre></div>
 </div>
-<p>Note how the constructure initializes both <cite>_imrod</cite> and <cite>_camera</cite>
-using a driver initializator - a special function object designed to
-provide initializers for the drivers instantiated by gdt::driven.</p>
+<p>Note how the constructor initializes both <cite>_imrod</cite> and <cite>_camera</cite>
+using their drivers initializator - a function object designed to
+generate initializers for the drivers.</p>
 <div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">imrod_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">screen</span><span class="o">*</span> <span class="n">screen</span><span class="p">)</span> <span class="o">:</span>
       <span class="n">_imrod</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pos</span><span class="o">::</span><span class="n">origin</span><span class="p">),</span>
       <span class="n">_camera</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">::</span><span class="n">look_at</span><span class="p">({</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">}),</span> <span class="n">screen</span><span class="p">),</span>

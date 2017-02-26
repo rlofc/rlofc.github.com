@@ -148,10 +148,10 @@
 development toolkit written mostly as a set of generic modern C++ templates.</p>
 <div class="section" id="built-for-freedom">
 <h3>Built for freedom<a class="headerlink" href="#built-for-freedom" title="Permalink to this headline">¶</a></h3>
-<p>GDT was designed to allow easy switching between different libraries for
+<p>GDT is designed to allow easy switching between different libraries for
 graphics, audio physics and other game backends.
 While still being work-in-progress, GDT currently supports GLFW or SDL, OpenGL,
-OpenAL and Bullet physics. Vulkan and Newton support is coming soon, followed
+OpenAL and Bullet, physics. Vulkan and Newton support is coming soon, followed
 by the yet to be chosen network backends.</p>
 <p>Here&#8217;s how you specify a GDT application with a set of changable backends:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">my_game</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">application</span><span class="o">&lt;</span>
@@ -165,7 +165,7 @@ by the yet to be chosen network backends.</p>
 </pre></div>
 </div>
 <p>Soon you would be able to change this set completely,
-<strong>without changing other parts of your game code</strong>:</p>
+<strong>without changing other parts of your game code</strong>.</p>
 </div>
 <div class="section" id="built-for-coding">
 <h3>Built for coding<a class="headerlink" href="#built-for-coding" title="Permalink to this headline">¶</a></h3>
@@ -183,14 +183,14 @@ everything is visible and controllable:</p>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>We also try to prefer structuring things in compilation time rather than runtime.
+<p>GDT also prefers structuring things in compile time rather than runtime.
 This is done through using templates, static polymorphism, CRTP and other nasty
 tricks. The general idea is that it&#8217;s faster to parse through a compiler&#8217;s error
 message (even ones involving templates) than debugging a misbehavior in runtime.</p>
 </div>
 <div class="section" id="built-for-tomorrow">
 <h3>Built for tomorrow<a class="headerlink" href="#built-for-tomorrow" title="Permalink to this headline">¶</a></h3>
-<p>GDT is using modern C++, applying smart techniques where it makes sense,
+<p>GDT is using modern C++, applying smart (cough, arsed, cough..) techniques where it makes sense,
 while holding back from over-using the language where it isn&#8217;t.</p>
 </div>
 <div class="section" id="built-for-you">
@@ -199,7 +199,7 @@ while holding back from over-using the language where it isn&#8217;t.</p>
 Game developers should be able to read their code easily, without parsing
 through forced and obscured code constructs. GDT tries to follow this guideline
 as much as possible.</p>
-<p>For example, here&#8217;s how you will set up a deferred rendering pass in GDT:</p>
+<p>For example, here&#8217;s how you use a shader pipeline to render stuff:</p>
 <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">deferred_shader</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
     <span class="p">.</span><span class="n">set_pov</span><span class="p">(</span><span class="n">_camera</span><span class="p">)</span>
     <span class="p">.</span><span class="n">set_lights</span><span class="p">(</span><span class="n">_lights_rig</span><span class="p">)</span>
