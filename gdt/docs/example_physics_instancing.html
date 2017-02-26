@@ -98,6 +98,8 @@
 <li class="toctree-l1"><a class="reference internal" href="example_skeletal_animation.html">examples / skeletal_animation.cc</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">examples / physics_instancing.cc</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#specifying-our-context-and-app">Specifying our context and app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-a-reusable-deferred-renderer">Building a reusable deferred renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-physics-scene">The physics scene</a></li>
 </ul>
 </li>
 </ul>
@@ -154,9 +156,9 @@ set of instanced crates falling on the ground.</p>
 <h2>Specifying our context and app<a class="headerlink" href="#specifying-our-context-and-app" title="Permalink to this headline">¶</a></h2>
 <p>We&#8217;ll use OpenGL with GLFW this time, together with Bullet
 Physics.</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;backends/bullet/bullet.hh&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;backends/glfw/glfw_opengl.hh&quot;</span><span class="cp"></span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;backends/glfw/glfw_opengl.hh&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;backends/opengl/opengl.hh&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;backends/bullet/bullet.hh&quot;</span><span class="cp"></span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp"></span>
 
@@ -188,69 +190,119 @@ Physics.</p>
         <span class="k">return</span> <span class="n">_material</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
-
-<span class="n">class</span> <span class="nl">deferred_renderer</span> <span class="p">:</span> <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">renderer</span><span class="o">&lt;</span><span class="n">deferred_renderer</span><span class="o">&gt;</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-a-reusable-deferred-renderer">
+<h2>Building a reusable deferred renderer<a class="headerlink" href="#building-a-reusable-deferred-renderer" title="Permalink to this headline">¶</a></h2>
+<p>In some cases you may want to reuse your rendering code
+in different scenes. A good example for this is a deferred
+rendering processes. Deferred rendering involves
+rendering a geometery pass into a geometery buffer (g-buffer)
+and then using this buffer in a lighting pass.
+In this example we take things one step further by applying an
+FXAA anti-aliasing pass as well.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="nl">deferred_renderer</span> <span class="p">:</span> <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">renderer</span><span class="o">&lt;</span><span class="n">deferred_renderer</span><span class="o">&gt;</span><span class="p">,</span>
                           <span class="n">public</span> <span class="n">gdt</span><span class="o">::</span><span class="n">screen</span><span class="o">::</span><span class="n">subscriber</span> <span class="p">{</span>
-  <span class="nl">private</span><span class="p">:</span>
-      <span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span> <span class="n">_geom_pipeline</span><span class="p">;</span>
-      <span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span> <span class="n">_light_pipeline</span><span class="p">;</span>
-      <span class="n">my_app</span><span class="o">::</span><span class="n">fxaa_pipeline</span>  <span class="n">_fxaa_pipeline</span><span class="p">;</span>
-      <span class="n">my_app</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">back_buffer</span> <span class="n">_buffer</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>We&#8217;ll need three different pipelines to structure our
+rendering process: (a) a geometery pipeline, (b) a lighting
+pipeline and (c) an FXAA pipeline.
+We&#8217;ll also need a back_buffer and a g_buffer.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="nl">private</span><span class="p">:</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span> <span class="n">_geom_pipeline</span><span class="p">;</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span> <span class="n">_light_pipeline</span><span class="p">;</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">fxaa_pipeline</span>  <span class="n">_fxaa_pipeline</span><span class="p">;</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">g_buffer</span> <span class="n">_g_buffer</span><span class="p">;</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">back_buffer</span> <span class="n">_buffer</span><span class="p">;</span>
 
-  <span class="nl">protected</span><span class="p">:</span>
-      <span class="n">my_app</span><span class="o">::</span><span class="n">g_buffer</span> <span class="n">_g_buffer</span><span class="p">;</span>
+<span class="nl">public</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Since we&#8217;ll have to resize the off screen buffers if the game
+window size is changed, we&#8217;ll subscribe to any screen changes.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">deferred_renderer</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">screen</span><span class="o">*</span> <span class="n">screen</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">_geom_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">),</span>
+      <span class="n">_light_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">),</span>
+      <span class="n">_fxaa_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">),</span>
+      <span class="n">_g_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span>
+      <span class="n">_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">screen</span><span class="o">-&gt;</span><span class="n">subscribe</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+<span class="p">}</span>
 
-  <span class="nl">public</span><span class="p">:</span>
-    <span class="n">deferred_renderer</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">screen</span><span class="o">*</span> <span class="n">screen</span><span class="p">)</span>
-        <span class="o">:</span> <span class="n">_geom_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">),</span>
-          <span class="n">_light_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">),</span>
-          <span class="n">_fxaa_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">),</span>
-          <span class="n">_g_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span>
-          <span class="n">_buffer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">screen</span><span class="o">-&gt;</span><span class="n">subscribe</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="n">virtual</span> <span class="o">~</span><span class="n">deferred_renderer</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-    <span class="n">virtual</span> <span class="o">~</span><span class="n">deferred_renderer</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">LOG_DEBUG</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;deferred_renderer destruction&quot;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="kt">void</span> <span class="n">on_screen_resize</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span> <span class="n">override</span>
-    <span class="p">{</span>
-        <span class="n">_g_buffer</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
-        <span class="n">_buffer</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="kt">void</span> <span class="n">configure</span><span class="p">(</span>
-        <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;&amp;</span><span class="p">,</span>
-                           <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="o">&gt;</span>
-            <span class="n">callback</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">callback</span><span class="p">(</span><span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_geom_pipeline</span><span class="p">),</span>
-                 <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_light_pipeline</span><span class="p">));</span>
-    <span class="p">}</span>
-
-    <span class="kt">void</span> <span class="n">record</span><span class="p">(</span>
-        <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;&amp;</span><span class="p">,</span>
-                           <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="o">&gt;</span>
-            <span class="n">cmds</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">).</span><span class="n">target</span><span class="p">(</span><span class="n">_g_buffer</span><span class="p">).</span><span class="n">clear</span><span class="p">();</span>
-        <span class="n">ctx</span><span class="p">.</span><span class="n">graphics</span><span class="o">-&gt;</span><span class="n">cull_on</span><span class="p">();</span>
-
-        <span class="n">ctx</span><span class="p">.</span><span class="n">graphics</span><span class="o">-&gt;</span><span class="n">process_cmds</span><span class="p">(</span>
-            <span class="n">cmds</span><span class="p">,</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_geom_pipeline</span><span class="p">),</span>
-            <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_light_pipeline</span><span class="p">));</span>
-        <span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">target</span><span class="p">(</span><span class="n">_buffer</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">_light_pipeline</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">bind_input</span><span class="p">(</span><span class="n">_g_buffer</span><span class="p">);</span>
-        <span class="n">ctx</span><span class="p">.</span><span class="n">graphics</span><span class="o">-&gt;</span><span class="n">render_quad</span><span class="p">();</span>
-        <span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+<span class="kt">void</span> <span class="n">on_screen_resize</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">h</span><span class="p">)</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="n">_g_buffer</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
+    <span class="n">_buffer</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We&#8217;ll provide our renderer users with a configuration callback method
+that will allow them to setup the 2 deferred rendering pipelines before
+drawing each frame.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">configure</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;&amp;</span><span class="p">,</span>
+                       <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="o">&gt;</span>
+        <span class="n">callback</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">callback</span><span class="p">(</span><span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_geom_pipeline</span><span class="p">),</span>
+             <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_light_pipeline</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We&#8217;ll provide our users with a record callback to allow drawing using
+our pipelines on each frame.
+While you may find using the verb <cite>record</cite> weird, it is actually a
+forward thinking move for when GDT will support Vulkan. Vulkan (as well
+as other modern graphics APIs) support the notion of pre-recording drawing
+code and then replaying it on each frame - for increased performance.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">record</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;&amp;</span><span class="p">,</span>
+                       <span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="o">&gt;</span>
+        <span class="n">cmds</span><span class="p">)</span>
+<span class="p">{</span>
+</pre></div>
+</div>
+<p>Here&#8217;s what&#8217;s going on:
+We begin by setting up our geometery pass, targeting <cite>_g_buffer</cite>,
+and clearing it.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">).</span><span class="n">target</span><span class="p">(</span><span class="n">_g_buffer</span><span class="p">).</span><span class="n">clear</span><span class="p">();</span>
+<span class="n">ctx</span><span class="p">.</span><span class="n">graphics</span><span class="o">-&gt;</span><span class="n">cull_on</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>We delegate the cmds callback provided by the user to the graphics
+backend. For OpenGL, this does nothing special but executing the
+callback. The user callback should take care of drawing things
+onto the g-buffer.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">ctx</span><span class="p">.</span><span class="n">graphics</span><span class="o">-&gt;</span><span class="n">process_cmds</span><span class="p">(</span>
+    <span class="n">cmds</span><span class="p">,</span> <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">geom_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_geom_pipeline</span><span class="p">),</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">pipeline_proxy</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">light_pipeline</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_light_pipeline</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Once we have everything needed done in the geometery pass, we can
+move on to the lighting pass.
+We set up a new render pass, this time targeting the back buffer
+and setting up <cite>_light_pipeline</cite> as a filter. A filter is a pipeline
+designed to take an input buffer (<cite>_g_buffer</cite> in our case) and manipulate
+it by rendering a quad.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">target</span><span class="p">(</span><span class="n">_buffer</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">_light_pipeline</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">bind_input</span><span class="p">(</span><span class="n">_g_buffer</span><span class="p">);</span>
+<span class="n">ctx</span><span class="p">.</span><span class="n">graphics</span><span class="o">-&gt;</span><span class="n">render_quad</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Finally, we can use the FXAA pipeline for anti-aliasing.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span>        <span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
             <span class="p">.</span><span class="n">target</span><span class="p">(</span><span class="n">my_app</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">screen_buffer</span><span class="p">)</span>
             <span class="p">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">_fxaa_pipeline</span><span class="p">)</span>
@@ -261,106 +313,127 @@ Physics.</p>
         <span class="n">my_app</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">screen_buffer</span><span class="p">.</span><span class="n">copy_depth_from</span><span class="p">(</span><span class="n">_g_buffer</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-physics-scene">
+<h2>The physics scene<a class="headerlink" href="#the-physics-scene" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">class</span> <span class="nl">physics_scene</span> <span class="p">:</span> <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">scene</span> <span class="p">{</span>
+  <span class="nl">private</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Let&#8217;s define everything we need for the scene. For this example we&#8217;ll
+manage two cameras and let the user switch between them.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span>  <span class="n">deferred_renderer</span> <span class="n">_renderer</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">light</span><span class="o">&gt;</span> <span class="n">_lights</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span>
+      <span class="n">gdt</span><span class="o">::</span><span class="n">instances</span><span class="o">&lt;</span>
+          <span class="n">my_app</span><span class="o">::</span><span class="n">box_proxy</span><span class="o">&lt;</span><span class="n">crate</span><span class="o">&gt;</span><span class="p">,</span> <span class="mi">200</span><span class="o">&gt;</span><span class="p">,</span>
+              <span class="n">my_app</span><span class="o">::</span><span class="n">rigid_body_driver</span><span class="o">&gt;</span> <span class="n">_crates</span><span class="p">;</span>
+  <span class="n">my_app</span><span class="o">::</span><span class="n">physics</span><span class="o">::</span><span class="n">wall</span> <span class="n">_floor</span><span class="p">;</span>
 
-<span class="n">class</span> <span class="nl">physics_scene</span> <span class="p">:</span> <span class="n">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">scene</span> <span class="p">{</span>
-    <span class="n">deferred_renderer</span> <span class="n">_renderer</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">light</span><span class="o">&gt;</span> <span class="n">_lights</span><span class="p">;</span>
-    <span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instances</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">box_proxy</span><span class="o">&lt;</span><span class="n">crate</span><span class="o">&gt;</span><span class="p">,</span> <span class="mi">200</span><span class="o">&gt;</span><span class="p">,</span>
-                <span class="n">my_app</span><span class="o">::</span><span class="n">rigid_body_driver</span><span class="o">&gt;</span>
-        <span class="n">_platforms</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">my_app</span><span class="o">::</span><span class="n">fps_driver</span><span class="o">&gt;</span> <span class="n">_camera1</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">hover_driver</span><span class="o">&gt;</span> <span class="n">_camera2</span><span class="p">;</span>
 
-    <span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;*</span> <span class="n">_active_camera_instance</span><span class="p">;</span>
-    <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">*</span> <span class="n">_active_camera_driver</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;*</span> <span class="n">_active_camera_instance</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">*</span> <span class="n">_active_camera_driver</span><span class="p">;</span>
 
-    <span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">my_app</span><span class="o">::</span><span class="n">fps_driver</span><span class="o">&gt;</span> <span class="n">_camera1</span><span class="p">;</span>
-    <span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">camera</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">hover_driver</span><span class="o">&gt;</span> <span class="n">_camera2</span><span class="p">;</span>
+  <span class="n">gdt</span><span class="o">::</span><span class="n">wsad_controller</span> <span class="n">_wsad</span><span class="p">;</span>
 
+<span class="nl">public</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Note how we initialize the crates using an initializator callback.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="n">physics_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">screen</span><span class="o">*</span> <span class="n">screen</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">_renderer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">screen</span><span class="p">),</span>
+      <span class="n">_lights</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+      <span class="n">_crates</span><span class="p">(</span>
+          <span class="n">ctx</span><span class="p">,</span>
+          <span class="p">[](</span><span class="kt">int</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+              <span class="n">my_app</span><span class="o">::</span><span class="n">rigid_body_driver</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">box_proxy</span><span class="o">&lt;</span><span class="n">crate</span><span class="o">&gt;&gt;::</span><span class="n">initializer</span> <span class="n">i</span><span class="p">;</span>
+              <span class="n">i</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="o">::</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span>
+                      <span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+              <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+          <span class="p">},</span>
+          <span class="mi">2</span><span class="p">),</span>
+      <span class="n">_camera1</span><span class="p">{</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">::</span><span class="n">look_at</span><span class="p">({</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">100</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">}),</span> <span class="n">screen</span><span class="p">},</span>
+      <span class="n">_camera2</span><span class="p">{</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">::</span><span class="n">look_at</span><span class="p">({</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="o">-</span><span class="mi">100</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">}),</span> <span class="n">screen</span><span class="p">}</span>
+<span class="p">{</span>
+    <span class="n">_floor</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">physics</span><span class="o">-&gt;</span><span class="n">make_wall</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+    <span class="n">_crates</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
 
-    <span class="n">gdt</span><span class="o">::</span><span class="n">wsad_controller</span> <span class="n">_wsad</span><span class="p">;</span>
-    <span class="n">my_app</span><span class="o">::</span><span class="n">physics</span><span class="o">::</span><span class="n">wall</span> <span class="n">_floor</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">generate</span><span class="p">(</span><span class="n">_lights</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">_lights</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                  <span class="p">[]()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">gdt</span><span class="o">::</span><span class="n">light</span><span class="o">::</span><span class="n">randomize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span> <span class="p">});</span>
+    <span class="n">activate_camera1</span><span class="p">();</span>
+<span class="p">}</span>
 
-  <span class="nl">public</span><span class="p">:</span>
-    <span class="n">physics_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">screen</span><span class="o">*</span> <span class="n">screen</span><span class="p">)</span>
-        <span class="o">:</span> <span class="n">_renderer</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">screen</span><span class="p">),</span>
-          <span class="n">_lights</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
-          <span class="n">_platforms</span><span class="p">(</span>
-              <span class="n">ctx</span><span class="p">,</span>
-              <span class="p">[](</span><span class="kt">int</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-                  <span class="n">my_app</span><span class="o">::</span><span class="n">rigid_body_driver</span><span class="o">&lt;</span><span class="n">my_app</span><span class="o">::</span><span class="n">box_proxy</span><span class="o">&lt;</span><span class="n">crate</span><span class="o">&gt;&gt;::</span><span class="n">initializer</span> <span class="n">i</span><span class="p">;</span>
-                  <span class="n">i</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="o">::</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span>
-                                                      <span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">333</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-                  <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="o">~</span><span class="n">physics_scene</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="p">}</span>
 
-              <span class="p">},</span>
-              <span class="mi">2</span><span class="p">),</span>
-          <span class="n">_camera1</span><span class="p">{</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">::</span><span class="n">look_at</span><span class="p">({</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">100</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">}),</span> <span class="n">screen</span><span class="p">},</span>
-          <span class="n">_camera2</span><span class="p">{</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pov_driver</span><span class="o">::</span><span class="n">look_at</span><span class="p">({</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="o">-</span><span class="mi">100</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">}),</span> <span class="n">screen</span><span class="p">}</span>
-    <span class="p">{</span>
-        <span class="n">_floor</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">physics</span><span class="o">-&gt;</span><span class="n">make_wall</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">gdt</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-        <span class="n">_platforms</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">activate_camera1</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">_active_camera_instance</span> <span class="o">=</span> <span class="n">_camera1</span><span class="p">.</span><span class="n">drivable_ptr</span><span class="p">();</span>
+    <span class="n">_active_camera_driver</span> <span class="o">=</span> <span class="n">_camera1</span><span class="p">.</span><span class="n">get_driver_ptr</span><span class="p">();</span>
+<span class="p">}</span>
 
-        <span class="n">std</span><span class="o">::</span><span class="n">generate</span><span class="p">(</span><span class="n">_lights</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">_lights</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-                      <span class="p">[]()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">gdt</span><span class="o">::</span><span class="n">light</span><span class="o">::</span><span class="n">randomize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span> <span class="p">});</span>
+<span class="kt">void</span> <span class="n">activate_camera2</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">_active_camera_instance</span> <span class="o">=</span> <span class="n">_camera2</span><span class="p">.</span><span class="n">drivable_ptr</span><span class="p">();</span>
+    <span class="n">_active_camera_driver</span> <span class="o">=</span> <span class="n">_camera2</span><span class="p">.</span><span class="n">get_driver_ptr</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Our frame update code involves updating the <cite>_crates</cite> instances,
+the camera controller and the physics backend, as well as checking
+for user input. Finally, we call <cite>render</cite> to draw the frame.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="n">_crates</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+    <span class="n">_wsad</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">_active_camera_driver</span><span class="p">);</span>
+    <span class="n">ctx</span><span class="p">.</span><span class="n">physics</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">get_platform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_key_pressed</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">key</span><span class="o">::</span><span class="n">N1</span><span class="p">))</span> <span class="p">{</span>
         <span class="n">activate_camera1</span><span class="p">();</span>
     <span class="p">}</span>
-
-    <span class="n">virtual</span> <span class="o">~</span><span class="n">physics_scene</span><span class="p">()</span>
-    <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">get_platform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_key_pressed</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">key</span><span class="o">::</span><span class="n">N2</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">activate_camera2</span><span class="p">();</span>
     <span class="p">}</span>
-
-    <span class="kt">void</span> <span class="n">activate_camera1</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">_active_camera_instance</span> <span class="o">=</span> <span class="n">_camera1</span><span class="p">.</span><span class="n">drivable_ptr</span><span class="p">();</span>
-        <span class="n">_active_camera_driver</span> <span class="o">=</span> <span class="n">_camera1</span><span class="p">.</span><span class="n">get_driver_ptr</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">get_platform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_key_pressed</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">key</span><span class="o">::</span><span class="n">Q</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">ctx</span><span class="p">.</span><span class="n">quit</span><span class="p">();</span>
     <span class="p">}</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We&#8217;ll use the deferred renderer we&#8217;ve built to draw each frame.
+First, we&#8217;ll provide a configuration callback to setup the deferred
+rendering pipelines.
+Then, we&#8217;ll provide a drawing callback to perform the actual drawing.</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">render</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="n">_renderer</span><span class="p">.</span><span class="n">configure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">[</span><span class="n">this</span><span class="p">,</span> <span class="n">ctx</span><span class="p">](</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">geom_pipeline</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">light_pipeline</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">geom_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">set_camera</span><span class="p">(</span><span class="o">*</span><span class="n">_active_camera_instance</span><span class="p">);</span>
+        <span class="n">light_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">set_eyepos</span><span class="p">(</span><span class="n">_active_camera_instance</span><span class="o">-&gt;</span><span class="n">entity</span><span class="p">().</span><span class="n">pos</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">set_lights</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">_lights</span><span class="p">);</span>
+    <span class="p">});</span>
 
-    <span class="kt">void</span> <span class="n">activate_camera2</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">_active_camera_instance</span> <span class="o">=</span> <span class="n">_camera2</span><span class="p">.</span><span class="n">drivable_ptr</span><span class="p">();</span>
-        <span class="n">_active_camera_driver</span> <span class="o">=</span> <span class="n">_camera2</span><span class="p">.</span><span class="n">get_driver_ptr</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
-    <span class="p">{</span>
-        <span class="n">_platforms</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
-        <span class="n">_wsad</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">_active_camera_driver</span><span class="p">);</span>
-        <span class="n">_active_camera_driver</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">();</span>
-        <span class="n">ctx</span><span class="p">.</span><span class="n">physics</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">get_platform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_key_pressed</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">key</span><span class="o">::</span><span class="n">N1</span><span class="p">))</span> <span class="p">{</span>
-            <span class="n">activate_camera1</span><span class="p">();</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">get_platform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_key_pressed</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">key</span><span class="o">::</span><span class="n">N2</span><span class="p">))</span> <span class="p">{</span>
-            <span class="n">activate_camera2</span><span class="p">();</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">get_platform</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_key_pressed</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">key</span><span class="o">::</span><span class="n">Q</span><span class="p">))</span> <span class="p">{</span>
-            <span class="n">ctx</span><span class="p">.</span><span class="n">quit</span><span class="p">();</span>
-        <span class="p">}</span>
-        <span class="n">render</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="kt">void</span> <span class="n">render</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
-    <span class="p">{</span>
-        <span class="n">_renderer</span><span class="p">.</span><span class="n">configure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">[</span><span class="n">this</span><span class="p">,</span> <span class="n">ctx</span><span class="p">](</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">geom_pipeline</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">light_pipeline</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">geom_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">).</span><span class="n">set_camera</span><span class="p">(</span><span class="o">*</span><span class="n">_active_camera_instance</span><span class="p">);</span>
-            <span class="n">light_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">).</span><span class="n">set_eyepos</span><span class="p">(</span><span class="n">_active_camera_instance</span><span class="o">-&gt;</span><span class="n">entity</span><span class="p">().</span><span class="n">pos</span><span class="p">).</span><span class="n">set_lights</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">_lights</span><span class="p">);</span>
-        <span class="p">});</span>
-
-        <span class="n">_renderer</span><span class="p">.</span><span class="n">record</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">[</span><span class="n">this</span><span class="p">,</span> <span class="n">ctx</span><span class="p">](</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">pipeline</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">pipeline2</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">set_imgui_overrides</span><span class="p">()</span>
-                <span class="p">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">_platforms</span><span class="p">.</span><span class="n">get_drawable</span><span class="p">().</span><span class="n">get_material</span><span class="p">())</span>
-                <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_platforms</span><span class="p">.</span><span class="n">drivable</span><span class="p">());</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
-    <span class="kt">void</span> <span class="n">imgui</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
+    <span class="n">_renderer</span><span class="p">.</span><span class="n">record</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="p">[</span><span class="n">this</span><span class="p">,</span> <span class="n">ctx</span><span class="p">](</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">geom_pipeline</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">light_pipeline</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">geom_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">set_imgui_overrides</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">_crates</span><span class="p">.</span><span class="n">get_drawable</span><span class="p">().</span><span class="n">get_material</span><span class="p">())</span>
+            <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_crates</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>ImGui UI for this example:</p>
+<div class="highlight-c"><div class="highlight"><pre><span></span>    <span class="kt">void</span> <span class="nf">imgui</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="n">override</span>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">ImGui</span><span class="o">::</span><span class="n">CollapsingHeader</span><span class="p">(</span><span class="s">&quot;light&quot;</span><span class="p">))</span> <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
             <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">l</span> <span class="p">:</span> <span class="n">_lights</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">c</span><span class="o">++</span><span class="p">;</span>
-                <span class="n">ImGui</span><span class="o">::</span><span class="n">PushID</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                 <span class="n">l</span><span class="p">.</span><span class="n">imgui</span><span class="p">();</span>
-                <span class="n">ImGui</span><span class="o">::</span><span class="n">PopID</span><span class="p">();</span>
             <span class="p">}</span>
         <span class="p">}</span>
         <span class="n">_active_camera_instance</span><span class="o">-&gt;</span><span class="n">entity_ptr</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">imgui</span><span class="p">();</span>
