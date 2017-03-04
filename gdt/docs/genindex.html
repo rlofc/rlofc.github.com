@@ -84,13 +84,13 @@
 <li class="toctree-l1"><a class="reference internal" href="context.html">Put it in context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
@@ -158,6 +158,10 @@
   </dt>
 
       
+  <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE10animatableE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::animatable (C++ type)</a>
+  </dt>
+
+      
   <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5assetE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::asset (C++ type)</a>
   </dt>
 
@@ -171,6 +175,10 @@
 
       
   <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE7contextE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::context (C++ type)</a>
+  </dt>
+
+      
+  <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8drawableE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::drawable (C++ type)</a>
   </dt>
 
       
@@ -214,10 +222,6 @@
   </dt>
 
       
-  <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5modelE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::model (C++ type)</a>
-  </dt>
-
-      
   <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE7physicsE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::physics (C++ type)</a>
   </dt>
 
@@ -253,8 +257,6 @@
   <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE17rigid_body_driverE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::rigid_body_driver (C++ type)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5sceneE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::scene (C++ type)</a>
   </dt>
@@ -267,6 +269,8 @@
   <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE12sphere_proxyE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::sphere_proxy (C++ type)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="application.html#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE4textE">gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::text (C++ type)</a>
   </dt>
@@ -280,11 +284,15 @@
   </dt>
 
       
-  <dt><a href="drawing.html#_CPPv2N3gdt5assetE">gdt::asset (C++ class)</a>, <a href="scenes.html#_CPPv2N3gdt5assetE">[1]</a>
+  <dt><a href="scenes.html#_CPPv2N3gdt5assetE">gdt::asset (C++ class)</a>
   </dt>
 
       
   <dt><a href="context.html#_CPPv2N3gdt13audio_contextE">gdt::audio_context (C++ class)</a>
+  </dt>
+
+      
+  <dt><a href="audio.html#_CPPv2N3gdt10blueprints5audio5soundE">gdt::blueprints::audio::sound (C++ class)</a>
   </dt>
 
       
@@ -308,6 +316,18 @@
   </dt>
 
       
+  <dt><a href="drawing.html#_CPPv2N3gdt8drawableE">gdt::drawable (C++ class)</a>
+  </dt>
+
+      
+  <dt><a href="drawing.html#_CPPv2N3gdt8drawable8drawableERK16graphics_contextI8GRAPHICSENSt6stringENSt8functionIFNSt10unique_ptrI5modelEEPKcEEE">gdt::drawable::drawable (C++ function)</a>
+  </dt>
+
+      
+  <dt><a href="drawing.html#_CPPv2N3gdt16forward_pipelineE">gdt::forward_pipeline (C++ class)</a>
+  </dt>
+
+      
   <dt><a href="context.html#_CPPv2N3gdt16graphics_contextE">gdt::graphics_context (C++ class)</a>
   </dt>
 
@@ -316,7 +336,19 @@
   </dt>
 
       
+  <dt><a href="scenes.html#_CPPv2N3gdt9instances9instancesERK7CONTEXTNSt8functionIFN4math4mat4EiEEEDpRK3ARG">gdt::instances::instances (C++ function)</a>
+  </dt>
+
+      
   <dt><a href="debug.html#_CPPv2N3gdt6loggerE">gdt::logger (C++ class)</a>
+  </dt>
+
+      
+  <dt><a href="drawing.html#_CPPv2N3gdt8materialE">gdt::material (C++ class)</a>
+  </dt>
+
+      
+  <dt><a href="drawing.html#_CPPv2N3gdt8material8materialERK16graphics_contextI8GRAPHICSEPKN8GRAPHICS7textureEPKN8GRAPHICS7textureEPKN8GRAPHICS7textureE">gdt::material::material (C++ function)</a>
   </dt>
 
       

@@ -34,8 +34,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="GDT  documentation" href="index.html"/>
-        <link rel="next" title="Blueprints" href="blueprints.html"/>
-        <link rel="prev" title="Physics" href="physics.html"/> 
+        <link rel="next" title="Physics" href="physics.html"/>
+        <link rel="prev" title="Animation" href="animation.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,13 +85,13 @@
 <li class="toctree-l1"><a class="reference internal" href="context.html">Put it in context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Audio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
@@ -142,7 +142,21 @@
             
   <div class="section" id="audio">
 <h1>Audio<a class="headerlink" href="#audio" title="Permalink to this headline">¶</a></h1>
-<p>TODO</p>
+<dl class="class">
+<dt id="_CPPv2N3gdt10blueprints5audio5soundE">
+<span id="gdt::blueprints::audio::sound"></span><span class="target" id="GDTclassgdt_1_1blueprints_1_1audio_1_1sound"></span><em class="property">class </em><code class="descclassname">gdt::blueprints::audio::</code><code class="descname">sound</code><a class="headerlink" href="#_CPPv2N3gdt10blueprints5audio5soundE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The basic sound type that audio backend should provide you with. When you specify an audio backend for your application type, you can declare your own sound objects through it: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">intro_scene</span><span class="o">:</span> <span class="k">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">scene</span> <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">sound</span> <span class="n">_game_theme</span><span class="p">;</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="n">intro_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span> <span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">_game_theme</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/audio/theme.ogg&quot;</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
 </div>
 
 
@@ -152,10 +166,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="blueprints.html" class="btn btn-neutral float-right" title="Blueprints" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="physics.html" class="btn btn-neutral float-right" title="Physics" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="physics.html" class="btn btn-neutral" title="Physics" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="animation.html" class="btn btn-neutral" title="Animation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

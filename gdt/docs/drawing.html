@@ -34,7 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="GDT  documentation" href="index.html"/>
-        <link rel="next" title="Controlling" href="control.html"/>
+        <link rel="next" title="Animation" href="animation.html"/>
         <link rel="prev" title="Make a Scene" href="scenes.html"/> 
 
   
@@ -85,18 +85,18 @@
 <li class="toctree-l1"><a class="reference internal" href="context.html">Put it in context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Draw Something</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#gdt-asset">gdt::asset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gdt-drawable">gdt::drawable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gdt-material">gdt::material</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gdt-forward-renderer">gdt::forward_renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gdt-forward-pipeline">gdt::forward_pipeline</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
@@ -147,34 +147,102 @@
             
   <div class="section" id="draw-something">
 <h1>Draw Something<a class="headerlink" href="#draw-something" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="gdt-asset">
-<h2>gdt::asset<a class="headerlink" href="#gdt-asset" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gdt-drawable">
+<h2>gdt::drawable<a class="headerlink" href="#gdt-drawable" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<span class="target" id="GDTclassgdt_1_1asset"></span><em class="property">template </em>&lt;<em class="property">typename</em> ACTUAL&gt;</dt>
-<dt id="_CPPv2N3gdt5assetE">
-<span id="gdt::asset"></span><em class="property">class </em><code class="descclassname">gdt::</code><code class="descname">asset</code><a class="headerlink" href="#_CPPv2N3gdt5assetE" title="Permalink to this definition">¶</a></dt>
-<dd><p>An asset is an <strong>almost</strong> drawable 3D entity you load from a file, holding the required surface data you need to provide your rendering pipeline.</p>
+<span class="target" id="GDTclassgdt_1_1drawable"></span><em class="property">template </em>&lt;typename <em>GRAPHICS</em>, typename <em>ACTUAL</em>&gt;</dt>
+<dt id="_CPPv2N3gdt8drawableE">
+<span id="gdt::drawable"></span><em class="property">class </em><code class="descclassname">gdt::</code><code class="descname">drawable</code><a class="headerlink" href="#_CPPv2N3gdt8drawableE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A drawable is an <strong>almost</strong> ready to draw 3D entity you load from a file, holding the required surface data you need to provide your rendering pipeline.</p>
 <p>Why almost?</p>
-<p>In GDT, an asset object contains the 3D vertices information of a model, without any material properties or texture map data. These attributes are stored in gdt::material objects or being set directly using gdt::pipeline instances.</p>
-<p>Another part missing from <a class="reference internal" href="scenes.html#GDTclassgdt_1_1asset"><span class="std std-ref">gdt::asset</span></a> objects in the specific instance information about the position, rotation and scale of the model in the 3D world containing it. This information is being stored in the gdt::instance or <a class="reference internal" href="scenes.html#GDTclassgdt_1_1instances"><span class="std std-ref">gdt::instances</span></a> template that can contain assets or other type of GDT entities. </p>
-<p>Inherits from gdt::is_entity&lt; ACTUAL &gt;, gdt::is_drivable&lt; ACTUAL &gt;</p>
+<p>In GDT, a drawable object contains the 3D vertices information of a model, without any material properties or texture map data. These attributes are stored in <a class="reference internal" href="#GDTstructgdt_1_1material"><span class="std std-ref">gdt::material</span></a> objects or being set directly using gdt::pipeline instances.</p>
+<p>Another part missing from <a class="reference internal" href="#GDTclassgdt_1_1drawable"><span class="std std-ref">gdt::drawable</span></a> objects in the specific instance information about the position, rotation and scale of the model in the 3D world containing it. This information is being stored in the gdt::instance or <a class="reference internal" href="scenes.html#GDTclassgdt_1_1instances"><span class="std std-ref">gdt::instances</span></a> template that can contain drawables or other type of GDT assets.</p>
+<p>Here&#8217;s how you can subclass <a class="reference internal" href="#GDTclassgdt_1_1drawable"><span class="std std-ref">gdt::drawable</span></a> to create your own assets: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">zombie</span> <span class="o">:</span> <span class="k">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">asset</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="k">public</span> <span class="n">my_app</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="n">moon</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">my_app</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/zombie.smd&quot;</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</p>
+<p>And here&#8217;s how you could instantiate a drawable in your scene class: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span> <span class="n">_zombie</span><span class="p">;</span>
+<span class="n">gdt</span><span class="o">::</span><span class="n">instances</span><span class="o">&lt;</span><span class="n">zombie</span><span class="p">,</span> <span class="mi">1000</span><span class="o">&gt;</span> <span class="n">_army_of_zombies</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<p>Now, if you want direct control over your drawable instances, you can use gdt::driven together with a gdt::direct_driver or other drivers to help you manipulate your instances transformations: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">driven</span><span class="o">&lt;</span><span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">direct_driver</span><span class="o">&gt;</span> <span class="n">_movable_zombie</span><span class="p">;</span>
+</pre></div>
+</div>
+ </p>
+<p>Inherits from gdt::is_drawable&lt; ACTUAL &gt;</p>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N3gdt8drawable8drawableERK16graphics_contextI8GRAPHICSENSt6stringENSt8functionIFNSt10unique_ptrI5modelEEPKcEEE">
+<span class="target" id="GDTclassgdt_1_1drawable_1a5074e45f5a15cc5e5a8a9bdf94bebf87"></span><code class="descname">drawable</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="context.html#_CPPv2N3gdt16graphics_contextE" title="gdt::graphics_context">graphics_context</a>&lt;GRAPHICS&gt; &amp;<em>ctx</em>, std::string <em>filename</em>, std::function&lt;std::unique_ptr&lt;model&gt;<span class="sig-paren">(</span><em class="property">const</em> char *filename<span class="sig-paren">)</span>&gt; <em>loader</em> = read_smd<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N3gdt8drawable8drawableERK16graphics_contextI8GRAPHICSENSt6stringENSt8functionIFNSt10unique_ptrI5modelEEPKcEEE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a drawable from the provided SMD model filename.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">ctx</span></code>: a <a class="reference internal" href="context.html#GDTstructgdt_1_1graphics__context"><span class="std std-ref">graphics_context</span></a> compatible context object </li>
+<li><code class="docutils literal"><span class="pre">filename</span></code>: full path to a valid SMD model </li>
+<li><code class="docutils literal"><span class="pre">loader</span></code>: file loader - SMD file loader by default </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
 </dd></dl>
 
 </div>
 <div class="section" id="gdt-material">
 <h2>gdt::material<a class="headerlink" href="#gdt-material" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygenclass: Cannot find class &#8220;gdt::material&#8221; in doxygen xml output for project &#8220;GDT&#8221; from directory: /mnt/storage/silo01/projects/GameDevTemplates/build/doxygen/xml/</p>
+<dl class="class">
+<dt>
+<span class="target" id="GDTstructgdt_1_1material"></span><em class="property">template </em>&lt;<em class="property">typename</em> GRAPHICS&gt;</dt>
+<dt id="_CPPv2N3gdt8materialE">
+<span id="gdt::material"></span><em class="property">struct </em><code class="descclassname">gdt::</code><code class="descname">material</code><a class="headerlink" href="#_CPPv2N3gdt8materialE" title="Permalink to this definition">¶</a></dt>
+<dd><p>GDT standard material for <a class="reference internal" href="#GDTclassgdt_1_1drawable"><span class="std std-ref">gdt::drawable</span></a> objects. </p>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N3gdt8material8materialERK16graphics_contextI8GRAPHICSEPKN8GRAPHICS7textureEPKN8GRAPHICS7textureEPKN8GRAPHICS7textureE">
+<span id="gdt::material::material__graphics_context:GRAPHICS:CR.GRAPHICS::textureCP.GRAPHICS::textureCP.GRAPHICS::textureCP"></span><span class="target" id="GDTstructgdt_1_1material_1a6de905f218929f1e2371152031fd61a3"></span><code class="descname">material</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="context.html#_CPPv2N3gdt16graphics_contextE" title="gdt::graphics_context">graphics_context</a>&lt;GRAPHICS&gt; &amp;<em>ctx</em>, <em class="property">const</em> <em class="property">typename</em> GRAPHICS::texture *<em>d</em>, <em class="property">const</em> <em class="property">typename</em> GRAPHICS::texture *<em>n</em>, <em class="property">const</em> <em class="property">typename</em> GRAPHICS::texture *<em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N3gdt8material8materialERK16graphics_contextI8GRAPHICSEPKN8GRAPHICS7textureEPKN8GRAPHICS7textureEPKN8GRAPHICS7textureE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new material using diffuse, normal and specular texture maps. </p>
+</dd></dl>
+
 </div>
+</dd></dl>
+
 </div>
-<div class="section" id="gdt-forward-renderer">
-<h2>gdt::forward_renderer<a class="headerlink" href="#gdt-forward-renderer" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygenclass: Cannot find class &#8220;gdt::forward_renderer&#8221; in doxygen xml output for project &#8220;GDT&#8221; from directory: /mnt/storage/silo01/projects/GameDevTemplates/build/doxygen/xml/</p>
+<div class="section" id="gdt-forward-pipeline">
+<h2>gdt::forward_pipeline<a class="headerlink" href="#gdt-forward-pipeline" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<span class="target" id="GDTclassgdt_1_1forward__pipeline"></span><em class="property">template </em>&lt;<em class="property">typename</em> GRAPHICS&gt;</dt>
+<dt id="_CPPv2N3gdt16forward_pipelineE">
+<span id="gdt::forward_pipeline"></span><em class="property">class </em><code class="descclassname">gdt::</code><code class="descname">forward_pipeline</code><a class="headerlink" href="#_CPPv2N3gdt16forward_pipelineE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The forward rendering pipeline supports standard forward rendering and supports a single directional light. Here&#8217;s how a <a class="reference internal" href="scenes.html#GDTclassgdt_1_1scene"><span class="std std-ref">gdt::scene</span></a> render method could look like using this pipeline: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">render</span><span class="p">(</span><span class="k">const</span> <span class="n">my_app</span><span class="o">::</span><span class="n">context</span><span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span> <span class="k">override</span>
+<span class="p">{</span>
+    <span class="n">my_app</span><span class="o">::</span><span class="n">render_pass</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">target</span><span class="p">(</span><span class="n">my_app</span><span class="o">::</span><span class="n">graphics</span><span class="o">::</span><span class="n">screen_buffer</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">clear</span><span class="p">({</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">});</span>
+
+    <span class="n">_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">set_material</span><span class="p">(</span><span class="n">_zombie</span><span class="p">.</span><span class="n">get_drawable</span><span class="p">().</span><span class="n">get_material</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">set_camera</span><span class="p">(</span><span class="n">_camera</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_moon</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+ </p>
+<p>Inherits from gdt::pipeline&lt; GRAPHICS, forward_pipeline&lt; GRAPHICS &gt; &gt;</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -185,7 +253,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="control.html" class="btn btn-neutral float-right" title="Controlling" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="animation.html" class="btn btn-neutral float-right" title="Animation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="scenes.html" class="btn btn-neutral" title="Make a Scene" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

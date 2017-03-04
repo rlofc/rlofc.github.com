@@ -89,13 +89,13 @@
 <li class="toctree-l1"><a class="reference internal" href="context.html">Put it in context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scenes.html">Make a Scene</a></li>
 <li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
@@ -208,13 +208,26 @@ template&lt;&gt;</dt>
 <dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5assetE">
-<span class="target" id="GDTclassgdt_1_1application_1a622dea8b518fdfdd941abd0b988541f8"></span><em class="property">using </em><code class="descname">asset</code> = gdt::<a class="reference internal" href="drawing.html#_CPPv2N3gdt5assetE" title="gdt::asset">asset</a>&lt;ACTUAL_ASSET&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5assetE" title="Permalink to this definition">¶</a></dt>
-<dd><p>A derivable <a class="reference internal" href="scenes.html#GDTclassgdt_1_1asset"><span class="std std-ref">gdt::asset</span></a> template you can use to create your own</p>
-<p>For example: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">zombie</span> <span class="o">:</span> <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">asset</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="target" id="GDTclassgdt_1_1application_1a622dea8b518fdfdd941abd0b988541f8"></span><em class="property">using </em><code class="descname">asset</code> = gdt::<a class="reference internal" href="scenes.html#_CPPv2N3gdt5assetE" title="gdt::asset">asset</a>&lt;ACTUAL_ASSET&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5assetE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="scenes.html#GDTclassgdt_1_1asset"><span class="std std-ref">gdt::asset</span></a> CRTP template you can use to subclass your own assets. You will normally have additional traits set for your assets. </p>
+</dd></dl>
+
+<dl class="type">
+<dt>
+template&lt;&gt;</dt>
+<dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8drawableE">
+<span class="target" id="GDTclassgdt_1_1application_1abbcf60834b0062e43aa04c38e8109fbb"></span><em class="property">using </em><code class="descname">drawable</code> = gdt::<a class="reference internal" href="drawing.html#_CPPv2N3gdt8drawableE" title="gdt::drawable">drawable</a>&lt;GRAPHICS&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8platformE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::platform">platform</a>&gt;, ACTUAL_ASSET&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8drawableE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="drawing.html#GDTclassgdt_1_1drawable"><span class="std std-ref">gdt::drawable</span></a> CRTP template you subclass to create your own drawable assets: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">zombie</span> <span class="o">:</span> <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">asset</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
     <span class="n">zombie</span><span class="p">(</span><span class="k">const</span> <span class="n">my_game</span><span class="o">::</span><span class="n">context</span> <span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span><span class="o">:</span>
-      <span class="n">my_game</span><span class="o">::</span><span class="n">asset</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/zombie.smd&quot;</span><span class="p">)</span> <span class="p">{}</span>
+      <span class="n">my_game</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/zombie.smd&quot;</span><span class="p">)</span> <span class="p">{}</span>
 <span class="p">};</span>
+</pre></div>
+</div>
+</p>
+<p>Drawable assets can be used as arguments in pipeline <code class="docutils literal"><span class="pre">draw</span></code> calls: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">_pipeline</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">_zombie</span><span class="p">);</span>
 </pre></div>
 </div>
  </p>
@@ -223,17 +236,20 @@ template&lt;&gt;</dt>
 <dl class="type">
 <dt>
 template&lt;&gt;</dt>
-<dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5modelE">
-<span class="target" id="GDTclassgdt_1_1application_1abe415212ca4191d90a77c69b3fbd1c6c"></span><em class="property">using </em><code class="descname">model</code> = gdt::bare_asset&lt;GRAPHICS&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8platformE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::platform">platform</a>&gt;&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5modelE" title="Permalink to this definition">¶</a></dt>
-<dd><p>A basic model asset you can use to compose your own more complex asset types.</p>
-<p>For example: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">zombie</span> <span class="p">{</span>
-    <span class="n">my_game</span><span class="o">::</span><span class="n">model</span> <span class="n">_model</span><span class="p">;</span>
+<dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE10animatableE">
+<span class="target" id="GDTclassgdt_1_1application_1a52789a23da0b1720ee3f430a81c3030a"></span><em class="property">using </em><code class="descname">animatable</code> = gdt::animatable&lt;ACTUAL_ASSET&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE10animatableE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A gdt::animatable CRTP template you can subclass to set up skeletal animation support for an asset: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">zombie</span> <span class="o">:</span> <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">asset</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">animatable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">public</span><span class="o">:</span>
     <span class="n">zombie</span><span class="p">(</span><span class="k">const</span> <span class="n">my_game</span><span class="o">::</span><span class="n">context</span> <span class="o">&amp;</span> <span class="n">ctx</span><span class="p">)</span><span class="o">:</span>
-      <span class="n">_model</span><span class="p">{</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/zombie.smd&quot;</span><span class="p">)</span> <span class="p">{}</span>
+      <span class="n">my_game</span><span class="o">::</span><span class="n">drawable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s">&quot;res/zombie.smd&quot;</span><span class="p">),</span>
+      <span class="n">my_game</span><span class="o">::</span><span class="n">animatable</span><span class="o">&lt;</span><span class="n">zombie</span><span class="o">&gt;</span><span class="p">(</span><span class="n">gdt</span><span class="o">::</span><span class="n">read_skeleton</span><span class="p">(</span><span class="s">&quot;res/zombie.smd&quot;</span><span class="p">))</span> <span class="p">{}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
- </p>
+</p>
+<p>You can then play animation objects through the gdt::animatable::play and have the model animated using one of the pipelies supporting skeletal animations (for example, gdt::rigged_pipeline). </p>
 </dd></dl>
 
 <dl class="type">
@@ -264,23 +280,44 @@ template&lt;&gt;</dt>
 <dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE14pipeline_proxyE">
-<span class="target" id="GDTclassgdt_1_1application_1a471e46be4e97fbb9bfda54e9e6c67a18"></span><em class="property">using </em><code class="descname">pipeline_proxy</code> = gdt::<a class="reference internal" href="shaders.html#_CPPv2N3gdt14pipeline_proxyE" title="gdt::pipeline_proxy">pipeline_proxy</a>&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>, S&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE14pipeline_proxyE" title="Permalink to this definition">¶</a></dt>
-<dd><p>A read-to-use <a class="reference internal" href="shaders.html#GDTclassgdt_1_1pipeline__proxy"><span class="std std-ref">gdt::pipeline_proxy</span></a>, used to ensure proper pipeline usage. </p>
+<span class="target" id="GDTclassgdt_1_1application_1af7517d8312956e2d96748fc8832fcef5"></span><em class="property">using </em><code class="descname">pipeline_proxy</code> = gdt::<a class="reference internal" href="shaders.html#_CPPv2N3gdt14pipeline_proxyE" title="gdt::pipeline_proxy">pipeline_proxy</a>&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>, PIPELINE&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE14pipeline_proxyE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A partly specified <a class="reference internal" href="shaders.html#GDTclassgdt_1_1pipeline__proxy"><span class="std std-ref">gdt::pipeline_proxy</span></a> template, used to ensure proper pipeline usage.</p>
+<p><dl class="docutils">
+<dt><strong>Template Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">PIPELINE</span></code>: pipeline type to wrap with the proxy. You will pass the actual object in the constructor of the proxy. </li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="type">
 <dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8pipelineE">
-<span class="target" id="GDTclassgdt_1_1application_1abeb2fb9e1ba8c99eece41dd7b32a2222"></span><em class="property">using </em><code class="descname">pipeline</code> = gdt::pipeline&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>, S&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8pipelineE" title="Permalink to this definition">¶</a></dt>
-<dd><p>A ready to use pipeline type for you to subclass from when you want to create your own vertex and fragment shaders pipeline. </p>
+<span class="target" id="GDTclassgdt_1_1application_1aa4eb224cdf30769e8600e80a82b8319b"></span><em class="property">using </em><code class="descname">pipeline</code> = gdt::pipeline&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>, PIPELINE&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8pipelineE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A partly specified pipeline CRTP template for you to subclass from when you want to create your own vertex and fragment shaders pipeline. <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">my_pipeline</span><span class="o">:</span> <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">pipeline</span><span class="o">&lt;</span><span class="n">my_pipeline</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</p>
+<p><dl class="docutils">
+<dt><strong>Template Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">PIPELINE</span></code>: your pipeline class, subclassing from this template. </li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="type">
 <dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE16forward_pipelineE">
-<span class="target" id="GDTclassgdt_1_1application_1a3eefd987bc9ae8707db35d1084f8c582"></span><em class="property">using </em><code class="descname">forward_pipeline</code> = gdt::forward_pipeline&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE16forward_pipelineE" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="GDTclassgdt_1_1application_1a3eefd987bc9ae8707db35d1084f8c582"></span><em class="property">using </em><code class="descname">forward_pipeline</code> = gdt::<a class="reference internal" href="drawing.html#_CPPv2N3gdt16forward_pipelineE" title="gdt::forward_pipeline">forward_pipeline</a>&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE16forward_pipelineE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forward rendering shaders pipeline. </p>
 </dd></dl>
 
@@ -344,8 +381,8 @@ template&lt;&gt;</dt>
 <dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8materialE">
-<span class="target" id="GDTclassgdt_1_1application_1a5f1a7aff36e65c21c5e56ad019a91d67"></span><em class="property">using </em><code class="descname">material</code> = gdt::material&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8materialE" title="Permalink to this definition">¶</a></dt>
-<dd><p>A standard, ready-to-use gdt::material (with diffuse, specular and normal textures). </p>
+<span class="target" id="GDTclassgdt_1_1application_1a5f1a7aff36e65c21c5e56ad019a91d67"></span><em class="property">using </em><code class="descname">material</code> = gdt::<a class="reference internal" href="drawing.html#_CPPv2N3gdt8materialE" title="gdt::material">material</a>&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8materialE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A standard, ready-to-use <a class="reference internal" href="drawing.html#GDTstructgdt_1_1material"><span class="std std-ref">gdt::material</span></a> (with diffuse, specular and normal textures). </p>
 </dd></dl>
 
 <dl class="type">
@@ -353,7 +390,7 @@ template&lt;&gt;</dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE11render_passE">
 <span class="target" id="GDTclassgdt_1_1application_1a59381e068d7142bcab80bb6ce06990ef"></span><em class="property">using </em><code class="descname">render_pass</code> = gdt::render_pass&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE11render_passE" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO: document this </p>
+<dd><p>A specified and ready to use render pass. </p>
 </dd></dl>
 
 <dl class="type">
@@ -361,7 +398,7 @@ template&lt;&gt;</dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8rendererE">
 <span class="target" id="GDTclassgdt_1_1application_1a6e80e53fe6407d6db17dcd4deafcf8cb"></span><em class="property">using </em><code class="descname">renderer</code> = gdt::renderer&lt;<a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8graphicsE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::graphics">graphics</a>, RENDERER&gt;<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE8rendererE" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO: document this </p>
+<dd><p>A partly specified CRTP renderer template for you to subclass from. </p>
 </dd></dl>
 
 <dl class="type">
@@ -417,7 +454,7 @@ template&lt;&gt;</dt>
 template&lt;&gt;</dt>
 <dt id="_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5soundE">
 <span class="target" id="GDTclassgdt_1_1application_1aaa521c50706d91368c23bf63e3417fc8"></span><em class="property">using </em><code class="descname">sound</code> = <em class="property">typename</em> <a class="reference internal" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5audioE" title="gdt::application&lt;PLATFORM, GRAPHICS, AUDIO, PHYSICS, NETWORKING, CONTEXT&gt;::audio">audio</a>::sound<a class="headerlink" href="#_CPPv2IEN3gdt11applicationI8PLATFORM8GRAPHICS5AUDIO7PHYSICS10NETWORKING7CONTEXTE5soundE" title="Permalink to this definition">¶</a></dt>
-<dd><p>A specified implementation of gdt::blueprints::audio::sound. </p>
+<dd><p>A specified implementation of <a class="reference internal" href="audio.html#GDTclassgdt_1_1blueprints_1_1audio_1_1sound"><span class="std std-ref">gdt::blueprints::audio::sound</span></a>. </p>
 </dd></dl>
 
 <dl class="type">

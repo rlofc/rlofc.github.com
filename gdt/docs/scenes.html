@@ -90,13 +90,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="drawing.html">Draw Something</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="control.html">Controlling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shaders.html">Shaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="text.html">Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="renderers.html">Renderers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="animation.html">Animation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="audio.html">Audio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debug.html">Logging &amp; Debugging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_empty_app.html">examples / empty_app.cc</a></li>
@@ -233,11 +233,7 @@
 <span class="target" id="GDTclassgdt_1_1asset"></span><em class="property">template </em>&lt;<em class="property">typename</em> ACTUAL&gt;</dt>
 <dt id="_CPPv2N3gdt5assetE">
 <span id="gdt::asset"></span><em class="property">class </em><code class="descclassname">gdt::</code><code class="descname">asset</code><a class="headerlink" href="#_CPPv2N3gdt5assetE" title="Permalink to this definition">¶</a></dt>
-<dd><p>An asset is an <strong>almost</strong> drawable 3D entity you load from a file, holding the required surface data you need to provide your rendering pipeline.</p>
-<p>Why almost?</p>
-<p>In GDT, an asset object contains the 3D vertices information of a model, without any material properties or texture map data. These attributes are stored in gdt::material objects or being set directly using gdt::pipeline instances.</p>
-<p>Another part missing from <a class="reference internal" href="#GDTclassgdt_1_1asset"><span class="std std-ref">gdt::asset</span></a> objects in the specific instance information about the position, rotation and scale of the model in the 3D world containing it. This information is being stored in the gdt::instance or <a class="reference internal" href="#GDTclassgdt_1_1instances"><span class="std std-ref">gdt::instances</span></a> template that can contain assets or other type of GDT entities. </p>
-<p>Inherits from gdt::is_entity&lt; ACTUAL &gt;, gdt::is_drivable&lt; ACTUAL &gt;</p>
+<dd><p>Inherits from gdt::is_entity&lt; ACTUAL &gt;, gdt::is_drivable&lt; ACTUAL &gt;</p>
 </dd></dl>
 
 </div>
@@ -248,7 +244,46 @@
 <span class="target" id="GDTclassgdt_1_1instances"></span><em class="property">template </em>&lt;<em class="property">typename</em> T, int <em>C</em> = 1&gt;</dt>
 <dt id="_CPPv2N3gdt9instancesE">
 <span id="gdt::instances"></span><em class="property">class </em><code class="descclassname">gdt::</code><code class="descname">instances</code><a class="headerlink" href="#_CPPv2N3gdt9instancesE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inherits from gdt::transforms&lt; C &gt;, gdt::container&lt; T &gt;, gdt::may_have_drawable&lt; T, instances&lt; T, C &gt; &gt;, gdt::may_have_drivable&lt; T, instances&lt; T, C &gt; &gt;, gdt::may_have_animatable&lt; T, instances&lt; T, C &gt; &gt;, gdt::may_have_collidable&lt; T, instances&lt; T, C &gt; &gt;</p>
+<dd><p><a class="reference internal" href="#GDTclassgdt_1_1instances"><span class="std std-ref">gdt::instances</span></a> is a special template container for gdt::is_entity types (such as <a class="reference internal" href="#GDTclassgdt_1_1asset"><span class="std std-ref">gdt::asset</span></a> and gdt::camera). By default, gdt::is_entity types doesn&#8217;t have any 3D world transformation data. <a class="reference internal" href="#GDTclassgdt_1_1instances"><span class="std std-ref">gdt::instances</span></a> augment entities with 3D transformation and can also support graphical instancing of entities during rendering.</p>
+<p>An instances object will manage a set of 3D transformations (gdt::math::mat4 instances) and a single contained object of your entity type.</p>
+<p>You will almost always have to use <a class="reference internal" href="#GDTclassgdt_1_1instances"><span class="std std-ref">gdt::instances</span></a> or gdt::instance (and their related siblings, gdt::references and gdt::reference) to store your asset type: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">gdt</span><span class="o">::</span><span class="n">instances</span><span class="o">&lt;</span><span class="n">zombie</span><span class="p">,</span> <span class="mi">1000</span><span class="o">&gt;</span> <span class="n">_my_army_of_zombies</span><span class="p">;</span>
+<span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">hero</span><span class="o">&gt;</span> <span class="n">_my_single_hero</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<p>When constructing an instances object, you will also get the opportunity to construct your entity object by passing its constructor paramters from the third argument onwards. See <a class="reference internal" href="#GDTclassgdt_1_1instances_1a6a62b52d0e4be326a4197dea10d13d6a"><span class="std std-ref">gdt::instances::instances</span></a> for an example.</p>
+<p><dl class="docutils">
+<dt><strong>Template Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">T</span></code>: your entity type </li>
+<li><code class="docutils literal"><span class="pre">C</span></code>: number of instances to own and manage transformations for. </li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>Inherits from gdt::transforms&lt; C &gt;, gdt::container&lt; T &gt;, gdt::may_have_drawable&lt; T, instances&lt; T, C &gt; &gt;, gdt::may_have_drivable&lt; T, instances&lt; T, C &gt; &gt;, gdt::may_have_animatable&lt; T, instances&lt; T, C &gt; &gt;, gdt::may_have_collidable&lt; T, instances&lt; T, C &gt; &gt;</p>
+<div class="breathe-sectiondef container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt>
+<em class="property">template </em>&lt;<em class="property">typename</em> CONTEXT, typename... <em>ARG</em>&gt;</dt>
+<dt id="_CPPv2N3gdt9instances9instancesERK7CONTEXTNSt8functionIFN4math4mat4EiEEEDpRK3ARG">
+<span class="target" id="GDTclassgdt_1_1instances_1a6a62b52d0e4be326a4197dea10d13d6a"></span><code class="descname">instances</code><span class="sig-paren">(</span><em class="property">const</em> CONTEXT &amp;<em>ctx</em>, std::function&lt;math::mat4<span class="sig-paren">(</span>int<span class="sig-paren">)</span>&gt; <em>pos_callback</em> = [](int j) { UNUSED(j);return  math::mat4 ().transpose();}, <em class="property">const</em> ARG&amp;... <em>a</em>, <span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N3gdt9instances9instancesERK7CONTEXTNSt8functionIFN4math4mat4EiEEEDpRK3ARG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructing an instances object involves setting the instances preliminary transformation and then constructing the contained entity object: <div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">my_scene</span> <span class="o">:</span> <span class="k">public</span> <span class="n">my_game</span><span class="o">::</span><span class="n">scene</span> <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+    <span class="n">gdt</span><span class="o">::</span><span class="n">instance</span><span class="o">&lt;</span><span class="n">hero</span><span class="o">&gt;</span> <span class="n">_my_hero</span><span class="p">;</span>
+
+  <span class="k">public</span><span class="o">:</span>
+    <span class="n">my_scene</span><span class="p">(...)</span> <span class="o">:</span> <span class="n">_my_hero</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gdt</span><span class="o">::</span><span class="n">pos</span><span class="o">::</span><span class="n">origin</span><span class="p">,</span> <span class="s">&quot;my hero name&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+</div>
 </dd></dl>
 
 </div>
