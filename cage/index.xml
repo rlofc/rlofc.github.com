@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>build awesome games using elementary c</title>
+    <link>http://mysite.com/</link>
+    <description>Recent content on build awesome games using elementary c</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 30 Dec 2015 13:23:32 -0700</lastBuildDate>
+    <atom:link href="http://mysite.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title></title>
+      <link>http://mysite.com/about/</link>
+      <pubDate>Wed, 30 Dec 2015 13:23:32 -0700</pubDate>
+      
+      <guid>http://mysite.com/about/</guid>
+      <description>
+
+&lt;h2 id=&#34;c-age-a-in-t-a-g-ame-e-ngine:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;&lt;strong&gt;C&lt;/strong&gt;AGE &lt;strong&gt;A&lt;/strong&gt;in&amp;rsquo;t a &lt;strong&gt;G&lt;/strong&gt;ame &lt;strong&gt;E&lt;/strong&gt;ngine&lt;/h2&gt;
+
+&lt;p&gt;CAGE is an elementary game development library written in
+the spirit of less is more (or worse is better). CAGE favors
+readability over flexibility and ease-of-use over a rich set
+of features.&lt;/p&gt;
+
+&lt;h3 id=&#34;hello-world:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Hello, World&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;void* create_game(void)
+{
+    return (void*)create_font(&amp;quot;font.png&amp;quot;);
+}
+
+void update_game(void* data, float elapsed_ms)
+{
+    draw_text((font*)data, &amp;quot;Hello, World&amp;quot;, xy(0, 0));
+}
+
+void destroy_game(void* data)
+{
+    destroy_font((font*)data);
+}
+
+int main(void)
+{
+    return game_loop(create_game, update_game, destroy_game);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;sdl2-inside:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;SDL2 inside&lt;/h3&gt;
+
+&lt;p&gt;CAGE is just a thin layer on top of SDL2. It was designed to
+provide the &lt;strong&gt;minimal&lt;/strong&gt; set of features you will need
+for 2D game development. It will also work on any platform
+SDL supports, including &lt;strong&gt;Linux, OS X, Windows, Android and
+iOS&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;make-things-simple-not-simpler:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Make things simple, not simpler.&lt;/h3&gt;
+
+&lt;p&gt;CAGE hides just enough complexity to make it easy to learn
+and fun to write games with. You will still have to &lt;strong&gt;code&lt;/strong&gt; your game
+but you will get just enough help to let you be creative and productive.&lt;/p&gt;
+
+&lt;h3 id=&#34;okay-but-why-c:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Okay, but why C?&lt;/h3&gt;
+
+&lt;p&gt;C is a raw, low-level computer language. It has no classes,
+no templates, no iteratable containers and no reusable
+algorithms. It is often being desribed as a cross-platform
+assembly.
+In other words, it is one small limitless programming language.&lt;/p&gt;
+
+&lt;h2 id=&#34;tell-me-more:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Tell me more&lt;/h2&gt;
+
+&lt;p&gt;CAGE exports only small set of functions to help you
+manage your game&amp;rsquo;s graphics, sound, screen and
+controller. It spares you from writing a significant
+amount of boilerplate SDL2 code.&lt;/p&gt;
+
+&lt;h3 id=&#34;game-state:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Game State&lt;/h3&gt;
+
+&lt;p&gt;Game states are the basic constructs of a CAGE game. You can
+have your entire game inside just one monolithic game state or
+you can have a separate state per level, menu or cutscene.&lt;/p&gt;
+
+&lt;p&gt;Each state is implemented using three state functions.
+To start your game, you will need to provide your initial
+game state function set.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;game_loop(create_game, update_game, destroy_game);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These functions manage the lifecycle of your game state:
+create your required assets, update and draw each
+frame and clean up when the state is not needed anymore.&lt;/p&gt;
+
+&lt;h3 id=&#34;sprite-animation:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Sprite Animation&lt;/h3&gt;
+
+&lt;p&gt;CAGE makes it easier for you to create animated sprites.
+It has the essentials for loading a sprite imageset
+file, defining the animation sequences and
+playing them in your game code.
+&lt;img src=&#34;images/tiles2.gif&#34; alt=&#34;tiled&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;plays-well-with-others:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Plays well with others&lt;/h3&gt;
+
+&lt;p&gt;CAGE is not a game engine, as its name suggests. This makes
+it easier for you to integrate other libraries such as
+Chipmunk2D for 2D physics or TMX for reading Tiled 2D files.
+&lt;img src=&#34;images/chipmunk.gif&#34; alt=&#34;chipmunk&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;transparent-code:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Transparent Code&lt;/h3&gt;
+
+&lt;p&gt;CAGE does not hide stuff from you. If CAGE was
+over-engineered then this could have been bad.
+However, CAGE is simple enough, so its
+transparency can yield clarity.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/errors.png&#34; alt=&#34;error&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
